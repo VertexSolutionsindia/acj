@@ -92,10 +92,10 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct Product_name from product_unbilled_stock where Com_Id=@Com_Id and " +
+                cmd.CommandText = "select distinct Product_name from product_stock where Com_Id=@Com_Id and " +
                 "Product_name like @Product_name + '%'";
                 cmd.Parameters.AddWithValue("@Product_name", prefixText);
-                cmd.Parameters.AddWithValue("@Com_Id", company_id1);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
                 List<string> customers = new List<string>();
@@ -122,10 +122,10 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct purchase_invoice from product_unbilled_stock where Com_Id=@Com_Id and " +
+                cmd.CommandText = "select distinct purchase_invoice from product_stock where Com_Id=@Com_Id and " +
                 "purchase_invoice like @purchase_invoice + '%'";
                 cmd.Parameters.AddWithValue("@purchase_invoice", prefixText);
-                cmd.Parameters.AddWithValue("@Com_Id", company_id1);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
                 List<string> customers = new List<string>();
@@ -152,10 +152,10 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct Supplier from product_unbilled_stock where Com_Id=@Com_Id and " +
+                cmd.CommandText = "select distinct Supplier from product_stock where Com_Id=@Com_Id and " +
                 "Supplier like @Supplier + '%'";
                 cmd.Parameters.AddWithValue("@Supplier", prefixText);
-                cmd.Parameters.AddWithValue("@Com_Id", company_id1);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
                 List<string> customers = new List<string>();
@@ -183,7 +183,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct barcode from product_unbilled_stock where Com_Id=@Com_Id and " +
+                cmd.CommandText = "select distinct barcode from product_stock where Com_Id=@Com_Id and " +
                 "barcode like @barcode + '%'";
                 cmd.Parameters.AddWithValue("@barcode", prefixText);
                 cmd.Parameters.AddWithValue("@Com_Id", company_id1);
@@ -253,7 +253,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd1 = new SqlCommand("Select * from product_unbilled_stock where Com_Id='" + company_id + "' ORDER BY no asc", con2);
+        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + company_id + "' ORDER BY no asc", con2);
         con2.Open();
         DataSet ds1 = new DataSet();
         SqlDataAdapter da2 = new SqlDataAdapter(cmd1);
@@ -304,7 +304,27 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
     }
     protected void BindData()
     {
-
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where  Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+            }
+            con1000.Close();
+        }
 
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
@@ -365,11 +385,16 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
+        GridView1.PageIndex = e.NewPageIndex;
+        BindData();
 
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            e.Row.Cells[0].Text = "Page " + (GridView1.PageIndex + 1) + " of " + GridView1.PageCount;
+        }
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
@@ -395,16 +420,17 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where product_name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' ORDER BY Product_code asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where product_name='" + TextBox1.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY Product_code asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
     }
     protected void TextBox2_TextChanged(object sender, EventArgs e)
     {
@@ -418,17 +444,17 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY Product_code asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where supplier='" + TextBox2.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY Product_code asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+
     }
     protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -443,48 +469,39 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select * from subcategory where category_id='" + DropDownList3.SelectedItem.Value + "' and Com_Id='" + company_id + "'", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+
+                DropDownList4.DataSource = ds;
+                DropDownList4.DataTextField = "subcategoryname";
+                DropDownList4.DataValueField = "subcategory_id";
+                DropDownList4.DataBind();
+                DropDownList4.Items.Insert(0, new ListItem("All", "0"));
+
+
+
+                con.Close();
+
+
+
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where Category='" + DropDownList3.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from subcategory where category_id='" + DropDownList3.SelectedItem.Value + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "'", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
-
-
-        DropDownList4.DataSource = ds;
-        DropDownList4.DataTextField = "subcategoryname";
-        DropDownList4.DataValueField = "subcategory_id";
-        DropDownList4.DataBind();
-        DropDownList4.Items.Insert(0, new ListItem("All", "0"));
-
-
-
-        con.Close();
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-            }
-            con1000.Close();
-        }
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where Category='" + DropDownList3.SelectedItem.Value + "'  and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
 
     }
     protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
@@ -504,7 +521,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where subcategory='" + DropDownList4.SelectedItem.Value + "'  and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where category='" + DropDownList3.SelectedItem.Text + "' and subcategory='" + DropDownList4.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -524,18 +541,18 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where date='" + TextBox3.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where date='" + TextBox3.Text + "'  and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+
     }
     protected void TextBox4_TextChanged(object sender, EventArgs e)
     {
@@ -549,18 +566,18 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "'  and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+
     }
     protected void TextBox6_TextChanged(object sender, EventArgs e)
     {
@@ -579,7 +596,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where barcode='" + DropDownList2.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -605,7 +622,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_unbilled_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -662,7 +679,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd1 = new SqlCommand("Select * from product_unbilled_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY no asc", con2);
+        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY no asc", con2);
         con2.Open();
         DataSet ds1 = new DataSet();
         SqlDataAdapter da2 = new SqlDataAdapter(cmd1);
@@ -685,6 +702,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
 
 
 
+
         if (User.Identity.IsAuthenticated)
         {
             SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -695,18 +713,30 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             if (dr1000.Read())
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
 
+                if (DropDownList1.SelectedItem.Text == "Select company")
+                {
+                    SqlConnection con11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand CMD11 = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con11);
+                    DataTable dt11 = new DataTable();
+                    con11.Open();
+                    SqlDataAdapter da11 = new SqlDataAdapter(CMD);
+                    da11.Fill(dt11);
+                    GridView1.DataSource = dt11;
+                    GridView1.DataBind();
+                }
             }
             con1000.Close();
         }
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("Select * from product_unbilled_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+
     }
     protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -726,7 +756,7 @@ public partial class Admin_Unbilled_Stock : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("Select * from product_unbilled_stock where barcode='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("Select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);

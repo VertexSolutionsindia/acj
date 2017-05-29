@@ -398,7 +398,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Retail sales edit 
+                                <h2>Cash sales edit 
                                  </h2>
                              
                              
@@ -602,8 +602,12 @@
    <td>
     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
    <ContentTemplate>
-  <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
-   
+  <asp:TextBox ID="TextBox12" runat="server" ontextchanged="TextBox12_TextChanged" AutoPostBack="True"></asp:TextBox>
+   <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="TextBox12" WatermarkText="Enter Product Name" ></asp:TextBoxWatermarkExtender>
+                           <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchproductname" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox12"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
    </ContentTemplate>
      <Triggers>
                   <asp:AsyncPostBackTrigger ControlID="TextBox12" EventName="TextChanged"  />  

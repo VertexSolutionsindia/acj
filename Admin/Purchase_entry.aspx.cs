@@ -1281,9 +1281,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 {
                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-                }
-                con1000.Close();
-            }
+              
             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
             con.Open();
@@ -1321,24 +1319,10 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 cmd1.ExecuteNonQuery();
                 CON1.Close();
 
-
-                if (User.Identity.IsAuthenticated)
-                {
-                    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                    SqlDataReader dr1000;
-                    con1000.Open();
-                    dr1000 = cmd1000.ExecuteReader();
-                    if (dr1000.Read())
-                    {
-                        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-                    }
-                    con1000.Close();
-                }
-
+                string status = "Bill";
+               
                 SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd11 = new SqlCommand("insert into product_stock values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@row_number)", CON11);
+                SqlCommand cmd11 = new SqlCommand("insert into product_stock values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@row_number,@status)", CON11);
                 cmd11.Parameters.AddWithValue("@Category", cat_id);
                 cmd11.Parameters.AddWithValue("@subcategory", sub_id);
                 cmd11.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
@@ -1356,6 +1340,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 cmd11.Parameters.AddWithValue("@date", TextBox8.Text);
                 cmd11.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                 cmd11.Parameters.AddWithValue("@row_number", Label2.Text);
+                cmd11.Parameters.AddWithValue("@status", status);
                 CON11.Open();
                 cmd11.ExecuteNonQuery();
                 CON11.Close();
@@ -1377,11 +1362,13 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             }
             con.Close();
 
+      
+
+
+            }
+            con1000.Close();
         }
-       
-       
-       
-       
+        }
     }
 
     protected void Button22_Click(object sender, System.EventArgs e)
@@ -1399,9 +1386,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+          
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
         con.Open();
@@ -1440,20 +1425,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             CON1.Close();
 
 
-            if (User.Identity.IsAuthenticated)
-            {
-                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                SqlDataReader dr1000;
-                con1000.Open();
-                dr1000 = cmd1000.ExecuteReader();
-                if (dr1000.Read())
-                {
-                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-                }
-                con1000.Close();
-            }
+          
 
             SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
             SqlCommand cmd11 = new SqlCommand("update product_stock set Category=@Category,subcategory=@subcategory,Product_code=@Product_code,Product_name=@Product_name,barcode=@barcode,mrp=@mrp,Purchase_price=@Purchase_price,qty=@qty,total_amount=@total_amount,Com_Id=@Com_Id,date=@date,Supplier=@Supplier where purchase_invoice='"+Label38.Text+"' and row_number='"+Label41.Text+"' and Com_Id='"+company_id+"'", CON11);
@@ -1496,7 +1468,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         con.Close();
 
 
-
+            }
+            con1000.Close();
+        }
 
 
 

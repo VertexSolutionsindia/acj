@@ -130,6 +130,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
             else
             {
                 a = Convert.ToInt32(dr[0].ToString());
+                TextBox1.Text = a.ToString();
                 a = a + 1;
                 Label1.Text = a.ToString();
             }
@@ -194,7 +195,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                 using (SqlCommand cmd = new SqlCommand("invoice", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(Label1.Text));
+                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(TextBox1.Text));
 
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();
@@ -267,9 +268,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+         
         string ststus="Sales";
         float value=0;
         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -315,8 +314,14 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         
 
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry created successfully')", true);
-        BindData();
+        TextBox1.Text = Label1.Text;
         show_category();
+        getinvoiceno();
+        getinvoiceno1();
+        BindData();
+
+        
+        
         TextBox2.Text = "";
         TextBox12.Text = "";
         TextBox10.Text = "";
@@ -329,12 +334,14 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         TextBox9.Text = "";
         TextBox6.Text = "";
         TextBox8.Text = "";
-        DataTable dataTable = new DataTable();
-        dataTable = null;
-   
-        show_tax();
-        
-     
+        TextBox23.Text = "";
+
+      
+      
+
+            }
+            con1000.Close();
+        }
     }
     protected void ImageButton1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
@@ -963,10 +970,10 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                 CON1.Open();
                 cmd1.ExecuteNonQuery();
                 CON1.Close();
-
+              
 
                 SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where product_name='" + TextBox12.Text + "' and Com_Id='" + company_id + "'", CON11);
+                SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where date=( select MIN(date) from product_stock where Product_name='" + TextBox12.Text + "' and qty >'" + Convert.ToInt32(TextBox5.Text) + "' and Com_Id='" + company_id + "')", CON11);
 
 
 

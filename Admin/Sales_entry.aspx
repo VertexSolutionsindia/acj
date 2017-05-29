@@ -426,7 +426,28 @@
   
 
 
-
+  
+   <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+  <span style="color:black">Last Invoice no :</span> <asp:TextBox ID="TextBox1" runat="server" Width="40px"></asp:TextBox>
+    </ContentTemplate>
+                                <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                 
+                </Triggers>
+                           </asp:UpdatePanel>
+                            <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" ></asp:Button>&nbsp;
+  <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" 
+                                    >
+                                   <asp:ListItem>PDF</asp:ListItem>
+                                   <asp:ListItem>WORD</asp:ListItem>
+                                   <asp:ListItem>EXCEL</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button ID="Button8" runat="server" onclick="Button8_Click" 
+                                    Text="Print" />
+ <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" ></asp:Button>
+                          
                                 
                             </div>
                             
@@ -967,7 +988,7 @@
       </ContentTemplate>
       <Triggers>
                  <asp:AsyncPostBackTrigger ControlID="GridView1"  />
-                 
+              
                  <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                    
                 </Triggers>
@@ -1168,17 +1189,7 @@
 
                      
 
-                      <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" ></asp:Button>&nbsp;
-  <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" 
-                                    >
-                                   <asp:ListItem>PDF</asp:ListItem>
-                                   <asp:ListItem>WORD</asp:ListItem>
-                                   <asp:ListItem>EXCEL</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button ID="Button8" runat="server" onclick="Button8_Click" 
-                                    Text="Print" />
- <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" ></asp:Button>
-                          
+                     
                           
                            
 
