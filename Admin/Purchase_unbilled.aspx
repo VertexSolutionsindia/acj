@@ -707,7 +707,7 @@
                            <div class="form-horizontal">
                                <br />
 
-                               <div class="form-group"><label class="col-lg-3 control-label">Invoice No</label>
+                               <div class="form-group"><label class="col-lg-3 control-label">Estimate No</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel19" runat="server">
