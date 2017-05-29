@@ -522,7 +522,7 @@
                     <asp:UpdatePanel ID="UpdatePanel32" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:Button ID="Button11" runat="server" class="btn-primary" style="font-size:15px; height: 26px" Width="100px" Height="20px"  onclick="Button11_Click"  
-                               Text="Add Sub-Category" />
+                               Text="Submit" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </td>
@@ -1049,29 +1049,32 @@
      
      
        <br />
-        <asp:UpdatePanel ID="UpdatePanel16" runat="server">
+       <div class="row"><div class="col-sm-12"><div class="col-sm-3">       <asp:UpdatePanel ID="UpdatePanel16" runat="server">
        <ContentTemplate>
 
-     <asp:Button ID="Button3" runat="server" Text="Add Product" onclick="Button3_Click" ></asp:Button>
+     <asp:Button ID="Button3" runat="server" Text="Add Product" onclick="Button3_Click" CssClass="btn-primary" width="100% "></asp:Button>
   
        </ContentTemplate>
    
- </asp:UpdatePanel>
-    <asp:UpdatePanel ID="UpdatePanel23" runat="server">
+ </asp:UpdatePanel></div>
+ <div class="col-sm-3">    <asp:UpdatePanel ID="UpdatePanel23" runat="server">
        <ContentTemplate>
-      <asp:Button ID="Button5" runat="server" Text="Clear" onclick="Button5_Click"></asp:Button>
+      <asp:Button ID="Button5" runat="server" Text="Clear" onclick="Button5_Click" CssClass="btn-primary"  width="100% " ></asp:Button>
        </ContentTemplate>
- </asp:UpdatePanel>
+ </asp:UpdatePanel></div></div></div>
+ 
+
   
 
      <br />
      
-     </div>
-   <div>
+     </div></div>
+     <div class="container"><div class="row">
+   <div class="col-lg-12">
     <asp:UpdatePanel ID="UpdatePanel22" runat="server">
        <ContentTemplate>
      <asp:GridView ID="GridView1" AutoGenerateColumns="False" runat="server" 
-               width="1120px" onrowdatabound="GridView1_RowDataBound" CellPadding="4" 
+               width="200%" onrowdatabound="GridView1_RowDataBound" CellPadding="4" 
                ForeColor="#333333" GridLines="None"  >
          <AlternatingRowStyle BackColor="White" />
      <Columns>
@@ -1153,7 +1156,7 @@
 
   </asp:UpdatePanel>
 
-
+  </div></div></div>
 
 
 
@@ -1203,7 +1206,7 @@
         </tr>
         <tr>
         <td>
-            <asp:Label ID="Label27" runat="server" Text="Barcode" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
+            <asp:Label ID="Label27" runat="server" Text="Model" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
             <asp:TextBox ID="TextBox26" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
         </tr>
@@ -1244,25 +1247,8 @@
             
             </td>
         </tr>
-         <tr>
-        <td>
-            <asp:Label ID="Label35" runat="server" Text="Tax Per" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
-        <td>
-
-       
-            
-            
-            </td>
-        </tr>
-         <tr>
-        <td>
-            <asp:Label ID="Label36" runat="server" Text="Tax amount" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
-        <td>
-
-    
-            
-            </td>
-        </tr>
+        
+        
          <tr>
         <td>
             <asp:Label ID="Label37" runat="server" Text="Total amount" Width="200px" class="col-lg-3 control-label"></asp:Label></td>

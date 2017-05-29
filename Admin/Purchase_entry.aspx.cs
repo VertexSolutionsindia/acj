@@ -42,6 +42,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 TextBox5.Attributes.Add("onkeypress", "return controlEnter('" + TextBox6.ClientID + "', event)");
                 TextBox6.Attributes.Add("onkeypress", "return controlEnter('" + TextBox13.ClientID + "', event)");
                 TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox16.ClientID + "', event)");
+                TextBox29.Attributes.Add("onkeypress", "return controlEnter('" + TextBox32.ClientID + "', event)");
 
               
                 DateTime date = DateTime.Now;
@@ -147,6 +148,8 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 show_category1();
 
             }
+            TextBox25.Text="";
+            
         }
 
 
@@ -244,7 +247,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 show_category1();
                 getinvoicenosubcategory();
                 TextBox24.Text = "";
-                this.ModalPopupExtender1.Show();
+                this.ModalPopupExtender1.Hide();
             }
         }
 
@@ -387,6 +390,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 BindData();
                 show_category();
                 getinvoiceno();
+                show_category1();
                 TextBox3.Text = "";
             }
             con1.Close();
@@ -395,7 +399,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         }
         TextBox23.Text = "";
         getinvoicenocategory();
-        this.ModalPopupExtender2.Show();
+        this.ModalPopupExtender2.Hide();
     }
     private void getinvoicenocategory()
     {
@@ -498,7 +502,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             show_product();
             show_category();
             getinvoiceno2();
-            this.ModalPopupExtender3.Show();
+            this.ModalPopupExtender3.Hide();
           
         }
 
@@ -1360,7 +1364,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 cmd11.ExecuteNonQuery();
                 CON11.Close();
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Product added successfully')", true);
+              
 
                 BindData();
                 getinvoiceno1();
@@ -1654,7 +1658,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         TextBox27.Text = row.Cells[3].Text;
         TextBox28.Text = row.Cells[4].Text;
         TextBox29.Text = row.Cells[5].Text;
-        TextBox32.Text = row.Cells[7].Text;
+        TextBox32.Text = row.Cells[6].Text;
         this.ModalPopupExtender5.Show();
     }
 
