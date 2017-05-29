@@ -467,31 +467,46 @@ th {
          Font-Size="16px" HeaderStyle-HorizontalAlign="center" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" BackColor="White" 
+        onrowdatabound="GridView1_RowDataBound" PageSize="10" BackColor="White" 
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
        <Columns>
-       <asp:TemplateField>
+       <asp:TemplateField HeaderText="Select">
            
            <ItemTemplate>
                <asp:CheckBox ID="CheckBox2" runat="server" />
             </ItemTemplate>
            
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           
            </asp:TemplateField>
          
-           <asp:BoundField HeaderText="Category ID" DataField="category_id"  />
-           <asp:BoundField HeaderText="Category Name" DataField="categoryname" />
-             <asp:TemplateField>
+           <asp:BoundField HeaderText="Category ID" DataField="category_id"  >
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Category Name" DataField="categoryname" >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             <asp:TemplateField HeaderText="Edit">
           <ItemTemplate>
             
           <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" Height="20px" Width="20px" onclick="ImageButton1_Click"  ></asp:ImageButton>
           </ItemTemplate>
           
+                 <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
+          
           </asp:TemplateField>
-           <asp:TemplateField>
+           <asp:TemplateField HeaderText="Delete">
           <ItemTemplate>
               <asp:ImageButton ID="ImageButton9" runat="server" ImageUrl="~/delete3.png" Height="20px" Width="20px"  onclick="ImageButton9_Click" />
           
           </ItemTemplate>
+          
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
           
           </asp:TemplateField>
        </Columns>

@@ -177,7 +177,7 @@
                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
                                    <li><a href="Tax_Entry.aspx">Tax entry</a></li>
-                                   <li><a href="Cutomer_type.aspx">Customer Type entry</a></li>
+                                   <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
                                    <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                    <li><a href="Department-Entry.aspx">Department Entry</a></li>
@@ -463,8 +463,6 @@
                       <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" 
                           ></asp:Button>&nbsp;
  <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" 
-                          ></asp:Button>&nbsp;
-                           <asp:Button ID="Button3" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Cancel" onclick="Button2_Click" 
                           ></asp:Button>
                           </ContentTemplate>
                            </asp:UpdatePanel>
@@ -570,50 +568,76 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" 
+ <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" 
          Font-Size="16px" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="4" 
-           onselectedindexchanged="GridView1_SelectedIndexChanged">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        onrowdatabound="GridView1_RowDataBound" PageSize="10" BackColor="White">
+        
        <Columns>
-        <asp:TemplateField>
+        <asp:TemplateField HeaderText="Select">
            
            <ItemTemplate>
                <asp:CheckBox ID="CheckBox3" runat="server" />
             </ItemTemplate>
-           
+            <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
            </asp:TemplateField>
-         
-           <asp:BoundField HeaderText="ACJ ID" DataField="Custom_Code"  />
-           <asp:BoundField HeaderText="Customer Name" DataField="Custom_Name" />
-           <asp:BoundField HeaderText="Address" DataField="Custom_Add"  />
-              <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no"  />
+
+           <asp:BoundField HeaderText="ACJ ID" DataField="Custom_Code">
+            <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Customer Name" DataField="Custom_Name" >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Address" DataField="Custom_Add"  >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+              <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no"  >
+                <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
                
-           <asp:BoundField HeaderText="Profession" DataField="Profession" />
-           <asp:BoundField HeaderText="Cutomer Type" DataField="Customer_Type" />
-            <asp:BoundField HeaderText="friend or Referral Name" DataField="friend_name" />
-             <asp:BoundField HeaderText="Mobile No" DataField="Friend_mobile_No" />
-           <asp:TemplateField>
+           <asp:BoundField HeaderText="Profession" DataField="Profession" >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Cutomer Type" DataField="Customer_Type" >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+            <asp:BoundField HeaderText="friend or Referral Name" DataField="friend_name" >
+              <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             <asp:BoundField HeaderText="Mobile No" DataField="Friend_mobile_No" >
+               <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:TemplateField HeaderText="Edit">
           <ItemTemplate>
             
           <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" Height="20px" Width="20px" onclick="ImageButton1_Click"  ></asp:ImageButton>
           </ItemTemplate>
-          
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
           </asp:TemplateField>
-           <asp:TemplateField>
+           <asp:TemplateField HeaderText="Delete">
           <ItemTemplate>
               <asp:ImageButton ID="ImageButton9" runat="server" ImageUrl="~/delete3.png" Height="20px" Width="20px"  onclick="ImageButton9_Click" />
           
           </ItemTemplate>
-          
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
           </asp:TemplateField>
        </Columns>
        <EditRowStyle BackColor="#999999" />
        <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
            CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
@@ -653,7 +677,7 @@
                          HorizontalAlign="Left" ScrollBars="Both" Width="500px" Height="300px" >
     
         <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
-                     <h3 style="font-size:20px; " class="control-label"> Update Customer entry  <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+                     <h3 style="font-size:20px; " class="control-label"> Update Customer Entry  <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
   
 
        
