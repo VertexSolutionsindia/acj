@@ -1,0 +1,228 @@
+﻿   .family
+            {
+                font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;font-size:16px;
+            }
+           .gridViewRow {
+ 
+    color: #000000;
+    border-width: 0px;
+    padding:10px;
+    border-collapse: collapse;
+    height:45px;
+    margin-left:5px;
+}
+            .grid
+            {
+                height:220px; overflow:scroll; font-size:16px;
+                margin-bottom:20px;
+            }
+            .edit
+            {
+                width:18px;
+                height:18px;
+            }
+              .delete
+            {
+                width:18px;
+                height:18px;
+            }
+        .dropbox
+        {
+            width:100%;
+            height:30px;
+        display: block;
+   
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+   
+   
+    
+  
+  
+           
+        }
+        
+         .dropbox1
+        {
+            width:30%;
+            height:30px;
+        }
+        .see
+        {
+           height:1000px; 
+           margin-top:-60px;"
+        }
+        .see1
+        {
+            margin-top:-20px;
+        }
+        
+        
+           @media (max-width: 767px)
+        {
+       .panelx
+       {
+      
+      
+       margin-top:-170px;
+       width:100%;
+       height:250px;
+       border-radius:10px;
+      
+       }
+       .panelx1
+       {
+      
+      
+       margin-top:-170px;
+       width:100%;
+       height:500px;
+       border-radius:10px;
+       overflow:scroll;
+      
+       }
+       .panely
+       {
+      
+      
+       
+       margin-top:-140px;
+       width:100%;
+       height:270px;
+       border-radius:10px;
+      
+      
+       }
+             .see
+        {
+           height:400px; 
+          
+        }
+        .tablestyle
+        {
+            width:100%;
+           
+        }
+        .tablestyle1
+        {
+            width:100%;
+           
+           
+        }
+         .toop
+        {
+            background-color:	#FFEFD5;border: 1px solid #f2f2f2;width:100%; 
+        }
+       
+         .see1
+        {
+            margin-top:-40px;
+        }
+         .see2
+        {
+            margin-top:40px;
+        }
+      
+        }
+        
+        </style>
+        <style>
+             
+        .text1
+{
+    
+    width:200px;
+    height:25px;
+    
+}
+.dropbox
+{
+     width:100%;
+    height:30px;
+   
+}
+.buttonbox
+{
+    
+    font-size:18px;
+    
+}
+        .main
+        {
+            width:100%;
+            position:absolute;
+            margin-bottom:100px;
+        }
+        .left 
+        {
+            width:18%;
+            float:left;
+         
+             margin-top:24px;
+             background-color: #282f33;
+         
+           
+     
+        }
+        .right
+        {
+            width:82%;
+            float:left;
+             margin-top:50px;
+             border:solid 1px #d3d3d3;
+        margin-left:245px;
+            background-color:#FFFFFF;
+        }
+        .tablestyle
+        {
+            width:100%;
+             padding:10px;
+        }
+        .tablestyle1
+        {
+            width:25%;
+            float:left;
+           
+        }
+        .toop
+        {
+           color:#3a5a7a;
+                border: 1px solid #e6e6e6;
+                 font-family: 'Roboto', sans-serif;
+                 font-weight:600;
+            background-color:	#FFEFD5;padding-left:5px;padding-top:10px;padding-bottom:10px; background-color:#f5f6f7;width:100%;  margin-top:10px; text-align:center; font-size:16px;
+        }
+         .tablestyle2
+        {
+            width:25%;
+            float:left; 
+        }
+         .tablestyle3
+        {
+            width:25%;
+            float:left;
+           
+        }
+         .tablestyle4
+        {
+            width:25%;
+            float:left;
+           
+        }
+        .tablestyle5
+        {
+            width:25%;
+            float:left;
+            padding:10px;
+           
+        }

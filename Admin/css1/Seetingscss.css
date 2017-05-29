@@ -1,0 +1,170 @@
+﻿  .grid
+            {
+                height:200px; overflow:scroll; font-size:16px;
+            }
+            .edit
+            {
+                width:30px;
+                height:30px;
+            }
+              .delete
+            {
+                width:20px;
+                height:20px;
+            }
+        .dropbox
+        {
+            width:100%;
+            height:30px;
+        display: block;
+   
+   
+   
+   
+    
+  
+  
+           
+        }
+        
+         .dropbox1
+        {
+            width:30%;
+            height:30px;
+        }
+        .see
+        {
+           height:400px; 
+           margin-top:-60px;"
+        }
+        .see1
+        {
+            margin-top:-20px;
+        }
+        
+        
+          @media (max-width: 767px)
+        {
+       
+             .see
+        {
+           height:400px; 
+          
+        }
+        .tablestyle
+        {
+            width:100%;
+           
+        }
+        .tablestyle1
+        {
+            width:100%;
+           
+           
+        }
+         .toop
+        {
+            background-color:	#FFEFD5;border: 1px solid #f2f2f2;width:100%; 
+        }
+       
+         .see1
+        {
+            margin-top:-40px;
+        }
+         .see2
+        {
+            margin-top:40px;
+        }
+      
+        }
+        
+        </style>
+        <style>
+             
+        .text1
+{
+    
+    width:200px;
+    height:25px;
+    
+}
+.dropbox
+{
+     width:200px;
+    height:30px;
+   
+}
+.buttonbox
+{
+    
+    font-size:18px;
+    
+}
+        .main
+        {
+            width:100%;
+            position:absolute;
+            margin-bottom:100px;
+        }
+        .left 
+        {
+            width:18%;
+            float:left;
+         
+             margin-top:24px;
+             background-color: #282f33;
+         
+           
+     
+        }
+        .right
+        {
+            width:82%;
+            float:left;
+             margin-top:50px;
+             border:solid 1px #d3d3d3;
+        margin-left:245px;
+            background-color:#FFFFFF;
+        }
+        .tablestyle
+        {
+            width:100%;
+             padding:10px;
+        }
+        .tablestyle1
+        {
+            width:25%;
+            float:left;
+           
+        }
+        .toop
+        {
+                border: 1px solid #e6e6e6;
+                 font-family: 'Roboto', sans-serif;
+                 font-weight:600;
+            background-color:#FFEFD5;padding-left:5px;padding-top:10px;padding-bottom:10px; background-color:#f5f6f7; width:100%;  margin-top:20px; text-align:center; font-size:16px;
+        }
+         .tablestyle2
+        {
+            width:25%;
+            float:left; 
+        }
+         .tablestyle3
+        {
+            width:25%;
+            float:left;
+           
+        }
+         .tablestyle4
+        {
+            width:25%;
+            float:left;
+           
+        }
+        .tablestyle5
+        {
+            width:25%;
+            float:left;
+            padding:10px;
+           
+        }

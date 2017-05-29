@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-Dashboard",
+      "appliesTo": "Admin/Dashboard.aspx",
+      "type": "command"
+    },
+    {
+      "taskName": "task-Dashboard.aspx",
+      "appliesTo": "Admin/Dashboard.aspx.cs",
+      "type": "command"
+    }
+  ]
+}
