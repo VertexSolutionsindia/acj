@@ -403,31 +403,40 @@
            ontextchanged="TextBox4_TextChanged"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4"></asp:CalendarExtender>
                                       </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                                      </asp:UpdatePanel>
+                                      </div></div></div><br /><br /><br /><br />
 
 
 
+<div class="row">
 
+<div class="col-sm-5 col-sm-offset-9" >
+<div class="col-sm-2" >
+              <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+  
+                      <asp:Button ID="Button2" runat="server"  class="btn-primary" Width="70px" Height="30px"  Text="Search" onclick="Button2_Click" 
+                          ></asp:Button>
+                          </ContentTemplate>
+                           </asp:UpdatePanel>
+</div>
 
-
-
-
-
-
-
+<div class="col-sm-3">
+              <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+   <ContentTemplate>
+  
+                      <asp:Button ID="Button3" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button3_Click" 
+                          ></asp:Button>
+                          </ContentTemplate>
+                           </asp:UpdatePanel>
+</div>
+</div>
 </div>
 
 
 
 </div>
 </div>
-
-
-
-
-
-
-
 
 
 <div class="container">
@@ -439,12 +448,56 @@
    <ContentTemplate>
    
  <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="3" 
-         Font-Size="16px" 
+         Font-Size="16px" ShowFooter="True" 
             AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
         onrowdatabound="GridView1_RowDataBound" BackColor="White" 
-           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
-       <FooterStyle BackColor="White" ForeColor="#000066" />
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+           AutoGenerateColumns="False">
+<Columns> 
+<asp:BoundField HeaderText="Date" DataField="Date" ItemStyle-Width="200" DataFormatString="{0:dd/MM/yyyy}">
+
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1"  />
+    </asp:BoundField >
+
+<asp:BoundField HeaderText="Particulars" DataField="Particulars" >
+
+
+    <HeaderStyle CssClass="Grd1" />
+    <ItemStyle CssClass="Grd1" />
+    </asp:BoundField>
+
+
+ <asp:TemplateField HeaderText="Debit">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDebit" runat="server" Text='<%# Eval("Debit")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="Debit" runat="server" />
+                    </FooterTemplate>
+                    <FooterStyle CssClass="Grd1" />
+                    <HeaderStyle CssClass="Grd1" />
+                    <ItemStyle CssClass="Grd1" />
+                </asp:TemplateField>
+
+
+ <asp:TemplateField HeaderText="Credit">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCredit" runat="server" Text='<%# Eval("Credit")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="Credit" runat="server" />
+                    </FooterTemplate>
+                    <FooterStyle CssClass="Grd1" />
+                    <HeaderStyle CssClass="Grd1" />
+                    <ItemStyle CssClass="Grd1" />
+                </asp:TemplateField>
+   
+</Columns>
+
+
+        <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
            ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />

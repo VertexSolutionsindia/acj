@@ -317,7 +317,10 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                        
                         show_tax();
                    
+<<<<<<< HEAD
 
+=======
+>>>>>>> e4eb03abeebbaccda77c1fed8c880cd433168ca7
         /*string name = "Dear Customer, Thanks for shopping with Dream garments. Your invoice value is "+TextBox11.Text+" "+" For any queries contact:9345717284 ";
         string strUrl = "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=nazeer.deens@gmail.com:vertex&senderID=TEST SMS&receipientno=" + TextBox6.Text + "&dcs=0&msgtxt=" + name + "&state=4 ";
         // Create a request object  
