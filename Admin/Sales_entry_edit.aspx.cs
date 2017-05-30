@@ -249,7 +249,20 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
     }
     protected void ImageButton1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
+
+        ImageButton img = (ImageButton)sender;
+        GridViewRow row = (GridViewRow)img.NamingContainer;
+        Label38.Text = Label1.Text;
+        Label41.Text = row.Cells[0].Text;
+        TextBox33.Text = row.Cells[1].Text;
+        TextBox27.Text = row.Cells[2].Text;
+        TextBox3.Text = row.Cells[3].Text;
+        TextBox29.Text = row.Cells[4].Text;
+        TextBox4.Text = row.Cells[5].Text;
+        TextBox32.Text = row.Cells[6].Text;
+        this.ModalPopupExtender5.Show();
     }
+  
     protected void ImageButton2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
         if (User.Identity.IsAuthenticated)
@@ -263,36 +276,57 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                ImageButton img = (ImageButton)sender;
+                GridViewRow ROW = (GridViewRow)img.NamingContainer;
+                int s_no = Convert.ToInt32(ROW.Cells[0].Text);
+                string productname = ROW.Cells[1].Text;
+                float qty = float.Parse(ROW.Cells[3].Text);
+
+
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+                con1.Open();
+
+                SqlCommand cmd21 = new SqlCommand("select * from sales_entry_details where invoice_no='" + Label1.Text + "' and s_no='" + s_no + "' and Com_Id='" + company_id + "' ", con1);
+                SqlDataReader dr11;
+                dr11 = cmd21.ExecuteReader();
+                if (dr11.Read())
+                {
+                    string product_name = dr11["product_name"].ToString();
+                    float qty1 = float.Parse(dr11["qty"].ToString());
+                    SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where date=( select MIN(date) from product_stock where Product_name='" + productname + "' and qty >'" + Convert.ToInt32(qty) + "' and Com_Id='" + company_id + "')", CON11);
+
+
+
+
+
+                    cmd11.Parameters.AddWithValue("@qty", qty);
+
+                    CON11.Open();
+                    cmd11.ExecuteNonQuery();
+                    CON11.Close();
+
+                }
+                con1.Close();
+
+                SqlConnection con11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+                con11.Open();
+                SqlCommand cmd111 = new SqlCommand("delete from sales_entry_details where s_no='" + s_no + "' and invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "'", con11);
+                cmd111.ExecuteNonQuery();
+                con11.Close();
+
+
+
+
+
+                BindData();
+                getinvoiceno1();
             }
             con1000.Close();
         }
-        ImageButton img = (ImageButton)sender;
-        GridViewRow ROW = (GridViewRow)img.NamingContainer;
-        int s_no = Convert.ToInt32(ROW.Cells[0].Text);
-        string Product_name = ROW.Cells[1].Text;
-        float qty = float.Parse(ROW.Cells[3].Text);
-
-        SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where Product_name='" + Product_name + "' and Com_Id='" + company_id + "'", CON11);
-
-
-
-
-
-        cmd11.Parameters.AddWithValue("@qty", qty);
-
-        CON11.Open();
-        cmd11.ExecuteNonQuery();
-        CON11.Close();
-
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-
-        con1.Open();
-        SqlCommand cmd1 = new SqlCommand("delete from sales_entry_details where s_no='" + s_no + "' and invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "'", con1);
-        cmd1.ExecuteNonQuery();
-        con1.Close();
-        BindData();
-        getinvoiceno1();
 
     }
     private void SaveDetail(GridViewRow row)
@@ -647,11 +681,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
 
-    protected void TextBox3_TextChanged(object sender, System.EventArgs e)
-    {
-
-
-    }
+    
 
 
     protected void Gridview2_PreRender(object sender, System.EventArgs e)
@@ -948,5 +978,114 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         }
         catch (Exception we)
         { }
-    } 
+    }
+    protected void Button22_Click(object sender, System.EventArgs e)
+    {
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+        con1.Open();
+
+        SqlCommand cmd21 = new SqlCommand("select * from sales_entry_details where invoice_no='" + Label38.Text + "' and s_no='" + Label41.Text + "' and Com_Id='" + company_id + "' ", con1);
+        SqlDataReader dr11;
+        dr11 = cmd21.ExecuteReader();
+        if (dr11.Read())
+        {
+            string product_name = dr11["product_name"].ToString();
+            float qty1 = float.Parse(dr11["qty"].ToString());
+            SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where date=( select MIN(date) from product_stock where Product_name='" + product_name + "' and qty >'" + Convert.ToInt32(qty1) + "' and Com_Id='" + company_id + "')", CON11);
+
+
+
+
+
+            cmd11.Parameters.AddWithValue("@qty", qty1);
+
+            CON11.Open();
+            cmd11.ExecuteNonQuery();
+            CON11.Close();
+
+        }
+        con1.Close();
+
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+        con.Open();
+
+        SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox33.Text + "' and Com_Id='" + company_id + "' ", con);
+        SqlDataReader dr1;
+        dr1 = cmd2.ExecuteReader();
+        if (dr1.Read())
+        {
+
+            int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
+            int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
+            string product_code = dr1["code"].ToString();
+
+            SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("update sales_entry_details set Category=@Category,Sub_category=@Sub_category,Product_code=@Product_code,product_name=@product_name,mrp=@mrp,qty=@qty,dis_per=@dis_per,dis_amount=@dis_amount,total_amount=@total_amount,Com_Id=@Com_Id where invoice_no=@invoice_no and s_no=@s_no and Com_Id='" + company_id + "'", CON1);
+            cmd1.Parameters.AddWithValue("@invoice_no", Label38.Text);
+            cmd1.Parameters.AddWithValue("@s_no", Label41.Text);
+            cmd1.Parameters.AddWithValue("@Category", cat_id);
+            cmd1.Parameters.AddWithValue("@Sub_category", sub_id);
+            cmd1.Parameters.AddWithValue("@Product_code", product_code);
+            cmd1.Parameters.AddWithValue("@product_name", TextBox33.Text);
+
+            cmd1.Parameters.AddWithValue("@mrp", float.Parse(TextBox27.Text));
+            cmd1.Parameters.AddWithValue("@qty", TextBox3.Text);
+            cmd1.Parameters.AddWithValue("@dis_per", float.Parse(TextBox29.Text));
+            cmd1.Parameters.AddWithValue("@dis_amount", float.Parse(TextBox4.Text));
+            cmd1.Parameters.AddWithValue("@total_amount", float.Parse(TextBox32.Text));
+            cmd1.Parameters.AddWithValue("@Com_Id", company_id);
+            CON1.Open();
+            cmd1.ExecuteNonQuery();
+            CON1.Close();
+
+
+            SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where date=( select MIN(date) from product_stock where Product_name='" + TextBox33.Text + "' and qty >'" + Convert.ToInt32(TextBox3.Text) + "' and Com_Id='" + company_id + "')", CON11);
+
+
+
+
+
+            cmd11.Parameters.AddWithValue("@qty", TextBox3.Text);
+
+            CON11.Open();
+            cmd11.ExecuteNonQuery();
+            CON11.Close();
+        }
+        BindData();
+
+
+    }
+    protected void TextBox3_TextChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+
+            float a = float.Parse(TextBox27.Text);
+            float b = float.Parse(TextBox3.Text);
+            TextBox32.Text = (a * b).ToString();
+            this.ModalPopupExtender5.Show();
+        }
+        catch (Exception we)
+        { }
+    }
+    protected void TextBox29_TextChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+
+            float dis_per = float.Parse(TextBox29.Text);
+            float total_amount = float.Parse(TextBox32.Text);
+            float total = (total_amount * dis_per) / 100;
+            TextBox4.Text = total.ToString();
+            TextBox32.Text = (total_amount - total).ToString();
+            this.ModalPopupExtender5.Show();
+        }
+        catch (Exception we)
+        { }
+    }
 }

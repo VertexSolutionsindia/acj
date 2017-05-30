@@ -1261,15 +1261,12 @@
         <td>
             <asp:Label ID="Label33" runat="server" Text="Purchase rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-        <asp:UpdatePanel ID="UpdatePanel43" runat="server">
-   <ContentTemplate>
+       
 
             <asp:TextBox ID="TextBox28" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox>
-             </ContentTemplate>
-    <Triggers>
-                 <asp:AsyncPostBackTrigger ControlID="TextBox29" EventName="TextChanged"  />
-                </Triggers>
-    </asp:UpdatePanel>
+           
+     
+                
             
             </td>
         </tr>
@@ -1278,13 +1275,10 @@
             <asp:Label ID="Label34" runat="server" Text="Qty" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
         
-<asp:UpdatePanel ID="UpdatePanel42" runat="server">
-   <ContentTemplate>
+
             <asp:TextBox ID="TextBox29" runat="server"   class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox29_TextChanged"></asp:TextBox>
             
-             </ContentTemplate>
-   
-    </asp:UpdatePanel>
+            
             
             </td>
         </tr>
@@ -1295,16 +1289,10 @@
             <asp:Label ID="Label37" runat="server" Text="Total amount" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
 
-         <asp:UpdatePanel ID="UpdatePanel44" runat="server">
-   <ContentTemplate>
+      
             <asp:TextBox ID="TextBox32" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox>
             
-            </ContentTemplate>
-   <Triggers>
-     
-                 <asp:AsyncPostBackTrigger ControlID="TextBox29" EventName="TextChanged"  />
-                </Triggers>
-    </asp:UpdatePanel>
+           
             
             </td>
         </tr>
@@ -1316,21 +1304,17 @@
             <tr>
             <td></td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel40" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
+                   
                             <asp:Button ID="Button22" runat="server"  CssClass="btn-primary" onclick="Button22_Click" 
                                 style="height: 26px" Text="Update" />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                      
                 </td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel41" runat="server">
-                        <ContentTemplate>
+                   
                             <asp:Button ID="Button23" runat="server"  Visible="false" 
                                 Text="Delete" />
                             &nbsp;&nbsp;&nbsp;
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                      
                     <asp:Label ID="Label39" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
