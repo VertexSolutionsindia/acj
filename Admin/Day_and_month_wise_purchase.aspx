@@ -333,12 +333,12 @@
    
    </div>
 
-     <div class="row">
+ <%--    <div class="row">
 
                      
-   </div>
+   </div>--%>
   
-   <div class="col-md-2"><h3>Staff:</h3>
+  <%-- <div class="col-md-2"><h3>Staff:</h3>
 
      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
    <ContentTemplate>
@@ -352,7 +352,7 @@
                 </Triggers>
     </asp:UpdatePanel>
    
-   </div>
+   </div>--%>
     
 
 
@@ -392,39 +392,47 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" ShowFooter="true" 
+   <asp:GridView ID="GridView1" runat="server" CssClass="Grd1" Width="100%" 
+           CellPadding="3" ShowFooter="True" 
          Font-Size="16px" 
             AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="20">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-       
-       <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+        onrowdatabound="GridView1_RowDataBound" PageSize="20" BackColor="White" 
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
+           AutoGenerateColumns="False">
+       <Columns>
+           <asp:BoundField DataField="Date" HeaderText="Date" HeaderStyle-CssClass="Grd1">
+          
+           </asp:BoundField>
+           <asp:BoundField DataField="Amount" HeaderText="Amount" HeaderStyle-CssClass="Grd1">
+          
+           </asp:BoundField>
+       </Columns>
+       <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True"
+           ForeColor="White" CssClass="Grd1" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
-           HorizontalAlign="Center" />
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
   </ContentTemplate>
     <Triggers>
      <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />
       <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
                 <asp:AsyncPostBackTrigger ControlID="GridView1"  />
-               <asp:AsyncPostBackTrigger ControlID="DropDownList2" EventName="SelectedIndexChanged"  />
+               <%--<asp:AsyncPostBackTrigger ControlID="DropDownList2" EventName="SelectedIndexChanged"  />--%>
                 <asp:AsyncPostBackTrigger ControlID="DropDownList3" EventName="SelectedIndexChanged"  />
                   <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged"  />
                 </Triggers>
     </asp:UpdatePanel>
-  <asp:Button ID="Button1" runat="server" Text="Export to excel" onclick="Button1_Click" 
+  <br /><asp:Button ID="Button1" runat="server" CssClass="btn-primary" Text="Export to excel" onclick="Button1_Click" 
        ></asp:Button>
 </div>
            

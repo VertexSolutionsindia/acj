@@ -29,6 +29,7 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
             show_category();
             showrating();
             BindData();
+            show_staff();
 
             active();
             created();
@@ -63,6 +64,25 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
     protected void Button10_Click(object sender, EventArgs e)
     {
 
+    }
+    public void show_staff()
+    {
+
+        //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //SqlCommand cmd = new SqlCommand("Select * from Staff_entry where Com_Id='" + company_id + "' ORDER BY Emp_Code asc", con);
+        //con.Open();
+        //DataSet ds = new DataSet();
+        //SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //da.Fill(ds);
+
+
+        //DropDownList2.DataSource = ds;
+        //DropDownList2.DataTextField = "Emp_Name";
+        //DropDownList2.DataValueField = "Emp_Code";
+        //DropDownList2.DataBind();
+        //DropDownList2.Items.Insert(0, new ListItem("All", "0"));
+
+        //con.Close();
     }
     
 
@@ -152,21 +172,21 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from Staff_entry where Com_Id='" + company_id + "' ORDER BY Emp_Code asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
+        //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //SqlCommand cmd = new SqlCommand("Select * from Staff_entry where Com_Id='" + company_id + "' ORDER BY Emp_Code asc", con);
+        //con.Open();
+        //DataSet ds = new DataSet();
+        //SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //da.Fill(ds);
 
 
-        DropDownList2.DataSource = ds;
-        DropDownList2.DataTextField = "Emp_Name";
-        DropDownList2.DataValueField = "Emp_Code";
-        DropDownList2.DataBind();
-        DropDownList2.Items.Insert(0, new ListItem("All", "0"));
+        //DropDownList2.DataSource = ds;
+        //DropDownList2.DataTextField = "Emp_Name";
+        //DropDownList2.DataValueField = "Emp_Code";
+        //DropDownList2.DataBind();
+        //DropDownList2.Items.Insert(0, new ListItem("All", "0"));
 
-        con.Close();
+        //con.Close();
     }
     protected void LoginLink_OnClick(object sender, EventArgs e)
     {

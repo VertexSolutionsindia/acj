@@ -350,7 +350,7 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" ShowFooter="true" 
+   <asp:GridView ID="GridView1" runat="server" CssClass="Grd1" Width="100%" CellPadding="4" ShowFooter="true" 
          Font-Size="16px" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
@@ -360,14 +360,14 @@
        <Columns>
        
          
-           <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
+           <asp:BoundField HeaderText="Invoice No" DataField="invoice_no" HeaderStyle-CssClass="Grd1"  />
         
-           <asp:BoundField HeaderText="Date" DataField="date"  DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField HeaderText="Customer Name" DataField="customer_name"  />
-             <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no"  />
-              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" />
+           <asp:BoundField HeaderText="Date" DataField="date"  DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="Grd1" />
+            <asp:BoundField HeaderText="Customer Name" DataField="customer_name"  HeaderStyle-CssClass="Grd1" />
+             <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no" HeaderStyle-CssClass="Grd1"  />
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" HeaderStyle-CssClass="Grd1"  />
                  
-            <asp:TemplateField HeaderText="Total Amount">
+            <asp:TemplateField HeaderText="Total Amount" HeaderStyle-CssClass="Grd1">
                     <ItemTemplate>
                         <asp:Label ID="lblSalary" runat="server" Text='<%# Eval("total_amount")%>' DataFormatString="{0:N2}" />
                     </ItemTemplate>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Staff_wise_report.aspx.cs" Inherits="Admin_Staff_wise_report" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="Staff_wise_report.aspx.cs" Inherits="Admin_Staff_wise_report" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -327,8 +327,8 @@
      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
    <ContentTemplate>
  <asp:TextBox ID="TextBox2" runat="server"  AutoPostBack="true"  
-           ></asp:TextBox>
- <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2"></asp:CalendarExtender>
+       ontextchanged="TextBox2_TextChanged"></asp:TextBox>
+ <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2" Format="dd-MM-yyyy"></asp:CalendarExtender>
    </ContentTemplate>
    
     </asp:UpdatePanel>
@@ -389,21 +389,31 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" ShowFooter="true" 
+   <asp:GridView ID="GridView1" runat="server" CssClass="Grd1" Width="100%" CellPadding="3" ShowFooter="True" 
          Font-Size="16px" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="20">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        onrowdatabound="GridView1_RowDataBound" PageSize="20" BackColor="White" 
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
        <Columns>
        
          
-           <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
+           <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  >
         
-           <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField HeaderText="Customer Name" DataField="customer_name"  />
-              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" />
+           <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+        
+           <asp:BoundField HeaderText="Date" DataField="date" 
+               DataFormatString="{0:dd/MM/yyyy}" >
+            <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+            <asp:BoundField HeaderText="Customer Name" DataField="customer_name"  >
+              <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" >
+                 
+            <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
                  
             <asp:TemplateField HeaderText="Total Amount">
                     <ItemTemplate>
@@ -412,22 +422,23 @@
                     <FooterTemplate>
                         <asp:Label ID="Salary" runat="server" />
                     </FooterTemplate>
+                    <HeaderStyle CssClass="Grd1" />
                 </asp:TemplateField>
 
        </Columns>
-       <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+       <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
-           HorizontalAlign="Center" />
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
   </ContentTemplate>
     <Triggers>

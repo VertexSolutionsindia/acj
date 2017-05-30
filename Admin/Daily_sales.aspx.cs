@@ -116,7 +116,7 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from Sales_entry where Com_Id='" + company_id + "' ORDER BY no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from Sales_entry where Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
