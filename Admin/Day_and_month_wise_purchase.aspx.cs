@@ -115,10 +115,51 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
     }
     protected void BindData()
     {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+            }
+            con1000.Close();
+        }
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where Com_Id='" + company_id + "' ORDER BY no asc", con);
+        DataTable dt1 = new DataTable();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
 
 
 
+    }
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            e.Row.Cells[0].Text = "Page " + (GridView1.PageIndex + 1) + " of " + GridView1.PageCount;
+        }
 
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            Label Salary = (Label)e.Row.FindControl("lblSalary");
+
+            m = m + float.Parse(Salary.Text);
+
+        }
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            Label lblTotalPrice = (Label)e.Row.FindControl("Salary");
+            lblTotalPrice.Text = m.ToString();
+            TextBox3.Text = m.ToString();
+        }
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
     {
@@ -286,15 +327,7 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
         BindData();
 
     }
-    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.Footer)
-        {
-            e.Row.Cells[0].Text = "Page " + (GridView1.PageIndex + 1) + " of " + GridView1.PageCount;
-        }
-
-
-    }
+   
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
 
@@ -334,7 +367,7 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("SELECT DISTINCT CONVERT(VARCHAR(10),date,101)  as Date,sum(Grand__total) as Amount FROM purchase_entry as a where date='" + TextBox1.Text + "' and Com_Id='" + company_id + "' group by date", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date='" + TextBox1.Text + "' and Com_Id='" + company_id + "' ORDER BY no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -359,7 +392,7 @@ public partial class Admin_Day_and_month_wise_purchase : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("SELECT DISTINCT CONVERT(VARCHAR(10),date,101)  as Date,sum(Grand__total) as Amount FROM purchase_entry as a where date between '" + TextBox1.Text + "' and '" + TextBox2.Text + "' and  Com_Id='" + company_id + "' group by date", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between  '" + TextBox1.Text + "' and '" + TextBox2.Text + "' and  Com_Id='" + company_id + "' ORDER BY no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);

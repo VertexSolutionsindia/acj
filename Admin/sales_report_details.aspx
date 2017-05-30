@@ -156,22 +156,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Main.aspx">Main Category</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -203,7 +201,7 @@
                           
                                
                             </li>
-                             
+                           
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
@@ -211,12 +209,12 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
                             </li>
-                             <li>
+                            <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Reports </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                    <li><a href="Day_wise_purchase.aspx">Days wise Purchase</a></li>
@@ -433,23 +431,21 @@
          Font-Size="16px" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" 
-        GridLines="Vertical" PageSize="100" BackColor="White" BorderColor="#999999" 
+        onrowdatabound="GridView1_RowDataBound" PageSize="100" BackColor="White" BorderColor="#CCCCCC" 
            BorderStyle="None" BorderWidth="1px">
-       <AlternatingRowStyle BackColor="#DCDCDC" />
-       <RowStyle HorizontalAlign="Center" BackColor="#EEEEEE" ForeColor="Black" />
-       <HeaderStyle HorizontalAlign="Center" BackColor="#000084" ForeColor="White" />
+       <RowStyle HorizontalAlign="Center" ForeColor="#000066" />
+       <HeaderStyle HorizontalAlign="Center" BackColor="#006699" ForeColor="White" />
        <Columns>
       
                <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
            <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  />
            <asp:BoundField HeaderText="Customer Name" DataField="customer_name" />
-             <asp:BoundField HeaderText="Staff name" DataField="staff_name" />
             
-              <asp:BoundField HeaderText="total Qty" DataField="total_qty" />
+            
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" />
                <asp:BoundField HeaderText="Total Amount" DataField="total_amount" />
                <asp:BoundField HeaderText="Grand total" DataField="grand_total" />
-               <asp:BoundField HeaderText="paid Amount" DataField="paid_amount" />
+               <asp:BoundField HeaderText="Paid Amount" DataField="paid_amount" />
                <asp:BoundField HeaderText="Pending Amount" DataField="Pending_amount" />
               <asp:TemplateField>
               <ItemTemplate>
@@ -471,7 +467,7 @@
               </asp:TemplateField>
              <asp:TemplateField>
               <ItemTemplate>
-             <asp:DropDownList ID="ddlFileFormat1"  runat="server">
+             <asp:DropDownList ID="ddlFileFormat1"  runat="server" Width="50px">
                         <asp:ListItem Text="PDF" ></asp:ListItem>
                         <asp:ListItem Text="WORD" ></asp:ListItem>
                         <asp:ListItem Text="EXCEL"></asp:ListItem>
@@ -485,18 +481,18 @@
               </asp:TemplateField>
                  
        </Columns>
-       <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
+       <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#999999" ForeColor="Black" 
-           HorizontalAlign="Center" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
        <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
        <SortedAscendingCellStyle BackColor="#F1F1F1" />
-       <SortedAscendingHeaderStyle BackColor="#0000A9" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
        <SortedDescendingCellStyle BackColor="#CAC9C9" />
-       <SortedDescendingHeaderStyle BackColor="#000065" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
 
       

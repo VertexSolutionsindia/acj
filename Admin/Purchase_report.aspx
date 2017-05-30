@@ -143,21 +143,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                   <li><a href="Main.aspx">Main Category</a></li>
-                                   <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                   <li><a href="Product_entry.aspx">Product Entry</a></li>
-                                   <li><a href="Tax_Entry.aspx">Tax entry</a></li>
-                                   <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                   <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
-                                   <li><a href="Vendor.aspx">Supplier Entry</a></li>
-                                   <li><a href="Department-Entry.aspx">Department Entry</a></li>
-                                   <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
+                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
+                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                    <li><a href="Tax_Entry.aspx">Tax entry</a></li>
+                                    <li><a href="Customer_type.aspx">Customer Type entry</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
+                                    <li><a href="Vendor.aspx">Supplier Entry</a></li>
+                                    <li><a href="Department-Entry.aspx">Department Entry</a></li>
+                                    <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
+
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -189,21 +188,20 @@
                           
                                
                             </li>
-                              
-                            
+                           
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                  <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                  <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                  <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                  <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
                             </li>
-                             <li>
+                            <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Reports </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                    <li><a href="Day_wise_purchase.aspx">Days wise Purchase</a></li>
@@ -375,9 +373,14 @@
                                      <asp:UpdatePanel ID="UpdatePanel8" runat="server">
    <ContentTemplate>
   
-                                    <asp:TextBox ID="TextBox5" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
+                                    <asp:TextBox ID="TextBox5" runat="server" 
+                                        class="form-control input-x2 dropbox"  AutoPostBack="true" ontextchanged="TextBox5_TextChanged"
                                         ></asp:TextBox>
-                                     
+                                      <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="TextBox5" WatermarkText="Enter purchase invoice no" ></asp:TextBoxWatermarkExtender>
+                           <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchproduct" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox5"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
 
@@ -428,12 +431,7 @@
             
               <asp:BoundField HeaderText="Paid Amount" DataField="paid_amount" />
                <asp:BoundField HeaderText="Pending amount" DataField="pending_amount" />
-              <asp:TemplateField>
-              <ItemTemplate>
-              <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" 
-                      Width="20px" Height="20px" onclick="ImageButton1_Click" ></asp:ImageButton>
-              </ItemTemplate>
-              </asp:TemplateField>
+             
                <asp:TemplateField>
               <ItemTemplate>
              <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Admin/show1.png" 
@@ -468,7 +466,7 @@
               
                 
                      <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
-                     
+                       <asp:AsyncPostBackTrigger ControlID="TextBox5" EventName="TextChanged"  />
                         <asp:AsyncPostBackTrigger ControlID="TextBox4" EventName="TextChanged"  />
                    
                   

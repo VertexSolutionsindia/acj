@@ -37,6 +37,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
     float tot1 = 0;
     DataTable dt = null;
     public static int company_id = 0;
+    public static string company_id1 = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -46,13 +47,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
             TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + TextBox13.ClientID + "', event)");
             TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox14.ClientID + "', event)");
             TextBox14.Attributes.Add("onkeypress", "return controlEnter('" + DropDownList3.ClientID + "', event)");
-
-
-            TextBox1.Attributes.Add("onkeypress", "return controlEnter('" + TextBox12.ClientID + "', event)");
             TextBox12.Attributes.Add("onkeypress", "return controlEnter('" + TextBox17.ClientID + "', event)");
-            TextBox17.Attributes.Add("onkeypress", "return controlEnter('" + TextBox3.ClientID + "', event)");
-            TextBox3.Attributes.Add("onkeypress", "return controlEnter('" + TextBox4.ClientID + "', event)");
-            TextBox4.Attributes.Add("onkeypress", "return controlEnter('" + TextBox5.ClientID + "', event)");
             TextBox5.Attributes.Add("onkeypress", "return controlEnter('" + TextBox15.ClientID + "', event)");
             TextBox15.Attributes.Add("onkeypress", "return controlEnter('" + TextBox16.ClientID + "', event)");
             TextBox16.Attributes.Add("onkeypress", "return controlEnter('" + TextBox18.ClientID + "', event)");
@@ -79,10 +74,9 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
                 }
                 con1000.Close();
             }
-
             string name = Session["purchase_invoice"].ToString();
             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("select * from sales_entry_wholesale where invoice_no='" + name + "' and Com_Id='" + company_id + "'", con);
+            SqlCommand cmd = new SqlCommand("select * from sales_credit_entry where invoice_no='" + name + "' and Com_Id='" + company_id + "'", con);
             SqlDataReader dr;
             con.Open();
             dr = cmd.ExecuteReader();
@@ -96,7 +90,8 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
                 TextBox13.Text = dr["customer_name"].ToString();
                 TextBox14.Text = dr["customer_Address"].ToString();
                 DropDownList3.SelectedItem.Text = dr["staff_name"].ToString();
-                TextBox19.Text = dr["tin_no"].ToString();
+                TextBox23.Text = dr["dis_per"].ToString();
+                TextBox26.Text = dr["discount_amount"].ToString();
 
                 TextBox2.Text = dr["total_qty"].ToString();
                 TextBox10.Text = dr["total_amount"].ToString();
@@ -107,9 +102,25 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
             }
             BindData();
             getinvoiceno1();
+
+
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            con1.Open();
+            string query = "Select * from Company_detail  where com_id='" + company_id + "'";
+            SqlCommand cmd1 = new SqlCommand(query, con1);
+            SqlDataReader dr2 = cmd1.ExecuteReader();
+            if (dr2.Read())
+            {
+
+                company_id1 = dr2["Address"].ToString();
+
+            }
+            con1.Close();
+
         }
     }
-        private string GetConnectionString()
+    //A method that returns a string which calls the connection string from the web.config
+    private string GetConnectionString()
     {
         //"DBConnection" is the name of the Connection String
         //that was set up from the web.config file
@@ -136,7 +147,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         con1.Open();
-        string query = "Select max(convert(int,SubString(invoice_no,PATINDEX('%[0-9]%',invoice_no),Len(invoice_no)))) from sales_entry_wholesale where Com_Id='" + company_id + "'";
+        string query = "Select max(convert(int,SubString(invoice_no,PATINDEX('%[0-9]%',invoice_no),Len(invoice_no)))) from sales_credit_entry where Com_Id='" + company_id + "'";
         SqlCommand cmd1 = new SqlCommand(query, con1);
         SqlDataReader dr = cmd1.ExecuteReader();
         if (dr.Read())
@@ -176,8 +187,9 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         string ststus = "Sales";
         float value = 0;
         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("update sales_entry_wholesale set date=@date,customer_name=@customer_name,customer_Address=@customer_Address,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,paid_amount=@paid_amount,Pending_amount=@Pending_amount,status=@status,value=@value,Com_Id=@Com_Id,discount_per=@discount_per,discount_amount=@discount_amount,tin_no=@tin_no where invoice_no='" + Label1.Text + "'", CON);
-      
+        SqlCommand cmd = new SqlCommand("update sales_credit_entry set date=@date,customer_name=@customer_name,customer_Address=@customer_Address,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,paid_amount=@paid_amount,Pending_amount=@Pending_amount,status=@status,value=@value,Com_Id=@Com_Id,dis_per=@dis_per,discount_amount=@discount_amount where invoice_no='" + Label1.Text + "'", CON);
+
+        cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
         cmd.Parameters.AddWithValue("@customer_name", TextBox13.Text);
         cmd.Parameters.AddWithValue("@customer_Address", TextBox14.Text);
@@ -191,9 +203,8 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@status", ststus);
         cmd.Parameters.AddWithValue("@value", value);
         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-        cmd.Parameters.AddWithValue("@discount_per", TextBox27.Text);
-        cmd.Parameters.AddWithValue("@discount_amount", TextBox28.Text);
-        cmd.Parameters.AddWithValue("@tin_no", TextBox19.Text);
+        cmd.Parameters.AddWithValue("@discount_amount", TextBox26.Text);
+        cmd.Parameters.AddWithValue("@dis_per", TextBox23.Text);
         CON.Open();
         cmd.ExecuteNonQuery();
         CON.Close();
@@ -202,12 +213,12 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
 
 
-       
 
 
 
 
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry updated successfully')", true);
+
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales credit entry updated successfully')", true);
         BindData();
         show_category();
 
@@ -224,10 +235,12 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
 
 
-        Response.Redirect("SALES_REPORT_VIEW_WHOLESALE.aspx");
+
 
     }
-   
+    protected void ImageButton1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+    {
+    }
     protected void ImageButton2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
         if (User.Identity.IsAuthenticated)
@@ -247,11 +260,11 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         ImageButton img = (ImageButton)sender;
         GridViewRow ROW = (GridViewRow)img.NamingContainer;
         int s_no = Convert.ToInt32(ROW.Cells[0].Text);
-        string barcode = ROW.Cells[1].Text;
-        float qty = float.Parse(ROW.Cells[6].Text);
+        string Product_name = ROW.Cells[1].Text;
+        float qty = float.Parse(ROW.Cells[3].Text);
 
         SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where barcode='" + barcode + "' and Com_Id='" + company_id + "'", CON11);
+        SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where Product_name='" + Product_name + "' and Com_Id='" + company_id + "'", CON11);
 
 
 
@@ -266,14 +279,9 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
         con1.Open();
-        SqlCommand cmd1 = new SqlCommand("delete from sales_entry_details_wholesale where s_no='" + s_no + "' and invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "'", con1);
+        SqlCommand cmd1 = new SqlCommand("delete from sales_credit_entry_details where s_no='" + s_no + "' and invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "'", con1);
         cmd1.ExecuteNonQuery();
         con1.Close();
-
-
-
-
-
         BindData();
         getinvoiceno1();
 
@@ -341,7 +349,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry_details_wholesale where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' order by s_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry_details where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' order by s_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -369,7 +377,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         ImageButton img = (ImageButton)sender;
         GridViewRow row = (GridViewRow)img.NamingContainer;
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("delete from product_entry where code='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
+        SqlCommand cmd = new SqlCommand("delete from product_entry where product_name='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
         con.Open();
         cmd.ExecuteNonQuery();
         con.Close();
@@ -378,39 +386,8 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
         BindData();
         show_category();
 
-
-
     }
-    [System.Web.Script.Services.ScriptMethod()]
-    [System.Web.Services.WebMethod]
 
-    public static List<string> SearchCustomers3(string prefixText, int count)
-    {
-        using (SqlConnection conn = new SqlConnection())
-        {
-            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
-
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                cmd.CommandText = "select distinct WSCustomer_Name from customer_wholesale where Com_Id=@Com_Id and " +
-                "WSCustomer_Name like @WSCustomer_Name + '%'";
-                cmd.Parameters.AddWithValue("@WSCustomer_Name", prefixText);
-                cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                cmd.Connection = conn;
-                conn.Open();
-                List<string> customers = new List<string>();
-                using (SqlDataReader sdr = cmd.ExecuteReader())
-                {
-                    while (sdr.Read())
-                    {
-                        customers.Add(sdr["WSCustomer_Name"].ToString());
-                    }
-                }
-                conn.Close();
-                return customers;
-            }
-        }
-    }
     [System.Web.Script.Services.ScriptMethod()]
     [System.Web.Services.WebMethod]
 
@@ -422,9 +399,9 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct barcode from product_stock where Com_Id=@Com_Id and " +
-                "barcode like @barcode + '%'";
-                cmd.Parameters.AddWithValue("@barcode", prefixText);
+                cmd.CommandText = "select distinct Product_name from product_stock where Com_Id=@Com_Id and " +
+                "Product_name like @Product_name + '%'";
+                cmd.Parameters.AddWithValue("@Product_name", prefixText);
                 cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
@@ -433,7 +410,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
                 {
                     while (sdr.Read())
                     {
-                        customers.Add(sdr["barcode"].ToString());
+                        customers.Add(sdr["Product_name"].ToString());
                     }
                 }
                 conn.Close();
@@ -452,9 +429,9 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct barcode from product_stock where Com_Id=@Com_Id and  " +
-                "barcode like @barcode + '%'";
-                cmd.Parameters.AddWithValue("@barcode", prefixText);
+                cmd.CommandText = "select distinct Product_name from product_stock where Com_Id=@Com_Id and  " +
+                "Product_name like @Product_name + '%'";
+                cmd.Parameters.AddWithValue("@Product_name", prefixText);
                 cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
@@ -463,7 +440,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
                 {
                     while (sdr.Read())
                     {
-                        customers.Add(sdr["barcode"].ToString());
+                        customers.Add(sdr["Product_name"].ToString());
                     }
                 }
                 conn.Close();
@@ -483,7 +460,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct Mobile_no from customer_wholesale where Com_Id=@Com_Id and  " +
+                cmd.CommandText = "select distinct Mobile_no from Customer_Entry where Com_Id=@Com_Id and  " +
                 "Mobile_no like @Mobile_no + '%'";
                 cmd.Parameters.AddWithValue("@Mobile_no", prefixText);
                 cmd.Parameters.AddWithValue("@Com_Id", company_id);
@@ -583,7 +560,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            tot1 = tot1 + float.Parse(e.Row.Cells[9].Text);
+            tot1 = tot1 + float.Parse(e.Row.Cells[6].Text);
 
         }
         TextBox10.Text = tot1.ToString();
@@ -599,25 +576,6 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
     protected void Button3_Click(object sender, EventArgs e)
     {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     protected void TextBox6_TextChanged(object sender, EventArgs e)
@@ -626,16 +584,15 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
         con.Open();
 
-        SqlCommand cmd2 = new SqlCommand("select * from customer_wholesale where Mobile_no='" + TextBox6.Text + "'", con);
+        SqlCommand cmd2 = new SqlCommand("select * from Customer_entry where Mobile_no='" + TextBox6.Text + "'", con);
         SqlDataReader dr1;
         dr1 = cmd2.ExecuteReader();
         if (dr1.Read())
         {
 
 
-            TextBox13.Text = dr1["WSCustomer_Name"].ToString();
-            TextBox14.Text = dr1["WSCustomer_Add"].ToString();
-            TextBox19.Text = dr1["tin_no"].ToString();
+            TextBox13.Text = dr1["Custom_Name"].ToString();
+            TextBox14.Text = dr1["Custom_Add"].ToString();
         }
         con.Close();
 
@@ -753,7 +710,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         con1.Open();
-        string query = "Select max(s_no) from sales_entry_details_wholesale where Com_Id='" + company_id + "' and invoice_no='" + Label1.Text + "'";
+        string query = "Select max(s_no) from sales_credit_entry_details where Com_Id='" + company_id + "' and invoice_no='" + Label1.Text + "'";
         SqlCommand cmd1 = new SqlCommand(query, con1);
         SqlDataReader dr = cmd1.ExecuteReader();
         if (dr.Read())
@@ -787,83 +744,76 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+                con.Open();
+
+                SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox12.Text + "' and Com_Id='" + company_id + "' ", con);
+                SqlDataReader dr1;
+                dr1 = cmd2.ExecuteReader();
+                if (dr1.Read())
+                {
+
+                    int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
+                    int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
+                    string product_code = dr1["code"].ToString();
+
+                    SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1 = new SqlCommand("insert into sales_credit_entry_details values(@invoice_no,@s_no,@Category,@Sub_category,@Product_code,@product_name,@mrp,@qty,@dis_per,@dis_amount,@total_amount,@Com_Id)", CON1);
+                    cmd1.Parameters.AddWithValue("@invoice_no", Label1.Text);
+                    cmd1.Parameters.AddWithValue("@s_no", Label2.Text);
+                    cmd1.Parameters.AddWithValue("@Category", cat_id);
+                    cmd1.Parameters.AddWithValue("@Sub_category", sub_id);
+                    cmd1.Parameters.AddWithValue("@Product_code", product_code);
+                    cmd1.Parameters.AddWithValue("@product_name", TextBox12.Text);
+                    cmd1.Parameters.AddWithValue("@mrp", TextBox17.Text);
+                    cmd1.Parameters.AddWithValue("@qty", TextBox5.Text);
+                    cmd1.Parameters.AddWithValue("@dis_per", TextBox15.Text);
+                    cmd1.Parameters.AddWithValue("@dis_amount", TextBox16.Text);
+                    cmd1.Parameters.AddWithValue("@total_amount", TextBox18.Text);
+                    cmd1.Parameters.AddWithValue("@Com_Id", company_id);
+                    CON1.Open();
+                    cmd1.ExecuteNonQuery();
+                    CON1.Close();
+
+
+                    SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where date=( select MIN(date) from product_stock where Product_name='" + TextBox12.Text + "' and qty >'" + Convert.ToInt32(TextBox5.Text) + "' and Com_Id='" + company_id + "')", CON11);
+
+
+
+
+
+                    cmd11.Parameters.AddWithValue("@qty", TextBox5.Text);
+
+                    CON11.Open();
+                    cmd11.ExecuteNonQuery();
+                    CON11.Close();
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product added successfully')", true);
+
+                    BindData();
+                    getinvoiceno1();
+                    TextBox12.Text = "";
+                    TextBox17.Text = "";
+                    TextBox5.Text = "";
+                    TextBox15.Text = "";
+                    TextBox16.Text = "";
+                    TextBox18.Text = "";
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
+                }
+                con.Close();
+
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-
-        con.Open();
-
-        SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox12.Text + "' and Com_Id='" + company_id + "' ", con);
-        SqlDataReader dr1;
-        dr1 = cmd2.ExecuteReader();
-        if (dr1.Read())
-        {
-
-            int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
-            int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
-            string product_code = dr1["code"].ToString();
-
-            SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1 = new SqlCommand("insert into sales_entry_details_wholesale values(@invoice_no,@s_no,@Category,@Sub_category,@barcode,@Product_code,@product_name,@mrp,@size,@color,@qty,@dis_per,@dis_amount,@total_amount,@Com_Id)", CON1);
-            cmd1.Parameters.AddWithValue("@invoice_no", Label1.Text);
-            cmd1.Parameters.AddWithValue("@s_no", Label2.Text);
-            cmd1.Parameters.AddWithValue("@Category", cat_id);
-            cmd1.Parameters.AddWithValue("@Sub_category", sub_id);
-            cmd1.Parameters.AddWithValue("@barcode", TextBox1.Text);
-            cmd1.Parameters.AddWithValue("@Product_code", product_code);
-            cmd1.Parameters.AddWithValue("@product_name", TextBox12.Text);
-
-            cmd1.Parameters.AddWithValue("@mrp", TextBox17.Text);
-            cmd1.Parameters.AddWithValue("@size", TextBox3.Text);
-            cmd1.Parameters.AddWithValue("@color", TextBox4.Text);
-            cmd1.Parameters.AddWithValue("@qty", TextBox5.Text);
-            cmd1.Parameters.AddWithValue("@dis_per", TextBox15.Text);
-            cmd1.Parameters.AddWithValue("@dis_amount", TextBox16.Text);
-            cmd1.Parameters.AddWithValue("@total_amount", TextBox18.Text);
-            cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-            CON1.Open();
-            cmd1.ExecuteNonQuery();
-            CON1.Close();
-
-
-            SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where barcode='" + TextBox1.Text + "' and Com_Id='" + company_id + "'", CON11);
-
-
-
-
-
-            cmd11.Parameters.AddWithValue("@qty", TextBox5.Text);
-
-            CON11.Open();
-            cmd11.ExecuteNonQuery();
-            CON11.Close();
-
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product added successfully')", true);
-
-            BindData();
-            getinvoiceno1();
-            TextBox1.Text = "";
-            TextBox12.Text = "";
-            TextBox17.Text = "";
-            TextBox3.Text = "";
-            TextBox4.Text = "";
-            TextBox5.Text = "";
-            TextBox15.Text = "";
-            TextBox16.Text = "";
-            TextBox18.Text = "";
-        }
-        else
-        {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
-        }
-        con.Close();
-
-
     }
 
-    protected void TextBox1_TextChanged(object sender, System.EventArgs e)
+    /*protected void TextBox1_TextChanged(object sender, System.EventArgs e)
     {
 
 
@@ -877,12 +827,11 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
             TextBox12.Text = dr["Product_name"].ToString();
             TextBox17.Text = dr["mrp"].ToString();
-            
         }
         con1.Close();
 
         TextBox12.Focus();
-    }
+    }*/
 
     protected void TextBox5_TextChanged(object sender, System.EventArgs e)
     {
@@ -913,196 +862,82 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
     {
         TextBox5.Focus();
     }
-    protected void TextBox14_TextChanged(object sender, System.EventArgs e)
-    {
-       
-    }
-    protected void TextBox13_TextChanged(object sender, System.EventArgs e)
-    {
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
-        con.Open();
-
-        SqlCommand cmd2 = new SqlCommand("select * from customer_wholesale where WSCustomer_Name='" + TextBox13.Text + "'", con);
-        SqlDataReader dr1;
-        dr1 = cmd2.ExecuteReader();
-        if (dr1.Read())
-        {
-
-
-            TextBox6.Text = dr1["Mobile_no"].ToString();
-            TextBox14.Text = dr1["WSCustomer_Add"].ToString();
-            TextBox19.Text = dr1["tin_no"].ToString();
-        }
-        con.Close();
-    }
-    protected void TextBox34_TextChanged(object sender, System.EventArgs e)
-    {
-        try
-        {
-            float tax = float.Parse(TextBox31.Text);
-            float total = float.Parse(TextBox34.Text);
-            TextBox37.Text = string.Format("{0:0.00}", (total * tax)).ToString();
-            this.ModalPopupExtender5.Show();
-        }
-        catch (Exception er)
-        { }
-
-    }
-    protected void Button22_Click(object sender, System.EventArgs e)
-    {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-            }
-            con1000.Close();
-        }
-
-        SqlConnection CON100 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd100 = new SqlCommand("select * from sales_entry_details_wholesale where invoice_no=@invoice_no and s_no=@s_no and Com_Id='" + company_id + "'", CON100);
-        cmd100.Parameters.AddWithValue("@invoice_no", Label38.Text);
-        cmd100.Parameters.AddWithValue("@s_no", Label41.Text);
-        CON100.Open();
-        SqlDataReader dr100;
-
-        dr100 = cmd100.ExecuteReader();
-        if (dr100.Read())
-        {
-
-            float qty = float.Parse(dr100["qty"].ToString());
-            SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("update product_stock set qty=qty+@qty where barcode='" + TextBox33.Text + "' and Com_Id='" + company_id + "'", CON);
-            cmd.Parameters.AddWithValue("@qty", qty);
-            CON.Open();
-            cmd.ExecuteNonQuery();
-            CON.Close();
-        }
-        CON100.Close();
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-            }
-            con1000.Close();
-        }
-
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox30.Text + "' and Com_Id='" + company_id + "' ", con);
-        SqlDataReader dr1;
-        con.Open();
-        dr1 = cmd2.ExecuteReader();
-        if (dr1.Read())
-        {
-
-            int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
-            int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
-            string product_code = dr1["code"].ToString();
-
-            SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1 = new SqlCommand("update sales_entry_details_wholesale set Category=@Category,Sub_category=@Sub_category,barcode=@barcode,Product_code=@Product_code,product_name=@product_name,mrp=@mrp,size=@size,color=@color,qty=@qty,dis_per=@dis_per,dis_amount=@dis_amount,total_amount=@total_amount where invoice_no=@invoice_no and s_no=@s_no and Com_Id='" + company_id + "'", CON1);
-            cmd1.Parameters.AddWithValue("@invoice_no", Label38.Text);
-            cmd1.Parameters.AddWithValue("@s_no", Label41.Text);
-            cmd1.Parameters.AddWithValue("@Category", cat_id);
-            cmd1.Parameters.AddWithValue("@Sub_category", sub_id);
-            cmd1.Parameters.AddWithValue("@barcode", TextBox33.Text);
-            cmd1.Parameters.AddWithValue("@Product_code", product_code);
-            cmd1.Parameters.AddWithValue("@product_name", TextBox30.Text);
-
-            cmd1.Parameters.AddWithValue("@mrp", TextBox31.Text);
-            cmd1.Parameters.AddWithValue("@size", TextBox32.Text);
-            cmd1.Parameters.AddWithValue("@color", TextBox38.Text);
-            cmd1.Parameters.AddWithValue("@qty", TextBox34.Text);
-            cmd1.Parameters.AddWithValue("@dis_per", TextBox35.Text);
-            cmd1.Parameters.AddWithValue("@dis_amount", TextBox36.Text);
-            cmd1.Parameters.AddWithValue("@total_amount", TextBox37.Text);
-
-
-
-            CON1.Open();
-            cmd1.ExecuteNonQuery();
-            CON1.Close();
-
-
-            SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where barcode='" + TextBox33.Text + "' and Com_Id='" + company_id + "'", CON11);
-
-
-
-
-
-            cmd11.Parameters.AddWithValue("@qty", TextBox34.Text);
-
-            CON11.Open();
-            cmd11.ExecuteNonQuery();
-            CON11.Close();
-
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product updated successfully')", true);
-        }
-        con.Close();
-        BindData();
-
-    }
-    protected void TextBox35_TextChanged(object sender, System.EventArgs e)
-    {
-        try
-        {
-            float tax = float.Parse(TextBox35.Text);
-            float total = float.Parse(TextBox37.Text);
-            TextBox36.Text = string.Format("{0:0.00}", (total * tax / 100)).ToString();
-            float A = float.Parse(TextBox36.Text);
-            TextBox37.Text = string.Format("{0:0.00}", (total - A)).ToString();
-            this.ModalPopupExtender5.Show();
-        }
-        catch (Exception er)
-        { }
-
-    }
-    protected void TextBox27_TextChanged(object sender, System.EventArgs e)
+    protected void TextBox23_TextChanged(object sender, System.EventArgs e)
     {
         try
         {
 
             float total = float.Parse(TextBox11.Text);
-            float dis = float.Parse(TextBox27.Text);
+            float dis = float.Parse(TextBox23.Text);
 
             float total_amount = (total * dis / 100);
-            TextBox28.Text = total_amount.ToString();
+            TextBox26.Text = total_amount.ToString();
             TextBox11.Text = (total - total_amount).ToString();
         }
         catch (Exception er)
         { }
     }
-    protected void ImageButton1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
-    {
-        ImageButton img = (ImageButton)sender;
-        GridViewRow row = (GridViewRow)img.NamingContainer;
-        Label38.Text = Label1.Text;
-        Label41.Text = row.Cells[0].Text;
-        TextBox33.Text = row.Cells[1].Text;
-        TextBox30.Text = row.Cells[2].Text;
-        TextBox31.Text = row.Cells[3].Text;
-        TextBox32.Text = row.Cells[4].Text;
-        TextBox38.Text = row.Cells[5].Text;
-        TextBox34.Text = row.Cells[6].Text;
-        TextBox35.Text = row.Cells[7].Text;
-        TextBox36.Text = row.Cells[8].Text;
-        TextBox37.Text = row.Cells[9].Text;
-        this.ModalPopupExtender5.Show();
+    [System.Web.Script.Services.ScriptMethod()]
+    [System.Web.Services.WebMethod]
 
+    public static List<string> Searchproductname(string prefixText, int count)
+    {
+        using (SqlConnection conn = new SqlConnection())
+        {
+            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "select distinct Product_name from product_stock where Com_Id=@Com_Id and " +
+                "Product_name like @Product_name + '%'";
+                cmd.Parameters.AddWithValue("@Product_name", prefixText);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Connection = conn;
+                conn.Open();
+                List<string> customers = new List<string>();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        customers.Add(sdr["Product_name"].ToString());
+                    }
+                }
+                conn.Close();
+                return customers;
+            }
+        }
     }
+    protected void TextBox12_TextChanged(object sender, System.EventArgs e)
+    {
+
+
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        con1.Open();
+        string query = "Select * from product_stock where Com_Id='" + company_id + "' and Product_name='" + TextBox12.Text + "'";
+        SqlCommand cmd1 = new SqlCommand(query, con1);
+        SqlDataReader dr = cmd1.ExecuteReader();
+        if (dr.Read())
+        {
+
+
+            TextBox17.Text = dr["mrp"].ToString();
+            TextBox5.Text = "1";
+            TextBox15.Text = "0";
+            TextBox16.Text = "0.0";
+        }
+        con1.Close();
+
+        TextBox15.Focus();
+        try
+        {
+
+            float a = float.Parse(TextBox17.Text);
+            float b = float.Parse(TextBox5.Text);
+            TextBox18.Text = (a * b).ToString();
+            TextBox15.Focus();
+        }
+        catch (Exception we)
+        { }
+    } 
 }

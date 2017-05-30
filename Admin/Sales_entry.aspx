@@ -333,22 +333,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                   <li><a href="Main.aspx">Main Category</a></li>
-                                   <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                   <li><a href="Product_entry.aspx">Product Entry</a></li>
-                                   <li><a href="Tax_Entry.aspx">Tax entry</a></li>
-                                   <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                   <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
-                                   <li><a href="Vendor.aspx">Supplier Entry</a></li>
-                                   <li><a href="Department-Entry.aspx">Department Entry</a></li>
-                                   <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
+                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
+                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                    <li><a href="Tax_Entry.aspx">Tax entry</a></li>
+                                    <li><a href="Customer_type.aspx">Customer Type entry</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
+                                    <li><a href="Vendor.aspx">Supplier Entry</a></li>
+                                    <li><a href="Department-Entry.aspx">Department Entry</a></li>
+                                    <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -380,14 +378,15 @@
                           
                                
                             </li>
-                              
+                           
+                            
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                   <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                   <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                   <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                   <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -426,7 +425,28 @@
   
 
 
-
+  
+   <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+  <span style="color:black">Last Invoice no :</span> <asp:TextBox ID="TextBox1" runat="server" Width="40px"></asp:TextBox>
+    </ContentTemplate>
+                                <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                  <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click"  />
+                 
+                </Triggers>
+                           </asp:UpdatePanel>
+                            <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" ></asp:Button>&nbsp;
+  <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" 
+                                    >
+                                   <asp:ListItem>PDF</asp:ListItem>
+                                   <asp:ListItem>WORD</asp:ListItem>
+                                   <asp:ListItem>EXCEL</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button ID="Button8" runat="server" onclick="Button8_Click" 
+                                    Text="Print" />
+ <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" ></asp:Button>
+                          
                                 
                             </div>
                             
@@ -967,7 +987,7 @@
       </ContentTemplate>
       <Triggers>
                  <asp:AsyncPostBackTrigger ControlID="GridView1"  />
-                 
+              
                  <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                    
                 </Triggers>
@@ -1168,17 +1188,7 @@
 
                      
 
-                      <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" ></asp:Button>&nbsp;
-  <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" 
-                                    >
-                                   <asp:ListItem>PDF</asp:ListItem>
-                                   <asp:ListItem>WORD</asp:ListItem>
-                                   <asp:ListItem>EXCEL</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button ID="Button8" runat="server" onclick="Button8_Click" 
-                                    Text="Print" />
- <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" ></asp:Button>
-                          
+                     
                           
                            
 

@@ -146,7 +146,7 @@
         </nav>
         <section class="page">
 
-              <nav class="navbar-aside navbar-static-side" role="navigation">
+             <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -161,22 +161,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Main.aspx">Main Category</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -208,48 +206,15 @@
                           
                                
                             </li>
-                              <li>
-                                <a href="Customer-Entry.aspx"><i class="fa fa-male fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Customer </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer-Entry.aspx">Retail</a></li>
-                           </ul>
                            
-                          
-                               
-                            </li>
-                            
-                             <li>
-                                <a href="Vendor.aspx"><i class="fa fa-arrows-alt fa-2x" aria-hidden="true"></i>  <span class="nav-label">&nbsp;&nbsp; Supplier </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Vendor.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
-                             <li>
-                                <a href="Department-Entry.aspx"><i class="fa fa-th fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Department </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Department-Entry.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
-                             <li>
-                                <a href="Staff-Entry.aspx"><i class="fa fa-users fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Staff </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Staff-Entry.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                 <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -497,8 +462,6 @@
                       <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Save" onclick="Button1_Click" 
                           ></asp:Button>&nbsp;
  <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" 
-                          ></asp:Button>&nbsp;
-                           <asp:Button ID="Button3" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Cancel" onclick="Button2_Click" 
                           ></asp:Button>
                           </ContentTemplate>
                            </asp:UpdatePanel>
@@ -621,60 +584,95 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" 
+   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="3" 
          Font-Size="16px" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="4" 
-           onselectedindexchanged="GridView1_SelectedIndexChanged">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        onrowdatabound="GridView1_RowDataBound" PageSize="10" 
+           onselectedindexchanged="GridView1_SelectedIndexChanged" BackColor="White" 
+           BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
        <Columns>
-        <asp:TemplateField>
+        <asp:TemplateField HeaderText="Select">
            
            <ItemTemplate>
                <asp:CheckBox ID="CheckBox3" runat="server" />
             </ItemTemplate>
            
+            <HeaderStyle CssClass="Grd1" />
+            <ItemStyle CssClass="Grd1" />
+           
            </asp:TemplateField>
          
-           <asp:BoundField HeaderText="Vendor Code" DataField="Vendor_Code"  />
-           <asp:BoundField HeaderText="Vendor Name" DataField="Vendor_Name" />
-           <asp:BoundField HeaderText="Address" DataField="Vendor_Address"  />
-             <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no"  />
-               <asp:BoundField HeaderText="Bank Name" DataField="Bank_name"  />
-                 <asp:BoundField HeaderText="Account No" DataField="Account_no"  />
-                   <asp:BoundField HeaderText="Account Name" DataField="Account_Name"  /> 
-                   <asp:BoundField HeaderText="IFSC Code" DataField="IFSC_code"  />
-           <asp:BoundField HeaderText="Product" DataField="Product" />
-            <asp:TemplateField>
+           <asp:BoundField HeaderText="Vendor Code" DataField="Vendor_Code"  >
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Vendor Name" DataField="Vendor_Name" >
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Address" DataField="Vendor_Address"  >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             <asp:BoundField HeaderText="Mobile No" DataField="Mobile_no"  >
+               <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+               <asp:BoundField HeaderText="Bank Name" DataField="Bank_name"  >
+                 <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+                 <asp:BoundField HeaderText="Account No" DataField="Account_no"  >
+                   <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+                   <asp:BoundField HeaderText="Account Name" DataField="Account_Name"  > 
+                   <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+                   <asp:BoundField HeaderText="IFSC Code" DataField="IFSC_code"  >
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Product" DataField="Product" >
+            <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+            <asp:TemplateField HeaderText="Edit">
           <ItemTemplate>
             
           <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" Height="20px" Width="20px" onclick="ImageButton1_Click"  ></asp:ImageButton>
           </ItemTemplate>
           
+                <HeaderStyle CssClass="Grd1" />
+                <ItemStyle CssClass="Grd1" />
+          
           </asp:TemplateField>
-           <asp:TemplateField>
+           <asp:TemplateField HeaderText="Delete">
           <ItemTemplate>
               <asp:ImageButton ID="ImageButton9" runat="server" ImageUrl="~/delete3.png" Height="20px" Width="20px"  onclick="ImageButton9_Click" />
           
           </ItemTemplate>
           
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+          
           </asp:TemplateField>
        </Columns>
-       <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+       <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
-           HorizontalAlign="Center" />
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
   </ContentTemplate>
     <Triggers>

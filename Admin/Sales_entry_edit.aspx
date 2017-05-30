@@ -311,22 +311,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Main.aspx">Main Category</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -358,15 +356,15 @@
                           
                                
                             </li>
-                             
+                           
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                   <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                   <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                   <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                   <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -398,7 +396,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Retail sales edit 
+                                <h2>Cash sales edit 
                                  </h2>
                              
                              
@@ -602,8 +600,12 @@
    <td>
     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
    <ContentTemplate>
-  <asp:TextBox ID="TextBox12" runat="server"></asp:TextBox>
-   
+  <asp:TextBox ID="TextBox12" runat="server" ontextchanged="TextBox12_TextChanged" AutoPostBack="True"></asp:TextBox>
+   <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="TextBox12" WatermarkText="Enter Product Name" ></asp:TextBoxWatermarkExtender>
+                           <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="Searchproductname" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox12"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
    </ContentTemplate>
      <Triggers>
                   <asp:AsyncPostBackTrigger ControlID="TextBox12" EventName="TextChanged"  />  

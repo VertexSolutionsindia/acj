@@ -85,36 +85,7 @@
                     <a class="navbar-brand" href="#">ACJ Traders</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                           
-                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-<asp:Button ID="Button4" runat="server"  Text="ADD" class="btn btn-primary"></asp:Button> <span aria-hidden="true" class="glyphicon glyphicon-plus"></span> </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Main.aspx"><i class="fa fa-home fa-2x" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Category</a></li>
-                                   <li role="separator" class="divider"></li>
-                                <li><a href="Sub_category.aspx"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Sub Category </a></li>
-                                 <li role="separator" class="divider"></li>
-                                <li><a href="Product_entry.aspx"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Product Entry </a></li>
-                                   <li role="separator" class="divider"></li>
-                                <li><a href="Purchase_entry.aspx"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Purchase Entry </a></li>
-                                  <li role="separator" class="divider"></li>
-                                <li><a href="Stock_Inventory.aspx"><i class="fa fa-edit"></i> &nbsp;&nbsp&nbsp;Stock / Inventory </a></li>
-                                 <li role="separator" class="divider"></li>
-                                <li><a href="Customer-Entry.aspx"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  &nbsp;&nbsp&nbsp;New Customer Entry</a></li>
-
-                                <li role="separator" class="divider"></li>
-                                <li><a href="Vendor.aspx"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp;&nbsp&nbsp;Supplier Entry </a></li>
-                               
-                                  <li role="separator" class="divider"></li>
-                                <li><a href="Department-Entry.aspx"><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;New Department Entry  </a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="Sales_entry.aspx"><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Sales Entry </a></li>
-                               
-                            </ul>
-                        </li>
-                    </ul>
+               
                           
                     <ul class="nav navbar-nav navbar-right navbar-top-drops">
                         <li class="dropdown"><a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown">
@@ -141,7 +112,7 @@
         </nav>
         <section class="page">
 
-               <nav class="navbar-aside navbar-static-side" role="navigation">
+              <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -156,22 +127,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Main.aspx">Main Category</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -203,8 +172,7 @@
                           
                                
                             </li>
-                              
-                             
+                           
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
@@ -212,7 +180,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -370,7 +338,22 @@
                             </div><!-- End .panel -->
                             
                            
-                     
+                            <div class="container"><div class="row"><div class="col-sm-8 col-sm-offset-4">
+                    
+                       <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+   <ContentTemplate>
+  <h2 style="color: #990000"> Purchase Amount :</h2> <asp:TextBox ID="TextBox3" runat="server" style="font-size:30px" 
+           ></asp:TextBox>
+     </ContentTemplate>
+       <Triggers>
+    <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+                 <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+    
+      </Triggers>
+    </asp:UpdatePanel>
+                    
+                    </div></div></div>
+                    <hr />
                     
                    
                          <div class="container">
@@ -401,12 +384,37 @@
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" 
            AutoGenerateColumns="False">
        <Columns>
-           <asp:BoundField DataField="Date" HeaderText="Date" HeaderStyle-CssClass="Grd1">
-          
+       
+         
+           <asp:BoundField HeaderText="Invoice No" DataField="purchase_invoice"  >
+        
+           <HeaderStyle CssClass="Grd1" />
            </asp:BoundField>
-           <asp:BoundField DataField="Amount" HeaderText="Amount" HeaderStyle-CssClass="Grd1">
-          
+        
+           <asp:BoundField HeaderText="Date" DataField="date"  
+               DataFormatString="{0:dd/MM/yyyy}" >
+            <HeaderStyle CssClass="Grd1" />
            </asp:BoundField>
+            <asp:BoundField HeaderText="Supplier Name" DataField="Supplier"  >
+          
+              <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+          
+              <asp:BoundField HeaderText="Total Qty" DataField="Toal_qty" >
+                 
+            <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+                 
+            <asp:TemplateField HeaderText="Total Amount">
+                    <ItemTemplate>
+                        <asp:Label ID="lblSalary" runat="server" Text='<%# Eval("total_amount")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="Salary" runat="server" />
+                    </FooterTemplate>
+                    <HeaderStyle CssClass="Grd1" />
+                </asp:TemplateField>
+
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True"

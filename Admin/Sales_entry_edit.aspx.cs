@@ -86,12 +86,13 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
                 Label1.Text = dr["invoice_no"].ToString();
-                TextBox8.Text =Convert.ToDateTime( dr["date"]).ToString("dd/MM/yyyy");
+                TextBox8.Text =Convert.ToDateTime( dr["date"]).ToString("MM/dd/yyyy");
                 TextBox6.Text = dr["Mobile_no"].ToString();
                 TextBox13.Text = dr["customer_name"].ToString();
                 TextBox14.Text = dr["customer_Address"].ToString();
                 DropDownList3.SelectedItem.Text = dr["staff_name"].ToString();
-
+                TextBox23.Text = dr["dis_per"].ToString();
+                TextBox26.Text = dr["discount_amount"].ToString();
 
                 TextBox2.Text = dr["total_qty"].ToString();
                 TextBox10.Text = dr["total_amount"].ToString();
@@ -181,14 +182,13 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+          
         string ststus = "Sales";
         float value = 0;
         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("update sales_entry set date=@date,customer_name=@customer_name,customer_Address=@customer_Address,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,paid_amount=@paid_amount,Pending_amount=@Pending_amount,status=@status,value=@value,Com_Id=@Com_Id,discount_amount=@discount_amount,company_address=@company_address,dis_per=@dis_per where invoice_no='" + Label1.Text + "'", CON);
-      
+        SqlCommand cmd = new SqlCommand("update sales_entry set date=@date,customer_name=@customer_name,customer_Address=@customer_Address,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,paid_amount=@paid_amount,Pending_amount=@Pending_amount,status=@status,value=@value,Com_Id=@Com_Id,dis_per=@dis_per,discount_amount=@discount_amount where invoice_no='" + Label1.Text + "'", CON);
+
+        cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
         cmd.Parameters.AddWithValue("@customer_name", TextBox13.Text);
         cmd.Parameters.AddWithValue("@customer_Address", TextBox14.Text);
@@ -202,9 +202,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@status", ststus);
         cmd.Parameters.AddWithValue("@value", value);
         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-
         cmd.Parameters.AddWithValue("@discount_amount", TextBox26.Text);
-        cmd.Parameters.AddWithValue("@company_address", company_id1);
         cmd.Parameters.AddWithValue("@dis_per", TextBox23.Text);
         CON.Open();
         cmd.ExecuteNonQuery();
@@ -220,23 +218,33 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry updated successfully')", true);
-        BindData();
         show_category();
+        getinvoiceno();
+        getinvoiceno1();
+        BindData();
 
+
+
+        TextBox2.Text = "";
+        TextBox12.Text = "";
         TextBox10.Text = "";
+        TextBox11.Text = "";
+        TextBox26.Text = "";
         TextBox13.Text = "";
         TextBox14.Text = "";
         TextBox11.Text = "";
-        DataTable dataTable = new DataTable();
-        dataTable = null;
+        TextBox7.Text = "";
+        TextBox9.Text = "";
+        TextBox6.Text = "";
+        TextBox8.Text = "";
+        TextBox23.Text = "";
 
-        show_tax();
-        Session["Name"] = Label1.Text;
+            }
+            con1000.Close();
+        }
 
 
-
-
-        Response.Redirect("SALES_REPORT_VIEW.aspx");
+       
 
     }
     protected void ImageButton1_Click(object sender, System.Web.UI.ImageClickEventArgs e)
@@ -745,9 +753,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+          
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
         con.Open();
@@ -763,7 +769,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
             string product_code = dr1["code"].ToString();
 
             SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1 = new SqlCommand("insert into sales_entry_details values(@invoice_no,@s_no,@Category,@Sub_category,@Product_code,@product_name,@mrp,,@qty,@dis_per,@dis_amount,@total_amount,@Com_Id)", CON1);
+            SqlCommand cmd1 = new SqlCommand("insert into sales_entry_details values(@invoice_no,@s_no,@Category,@Sub_category,@Product_code,@product_name,@mrp,@qty,@dis_per,@dis_amount,@total_amount,@Com_Id)", CON1);
             cmd1.Parameters.AddWithValue("@invoice_no", Label1.Text);
             cmd1.Parameters.AddWithValue("@s_no", Label2.Text);
             cmd1.Parameters.AddWithValue("@Category", cat_id);
@@ -782,7 +788,7 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
 
 
             SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where Product_name='" + TextBox12.Text + "' and Com_Id='" + company_id + "'", CON11);
+            SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty-@qty where date=( select MIN(date) from product_stock where Product_name='" + TextBox12.Text + "' and qty >'" + Convert.ToInt32(TextBox5.Text) + "' and Com_Id='" + company_id + "')", CON11);
 
 
 
@@ -811,7 +817,9 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         }
         con.Close();
 
-
+            }
+            con1000.Close();
+        }
     }
 
     /*protected void TextBox1_TextChanged(object sender, System.EventArgs e)
@@ -879,5 +887,66 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         catch (Exception er)
         { }
     }
-    
+    [System.Web.Script.Services.ScriptMethod()]
+    [System.Web.Services.WebMethod]
+
+    public static List<string> Searchproductname(string prefixText, int count)
+    {
+        using (SqlConnection conn = new SqlConnection())
+        {
+            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "select distinct Product_name from product_stock where Com_Id=@Com_Id and " +
+                "Product_name like @Product_name + '%'";
+                cmd.Parameters.AddWithValue("@Product_name", prefixText);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Connection = conn;
+                conn.Open();
+                List<string> customers = new List<string>();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        customers.Add(sdr["Product_name"].ToString());
+                    }
+                }
+                conn.Close();
+                return customers;
+            }
+        }
+    }
+    protected void TextBox12_TextChanged(object sender, System.EventArgs e)
+    {
+
+
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        con1.Open();
+        string query = "Select * from product_stock where Com_Id='" + company_id + "' and Product_name='" + TextBox12.Text + "'";
+        SqlCommand cmd1 = new SqlCommand(query, con1);
+        SqlDataReader dr = cmd1.ExecuteReader();
+        if (dr.Read())
+        {
+
+
+            TextBox17.Text = dr["mrp"].ToString();
+            TextBox5.Text = "1";
+            TextBox15.Text = "0";
+            TextBox16.Text = "0.0";
+        }
+        con1.Close();
+
+        TextBox15.Focus();
+        try
+        {
+
+            float a = float.Parse(TextBox17.Text);
+            float b = float.Parse(TextBox5.Text);
+            TextBox18.Text = (a * b).ToString();
+            TextBox15.Focus();
+        }
+        catch (Exception we)
+        { }
+    } 
 }

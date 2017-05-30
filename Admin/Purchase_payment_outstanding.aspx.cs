@@ -228,11 +228,15 @@ public partial class Admin_Purchase_payment_outstanding : System.Web.UI.Page
     }
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        GridView1.PageIndex = e.NewPageIndex;
+        show_category();
     }
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
+        if (e.Row.RowType == DataControlRowType.Footer)
+        {
+            e.Row.Cells[0].Text = "Page " + (GridView1.PageIndex + 1) + " of " + GridView1.PageCount;
+        }
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
