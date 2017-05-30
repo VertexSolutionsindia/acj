@@ -135,7 +135,7 @@
         </nav>
         <section class="page">
 
-            <nav class="navbar-aside navbar-static-side" role="navigation">
+           <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -150,22 +150,20 @@
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    <li><a href="Main.aspx">Main Category</a></li>
+                                    <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -197,14 +195,15 @@
                           
                                
                             </li>
-                              
+                           
+                            
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                 <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -521,7 +520,7 @@
                <asp:BoundField HeaderText="Date" DataField="date" HeaderStyle-CssClass="red" ItemStyle-CssClass="red"  />
          
            <asp:BoundField HeaderText="Product Name" DataField="product_name" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
-             <asp:BoundField HeaderText="Barcode" DataField="barcode" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
+             <asp:BoundField HeaderText="Model" DataField="barcode" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
             
               <asp:BoundField HeaderText="MRP" DataField="mrp" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
                <asp:BoundField HeaderText="Purchase Price" DataField="purchase_price" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />

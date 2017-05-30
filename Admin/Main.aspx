@@ -152,7 +152,7 @@ th {
         </nav>
         <section class="page">
 
-               <nav class="navbar-aside navbar-static-side" role="navigation">
+              <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -167,23 +167,20 @@ th {
                                 <a href=""><i class="fa fa-folder-open fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp;Master </span><span class="fa arrow"></span></a>
                           
                           <ul class="nav nav-second-level collapse">
-                                    
                                     <li><a href="Main.aspx">Category</a></li>
                                     <li><a href="Sub_category.aspx">Sub-Category</a></li>
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
 
                            </ul>
-                               
-                            </li>
                            
 
-
+                           </li>
                            
 
                              <li>
@@ -209,53 +206,21 @@ th {
                              <li>
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                    <li><a href="Stock_Inventory.aspx">Product Stock</a></li>
+                                    <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
+                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
                            </ul>
                           
                                
                             </li>
-                              <li>
-                                <a href="Customer-Entry.aspx"><i class="fa fa-male fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Customer </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Customer-Entry.aspx">Retail</a></li>
-                           </ul>
-                          
-                          
-                               
-                            </li>
-                            
-                             <li>
-                                <a href="Vendor.aspx"><i class="fa fa-arrows-alt fa-2x" aria-hidden="true"></i>  <span class="nav-label">&nbsp;&nbsp; Supplier </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Vendor.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
-                             <li>
-                                <a href="Department-Entry.aspx"><i class="fa fa-th fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Department </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Department-Entry.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
-                             <li>
-                                <a href="Staff-Entry.aspx"><i class="fa fa-users fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Staff </span><span class="fa arrow"></span></a>
-                             <ul class="nav nav-second-level collapse">
-                                    <li><a href="Staff-Entry.aspx">Entry</a></li>
-                           </ul>
-                          
-                               
-                            </li>
+                           
                             
                              <li>
                                 <a href="Sales_entry.aspx"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Sales </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
-                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
-                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                 <li><a href="Sales credit report.aspx">Credit sales Report</a></li>
+                                <li><a href="Sales_entry.aspx">Cash Sales</a></li>
+                                <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
+                                <li><a href="Sales_credit.aspx">Credit sales</a></li>
+                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -467,31 +432,46 @@ th {
          Font-Size="16px" HeaderStyle-HorizontalAlign="center" 
            AutoGenerateColumns="False" AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" BackColor="White" 
+        onrowdatabound="GridView1_RowDataBound" PageSize="10" BackColor="White" 
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
        <Columns>
-       <asp:TemplateField>
+       <asp:TemplateField HeaderText="Select">
            
            <ItemTemplate>
                <asp:CheckBox ID="CheckBox2" runat="server" />
             </ItemTemplate>
            
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           
            </asp:TemplateField>
          
-           <asp:BoundField HeaderText="Category ID" DataField="category_id"  />
-           <asp:BoundField HeaderText="Category Name" DataField="categoryname" />
-             <asp:TemplateField>
+           <asp:BoundField HeaderText="Category ID" DataField="category_id"  >
+           <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Category Name" DataField="categoryname" >
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             <asp:TemplateField HeaderText="Edit">
           <ItemTemplate>
             
           <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" Height="20px" Width="20px" onclick="ImageButton1_Click"  ></asp:ImageButton>
           </ItemTemplate>
           
+                 <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
+          
           </asp:TemplateField>
-           <asp:TemplateField>
+           <asp:TemplateField HeaderText="Delete">
           <ItemTemplate>
               <asp:ImageButton ID="ImageButton9" runat="server" ImageUrl="~/delete3.png" Height="20px" Width="20px"  onclick="ImageButton9_Click" />
           
           </ItemTemplate>
+          
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
           
           </asp:TemplateField>
        </Columns>
@@ -579,9 +559,7 @@ th {
           </asp:UpdatePanel> 
        
         </tr>
-            <caption>
-                th { text-align: center; }
-            </caption>
+          
         </table>
         </div>
 

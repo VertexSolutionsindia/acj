@@ -33,6 +33,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
 
+
+
         if (!IsPostBack)
         {
 
@@ -42,6 +44,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             TextBox5.Attributes.Add("onkeypress", "return controlEnter('" + TextBox6.ClientID + "', event)");
             TextBox6.Attributes.Add("onkeypress", "return controlEnter('" + TextBox13.ClientID + "', event)");
             TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox16.ClientID + "', event)");
+            TextBox29.Attributes.Add("onkeypress", "return controlEnter('" + TextBox32.ClientID + "', event)");
 
 
             DateTime date = DateTime.Now;
@@ -124,6 +127,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                     }
                     con1000.Close();
                 }
+
                 SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                 SqlCommand cmd = new SqlCommand("insert into product_entry values(@code,@category_id,@subcategory_id,@product_name,@Com_Id,@category_name,@subcategory_name)", CON);
                 cmd.Parameters.AddWithValue("@code", Label20.Text);
@@ -136,7 +140,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 CON.Open();
                 cmd.ExecuteNonQuery();
                 CON.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Product Added successfully')", true);
+
                 BindData();
 
                 getinvoiceno();
@@ -146,6 +150,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 show_category1();
 
             }
+            TextBox25.Text = "";
+
         }
 
 
@@ -243,7 +249,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 show_category1();
                 getinvoicenosubcategory();
                 TextBox24.Text = "";
-                this.ModalPopupExtender1.Show();
+                this.ModalPopupExtender1.Hide();
             }
         }
 
@@ -386,6 +392,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 BindData();
                 show_category();
                 getinvoiceno();
+                show_category1();
                 TextBox3.Text = "";
             }
             con1.Close();
@@ -394,7 +401,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         }
         TextBox23.Text = "";
         getinvoicenocategory();
-        this.ModalPopupExtender2.Show();
+        this.ModalPopupExtender2.Hide();
     }
     private void getinvoicenocategory()
     {
@@ -463,46 +470,45 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 {
                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+
+                    SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd = new SqlCommand("insert into Vendor values(@Vendor_Code,@Vendor_Name,@Vendor_Address,@Mobile_no,@Bank_name,@Account_no,@Account_Name,@IFSC_code,@Product,@Com_Id)", CON);
+                    cmd.Parameters.AddWithValue("@Vendor_Code", Label29.Text);
+                    cmd.Parameters.AddWithValue("@Vendor_Name", HttpUtility.HtmlDecode(TextBox1.Text));
+                    cmd.Parameters.AddWithValue("@Vendor_Address", HttpUtility.HtmlDecode(TextBox17.Text));
+                    cmd.Parameters.AddWithValue("@Mobile_no", HttpUtility.HtmlDecode(TextBox18.Text));
+                    cmd.Parameters.AddWithValue("@Bank_name", HttpUtility.HtmlDecode(TextBox19.Text));
+                    cmd.Parameters.AddWithValue("@Account_no", HttpUtility.HtmlDecode(TextBox20.Text));
+                    cmd.Parameters.AddWithValue("@Account_Name", HttpUtility.HtmlDecode(TextBox21.Text));
+                    cmd.Parameters.AddWithValue("@IFSC_code", HttpUtility.HtmlDecode(TextBox22.Text));
+                    cmd.Parameters.AddWithValue("@Product", HttpUtility.HtmlDecode(DropDownList1.SelectedItem.Text));
+                    cmd.Parameters.AddWithValue("@Com_Id", company_id);
+
+                    CON.Open();
+                    cmd.ExecuteNonQuery();
+                    CON.Close();
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Supplier Added successfully')", true);
+                    BindData();
+                    show_category();
+                    getinvoiceno();
+                    TextBox1.Text = "";
+                    TextBox17.Text = "";
+                    TextBox18.Text = "";
+                    TextBox19.Text = "";
+                    TextBox20.Text = "";
+                    TextBox21.Text = "";
+                    TextBox22.Text = "";
+                    show_product();
+                    show_category();
+                    getinvoiceno2();
+                    this.ModalPopupExtender3.Hide();
                 }
                 con1000.Close();
             }
-
-            SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("insert into Vendor values(@Vendor_Code,@Vendor_Name,@Vendor_Address,@Mobile_no,@Bank_name,@Account_no,@Account_Name,@IFSC_code,@Product,@Com_Id)", CON);
-            cmd.Parameters.AddWithValue("@Vendor_Code", Label29.Text);
-            cmd.Parameters.AddWithValue("@Vendor_Name", HttpUtility.HtmlDecode(TextBox1.Text));
-            cmd.Parameters.AddWithValue("@Vendor_Address", HttpUtility.HtmlDecode(TextBox17.Text));
-            cmd.Parameters.AddWithValue("@Mobile_no", HttpUtility.HtmlDecode(TextBox18.Text));
-            cmd.Parameters.AddWithValue("@Bank_name", HttpUtility.HtmlDecode(TextBox19.Text));
-            cmd.Parameters.AddWithValue("@Account_no", HttpUtility.HtmlDecode(TextBox20.Text));
-            cmd.Parameters.AddWithValue("@Account_Name", HttpUtility.HtmlDecode(TextBox21.Text));
-            cmd.Parameters.AddWithValue("@IFSC_code", HttpUtility.HtmlDecode(TextBox22.Text));
-            cmd.Parameters.AddWithValue("@Product", HttpUtility.HtmlDecode(DropDownList1.SelectedItem.Text));
-            cmd.Parameters.AddWithValue("@Com_Id", company_id);
-
-            CON.Open();
-            cmd.ExecuteNonQuery();
-            CON.Close();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Supplier Added successfully')", true);
-            BindData();
-            show_category();
-            getinvoiceno();
-            TextBox1.Text = "";
-            TextBox17.Text = "";
-            TextBox18.Text = "";
-            TextBox19.Text = "";
-            TextBox20.Text = "";
-            TextBox21.Text = "";
-            TextBox22.Text = "";
-            show_product();
-            show_category();
-            getinvoiceno2();
-            this.ModalPopupExtender3.Show();
-
         }
-
-
     }
+
 
     protected void BindData()
     {
@@ -521,7 +527,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_details where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' order by RowNumber asc", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_entry_details where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' order by RowNumber asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -674,7 +680,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         con1.Open();
-        string query = "Select max(convert(int,SubString(RowNumber,PATINDEX('%[0-9]%',RowNumber),Len(RowNumber)))) from purchase_unbilled_details where Com_Id='" + company_id + "' and purchase_invoice='" + Label1.Text + "'";
+        string query = "Select max(convert(int,SubString(RowNumber,PATINDEX('%[0-9]%',RowNumber),Len(RowNumber)))) from purchase_unbilled_entry_details where Com_Id='" + company_id + "' and purchase_invoice='" + Label1.Text + "'";
         SqlCommand cmd1 = new SqlCommand(query, con1);
         SqlDataReader dr = cmd1.ExecuteReader();
         if (dr.Read())
@@ -705,7 +711,6 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         {
 
 
-
             if (User.Identity.IsAuthenticated)
             {
                 SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -717,165 +722,112 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 {
                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                    SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1 = new SqlCommand("select * from purchase_unbilled_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ", con1);
+                    con1.Open();
+                    SqlDataReader dr1;
+                    dr1 = cmd1.ExecuteReader();
+                    if (dr1.HasRows)
+                    {
+
+                        string status = "Purchase";
+                        float value = 0;
+                        SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand cmd = new SqlCommand("update purchase_unbilled_entry set date=@date,Supplier=@Supplier,address=@address,mobile_no=@mobile_no,Toal_qty=@Toal_qty,total_amount=@total_amount,Grand__total=@Grand__total,Com_Id=@Com_Id,paid_amount=@paid_amount,pending_amount=@pending_amount,status=@status,value=@value where purchase_invoice=@purchase_invoice", CON);
+                        cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
+                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+                        cmd.Parameters.AddWithValue("@address", TextBox12.Text);
+                        cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
+                        cmd.Parameters.AddWithValue("@Toal_qty", TextBox4.Text);
+                        cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox10.Text));
+                        cmd.Parameters.AddWithValue("@Grand__total", float.Parse(TextBox11.Text));
+                        cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                        cmd.Parameters.AddWithValue("@paid_amount", float.Parse(TextBox7.Text));
+                        cmd.Parameters.AddWithValue("@pending_amount", float.Parse(TextBox9.Text));
+                        cmd.Parameters.AddWithValue("@status", status);
+                        cmd.Parameters.AddWithValue("@value", value);
+                        CON.Open();
+                        cmd.ExecuteNonQuery();
+                        CON.Close();
+
+                        
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Purchase entry updated successfully')", true);
+
+                        show_category();
+                        getinvoiceno();
+                        TextBox10.Text = "";
+                        TextBox11.Text = "";
+                        TextBox7.Text = "";
+                        TextBox9.Text = "";
+                        TextBox12.Text = "";
+                        BindData();
+                        getinvoiceno1();
+                        TextBox8.Text = "";
+                        TextBox14.Text = "";
+                        TextBox4.Text = "";
+                        show_tax();
+
+                    }
+                    else
+                    {
+
+
+
+
+                        string status = "Purchase";
+                        float value = 0;
+                        SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand cmd = new SqlCommand("insert into purchase_unbilled_entry values(@purchase_invoice,@date,@Supplier,@address,@mobile_no,@Toal_qty,@total_amount,@Grand__total,@Com_Id,@paid_amount,@pending_amount,@status,@value)", CON);
+                        cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
+                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+                        cmd.Parameters.AddWithValue("@address", TextBox12.Text);
+                        cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
+                        cmd.Parameters.AddWithValue("@Toal_qty", TextBox4.Text);
+                        cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox10.Text));
+                        cmd.Parameters.AddWithValue("@Grand__total", float.Parse(TextBox11.Text));
+                        cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                        cmd.Parameters.AddWithValue("@paid_amount", float.Parse(TextBox7.Text));
+                        cmd.Parameters.AddWithValue("@pending_amount", float.Parse(TextBox9.Text));
+                        cmd.Parameters.AddWithValue("@status", status);
+                        cmd.Parameters.AddWithValue("@value", value);
+                        CON.Open();
+                        cmd.ExecuteNonQuery();
+                        CON.Close();
+
+
+                       
+
+
+
+
+
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Purchase entry created successfully')", true);
+
+                        show_category();
+                        getinvoiceno();
+                        TextBox10.Text = "";
+                        TextBox11.Text = "";
+                        TextBox7.Text = "";
+                        TextBox9.Text = "";
+                        TextBox12.Text = "";
+                        BindData();
+                        getinvoiceno1();
+                        TextBox8.Text = "";
+                        TextBox14.Text = "";
+                        TextBox4.Text = "";
+                        show_tax();
+                    }
                 }
                 con1000.Close();
-            }
-            string status = "Purchase";
-            float value = 0;
-            SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("insert into purchase_unbilled_entry values(@purchase_invoice,@date,@Supplier,@Toal_qty,@total_amount,@Grand__total,@Com_Id,@paid_amount,@pending_amount,@status,@value)", CON);
-            cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-            cmd.Parameters.AddWithValue("@date", TextBox8.Text);
-            cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
-            cmd.Parameters.AddWithValue("@Toal_qty", TextBox4.Text);
-            cmd.Parameters.AddWithValue("@total_amount", TextBox10.Text);
-            cmd.Parameters.AddWithValue("@Grand__total", TextBox11.Text);
-            cmd.Parameters.AddWithValue("@Com_Id", company_id);
-            cmd.Parameters.AddWithValue("@paid_amount", TextBox7.Text);
-            cmd.Parameters.AddWithValue("@pending_amount", TextBox9.Text);
-            cmd.Parameters.AddWithValue("@status", status);
-            cmd.Parameters.AddWithValue("@value", value);
-            CON.Open();
-            cmd.ExecuteNonQuery();
-            CON.Close();
-
-
-            int a111 = 0;
-            float b11 = 0;
-            float f11 = 0;
-            float c11 = 0;
-            SqlConnection con100 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-            SqlCommand cmd100 = new SqlCommand("SELECT * FROM pay_amount_status WHERE Buyer = @Buyer and Com_Id='" + company_id + "'", con100);
-            cmd100.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-            con100.Open();
-            SqlDataReader reader1 = cmd100.ExecuteReader();
-            if (reader1.HasRows)
-            {
-                SqlConnection con11 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                SqlCommand cmd11 = new SqlCommand("Select * from pay_amount_status where Buyer='" + DropDownList3.SelectedItem.Text + "' and  Com_Id='" + company_id + "'", con11);
-                con11.Open();
-                SqlDataReader dr11;
-                dr11 = cmd11.ExecuteReader();
-                if (dr11.Read())
-                {
-
-                    b11 = float.Parse(dr11["pending_amount"].ToString());
-
-
-                    f11 = float.Parse(TextBox9.Text);
-
-                    c11 = (b11 + f11);
-
-
-
-
-
-
-                    SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                    SqlCommand cmd24 = new SqlCommand("insert into pay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id)", con24);
-                    cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                    cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
-                    cmd24.Parameters.AddWithValue("@Estimate_value", TextBox11.Text);
-                    cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
-
-                    cmd24.Parameters.AddWithValue("@total_amount", string.Format("{0:0.00}", TextBox11.Text));
-                    cmd24.Parameters.AddWithValue("@pay_amount", TextBox7.Text);
-                    cmd24.Parameters.AddWithValue("@pending_amount", string.Format("{0:0.00}", TextBox9.Text));
-                    cmd24.Parameters.AddWithValue("@outstanding", string.Format("{0:0.00}", c11));
-
-                    cmd24.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                    cmd24.Parameters.AddWithValue("@Com_Id", company_id);
-
-                    con24.Open();
-                    cmd24.ExecuteNonQuery();
-                    con24.Close();
-
-
-                    SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                    SqlCommand cmd23 = new SqlCommand("update pay_amount_status set address=@address,total_amount=total_amount+@total_amount,pending_amount=pending_amount+@pending_amount where Buyer='" + DropDownList3.SelectedItem.Text + "' and Com_Id='" + company_id + "' ", con23);
-
-                    cmd23.Parameters.AddWithValue("@address", TextBox12.Text);
-
-                    cmd23.Parameters.AddWithValue("@total_amount", string.Format("{0:0.00}", TextBox11.Text));
-
-                    cmd23.Parameters.AddWithValue("@pending_amount", string.Format("{0:0.00}", TextBox9.Text));
-
-                    con23.Open();
-                    cmd23.ExecuteNonQuery();
-                    con23.Close();
-
-
-                }
-
-                con11.Close();
-
-
-
 
 
 
             }
-            else
-            {
-
-
-                SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                SqlCommand cmd23 = new SqlCommand("insert into pay_amount_status values(@Buyer,@address,@total_amount,@pending_amount,@paid_amount,@Com_Id)", con23);
-                cmd23.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                cmd23.Parameters.AddWithValue("@address", TextBox12.Text);
-
-                cmd23.Parameters.AddWithValue("@total_amount", string.Format("{0:0.00}", TextBox11.Text));
-
-                cmd23.Parameters.AddWithValue("@pending_amount", string.Format("{0:0.00}", TextBox9.Text));
-                cmd23.Parameters.AddWithValue("@paid_amount", TextBox7.Text);
-                cmd23.Parameters.AddWithValue("@Com_Id", company_id);
-                con23.Open();
-                cmd23.ExecuteNonQuery();
-                con23.Close();
-                string return_by = "";
-                int value1 = 0;
-                SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-                SqlCommand cmd24 = new SqlCommand("insert into pay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id)", con24);
-                cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
-                cmd24.Parameters.AddWithValue("@Estimate_value", TextBox11.Text);
-                cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
-
-                cmd24.Parameters.AddWithValue("@total_amount", string.Format("{0:0.00}", TextBox11.Text));
-                cmd24.Parameters.AddWithValue("@pay_amount", TextBox7.Text);
-                cmd24.Parameters.AddWithValue("@pending_amount", string.Format("{0:0.00}", TextBox9.Text));
-                cmd24.Parameters.AddWithValue("@outstanding", string.Format("{0:0.00}", TextBox9.Text));
-                cmd24.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                cmd24.Parameters.AddWithValue("@Com_Id", company_id);
-                con24.Open();
-                cmd24.ExecuteNonQuery();
-                con24.Close();
-
-
-            }
-            con100.Close();
-
-
-
         }
-
-
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Unbilled Purchase entry created successfully')", true);
-
-        show_category();
-        getinvoiceno();
-        TextBox10.Text = "";
-        TextBox11.Text = "";
-        TextBox7.Text = "";
-        TextBox9.Text = "";
-        TextBox12.Text = "";
-        BindData();
-        getinvoiceno1();
-        TextBox8.Text = "";
-
-        TextBox4.Text = "";
-        show_tax();
-
 
     }
     private void SaveDetail(GridViewRow row)
@@ -887,8 +839,10 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
 
-        BindData();
+
         show_category();
+        getinvoiceno();
+        getinvoiceno1();
 
         TextBox10.Text = "";
         TextBox11.Text = "";
@@ -900,6 +854,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox9.Text = "";
         TextBox12.Text = "";
         show_tax();
+        BindData();
+        TextBox14.Text = "";
     }
     private void active()
     {
@@ -1142,7 +1098,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         if (dr.Read())
         {
             TextBox12.Text = dr["Vendor_Address"].ToString();
-
+            TextBox14.Text = dr["Mobile_no"].ToString();
         }
         con.Close();
 
@@ -1206,7 +1162,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
             float a = float.Parse(TextBox6.Text);
             float b = float.Parse(TextBox13.Text);
-            TextBox16.Text = (a * b).ToString();
+            TextBox16.Text = Convert.ToDecimal(a * b).ToString("#,##0.00");
             /*TextBox16.Focus();*/
             /*TextBox16.Text = string.Format("{0:0.00}", (total)).ToString();*/
             Button3.Focus();
@@ -1279,106 +1235,94 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 {
                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                    SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+                    con.Open();
+
+                    SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ", con);
+                    SqlDataReader dr1;
+                    dr1 = cmd2.ExecuteReader();
+                    if (dr1.Read())
+                    {
+
+                        string cat_id = dr1["category_name"].ToString();
+                        string sub_id = dr1["subcategory_name"].ToString();
+                        string product_code = dr1["code"].ToString();
+
+                        SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand cmd1 = new SqlCommand("insert into purchase_unbilled_entry_details values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@RowNumber)", CON1);
+                        cmd1.Parameters.AddWithValue("@Category", cat_id);
+                        cmd1.Parameters.AddWithValue("@subcategory", sub_id);
+                        cmd1.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
+                        cmd1.Parameters.AddWithValue("@Product_code", product_code);
+                        cmd1.Parameters.AddWithValue("@Product_name", TextBox2.Text);
+                        cmd1.Parameters.AddWithValue("@barcode", TextBox3.Text);
+
+                        cmd1.Parameters.AddWithValue("@mrp", TextBox5.Text);
+                        cmd1.Parameters.AddWithValue("@Purchase_price", TextBox6.Text);
+
+
+                        cmd1.Parameters.AddWithValue("@qty", TextBox13.Text);
+                        cmd1.Parameters.AddWithValue("@total_amount", float.Parse(TextBox16.Text));
+                        cmd1.Parameters.AddWithValue("@Com_Id", company_id);
+                        cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+                        cmd1.Parameters.AddWithValue("@RowNumber", Label2.Text);
+                        CON1.Open();
+                        cmd1.ExecuteNonQuery();
+                        CON1.Close();
+
+                        string status = "unbilled";
+
+                        SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand cmd11 = new SqlCommand("insert into product_stock values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@row_number,@status)", CON11);
+                        cmd11.Parameters.AddWithValue("@Category", cat_id);
+                        cmd11.Parameters.AddWithValue("@subcategory", sub_id);
+                        cmd11.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
+                        cmd11.Parameters.AddWithValue("@Product_code", product_code);
+                        cmd11.Parameters.AddWithValue("@Product_name", TextBox2.Text);
+                        cmd11.Parameters.AddWithValue("@barcode", TextBox3.Text);
+
+                        cmd11.Parameters.AddWithValue("@mrp", TextBox5.Text);
+                        cmd11.Parameters.AddWithValue("@Purchase_price", TextBox6.Text);
+
+
+                        cmd11.Parameters.AddWithValue("@qty", TextBox13.Text);
+                        cmd11.Parameters.AddWithValue("@total_amount", float.Parse(TextBox16.Text));
+                        cmd11.Parameters.AddWithValue("@Com_Id", company_id);
+                        cmd11.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd11.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+                        cmd11.Parameters.AddWithValue("@row_number", Label2.Text);
+                        cmd11.Parameters.AddWithValue("@status", status);
+                        CON11.Open();
+                        cmd11.ExecuteNonQuery();
+                        CON11.Close();
+
+
+
+                        BindData();
+                        getinvoiceno1();
+                        TextBox2.Text = "";
+                        TextBox3.Text = "";
+                        TextBox5.Text = "";
+                        TextBox6.Text = "";
+                        TextBox13.Text = "";
+                        TextBox16.Text = "";
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
+                    }
+                    con.Close();
+
+
+
+
                 }
                 con1000.Close();
             }
-            SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-
-            con.Open();
-
-            SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ", con);
-            SqlDataReader dr1;
-            dr1 = cmd2.ExecuteReader();
-            if (dr1.Read())
-            {
-
-                string cat_id = dr1["category_name"].ToString();
-                string sub_id = dr1["subcategory_name"].ToString();
-                string product_code = dr1["code"].ToString();
-
-                SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd1 = new SqlCommand("insert into purchase_unbilled_details values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@RowNumber)", CON1);
-                cmd1.Parameters.AddWithValue("@Category", cat_id);
-                cmd1.Parameters.AddWithValue("@subcategory", sub_id);
-                cmd1.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                cmd1.Parameters.AddWithValue("@Product_code", product_code);
-                cmd1.Parameters.AddWithValue("@Product_name", TextBox2.Text);
-                cmd1.Parameters.AddWithValue("@barcode", TextBox3.Text);
-
-                cmd1.Parameters.AddWithValue("@mrp", TextBox5.Text);
-                cmd1.Parameters.AddWithValue("@Purchase_price", TextBox6.Text);
-
-
-                cmd1.Parameters.AddWithValue("@qty", TextBox13.Text);
-                cmd1.Parameters.AddWithValue("@total_amount", TextBox16.Text);
-                cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-                cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
-                cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
-                cmd1.Parameters.AddWithValue("@RowNumber", Label2.Text);
-                CON1.Open();
-                cmd1.ExecuteNonQuery();
-                CON1.Close();
-
-
-                if (User.Identity.IsAuthenticated)
-                {
-                    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                    SqlDataReader dr1000;
-                    con1000.Open();
-                    dr1000 = cmd1000.ExecuteReader();
-                    if (dr1000.Read())
-                    {
-                        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-                    }
-                    con1000.Close();
-                }
-                SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd11 = new SqlCommand("insert into product_unbilled_stock values(@Category,@subcategory,@purchase_invoice,@Product_code,@Product_name,@barcode,@mrp,@Purchase_price,@qty,@total_amount,@Com_Id,@date,@Supplier,@row_number)", CON11);
-                cmd11.Parameters.AddWithValue("@Category", cat_id);
-                cmd11.Parameters.AddWithValue("@subcategory", sub_id);
-                cmd11.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                cmd11.Parameters.AddWithValue("@Product_code", product_code);
-                cmd11.Parameters.AddWithValue("@Product_name", TextBox2.Text);
-                cmd11.Parameters.AddWithValue("@barcode", TextBox3.Text);
-
-                cmd11.Parameters.AddWithValue("@mrp", TextBox5.Text);
-                cmd11.Parameters.AddWithValue("@Purchase_price", TextBox6.Text);
-
-
-                cmd11.Parameters.AddWithValue("@qty", TextBox13.Text);
-                cmd11.Parameters.AddWithValue("@total_amount", TextBox16.Text);
-                cmd11.Parameters.AddWithValue("@Com_Id", company_id);
-                cmd11.Parameters.AddWithValue("@date", TextBox8.Text);
-                cmd11.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
-                cmd11.Parameters.AddWithValue("@row_number", Label2.Text);
-                CON11.Open();
-                cmd11.ExecuteNonQuery();
-                CON11.Close();
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Product added successfully')", true);
-
-                BindData();
-                getinvoiceno1();
-                TextBox2.Text = "";
-                TextBox3.Text = "";
-                TextBox5.Text = "";
-                TextBox6.Text = "";
-                TextBox13.Text = "";
-                TextBox16.Text = "";
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
-            }
-            con.Close();
-
         }
-
-
-
-
     }
 
     protected void Button22_Click(object sender, System.EventArgs e)
@@ -1396,104 +1340,92 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+
+                con.Open();
+
+                SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox33.Text + "' and Com_Id='" + company_id + "' ", con);
+                SqlDataReader dr1;
+                dr1 = cmd2.ExecuteReader();
+                if (dr1.Read())
+                {
+
+                    int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
+                    int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
+                    string product_code = dr1["code"].ToString();
+
+                    SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1 = new SqlCommand("update purchase_unbilled_entry_details set Category=@Category,subcategory=@subcategory,Product_code=@Product_code,Product_name=@Product_name,barcode=@barcode,mrp=@mrp,Purchase_price=@Purchase_price,qty=@qty,total_amount=@total_amount,Com_Id=@Com_Id,date=@date,Supplier=@Supplier where purchase_invoice='" + Label38.Text + "' and RowNumber='" + Label41.Text + "' and Com_Id='" + company_id + "'", CON1);
+                    cmd1.Parameters.AddWithValue("@Category", cat_id);
+                    cmd1.Parameters.AddWithValue("@subcategory", sub_id);
+
+                    cmd1.Parameters.AddWithValue("@Product_code", product_code);
+                    cmd1.Parameters.AddWithValue("@Product_name", TextBox33.Text);
+                    cmd1.Parameters.AddWithValue("@barcode", TextBox26.Text);
+
+                    cmd1.Parameters.AddWithValue("@mrp", TextBox27.Text);
+                    cmd1.Parameters.AddWithValue("@Purchase_price", TextBox28.Text);
+
+
+                    cmd1.Parameters.AddWithValue("@qty", TextBox29.Text);
+                    cmd1.Parameters.AddWithValue("@total_amount", TextBox32.Text);
+                    cmd1.Parameters.AddWithValue("@Com_Id", company_id);
+                    cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+                    cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+
+                    CON1.Open();
+                    cmd1.ExecuteNonQuery();
+                    CON1.Close();
+
+
+                    string status = "unbilled";
+
+                    SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd11 = new SqlCommand("update product_stock set Category=@Category,subcategory=@subcategory,Product_code=@Product_code,Product_name=@Product_name,barcode=@barcode,mrp=@mrp,Purchase_price=@Purchase_price,qty=@qty,total_amount=@total_amount,Com_Id=@Com_Id,date=@date,Supplier=@Supplier,status=@status where purchase_invoice='" + Label38.Text + "' and row_number='" + Label41.Text + "' and Com_Id='" + company_id + "'", CON11);
+                    cmd11.Parameters.AddWithValue("@Category", cat_id);
+                    cmd11.Parameters.AddWithValue("@subcategory", sub_id);
+
+                    cmd11.Parameters.AddWithValue("@Product_code", product_code);
+                    cmd11.Parameters.AddWithValue("@Product_name", TextBox33.Text);
+                    cmd11.Parameters.AddWithValue("@barcode", TextBox26.Text);
+
+                    cmd11.Parameters.AddWithValue("@mrp", TextBox27.Text);
+                    cmd11.Parameters.AddWithValue("@Purchase_price", TextBox28.Text);
+
+
+                    cmd11.Parameters.AddWithValue("@qty", TextBox29.Text);
+                    cmd11.Parameters.AddWithValue("@total_amount", TextBox32.Text);
+                    cmd11.Parameters.AddWithValue("@Com_Id", company_id);
+                    cmd11.Parameters.AddWithValue("@date", TextBox8.Text);
+                    cmd11.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
+                  
+                    cmd11.Parameters.AddWithValue("@status", status);
+                    CON11.Open();
+                    cmd11.ExecuteNonQuery();
+                    CON11.Close();
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product updated successfully')", true);
+
+                    BindData();
+                    getinvoiceno1();
+                    TextBox33.Text = "";
+                    TextBox26.Text = "";
+                    TextBox27.Text = "";
+                    TextBox28.Text = "";
+                    TextBox29.Text = "";
+                    TextBox32.Text = "";
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
+                }
+                con.Close();
+
+
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-
-        con.Open();
-
-        SqlCommand cmd2 = new SqlCommand("select * from product_entry where product_name='" + TextBox33.Text + "' and Com_Id='" + company_id + "' ", con);
-        SqlDataReader dr1;
-        dr1 = cmd2.ExecuteReader();
-        if (dr1.Read())
-        {
-
-            int cat_id = Convert.ToInt32(dr1["category_id"].ToString());
-            int sub_id = Convert.ToInt32(dr1["subcategory_id"].ToString());
-            string product_code = dr1["code"].ToString();
-
-            SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1 = new SqlCommand("update purchase_unbilled_details set Category=@Category,subcategory=@subcategory,Product_code=@Product_code,Product_name=@Product_name,barcode=@barcode,mrp=@mrp,Purchase_price=@Purchase_price,qty=@qty,total_amount=@total_amount,Com_Id=@Com_Id,date=@date,Supplier=@Supplier where purchase_invoice='" + Label38.Text + "' and RowNumber='" + Label41.Text + "' and Com_Id='" + company_id + "'", CON1);
-            cmd1.Parameters.AddWithValue("@Category", cat_id);
-            cmd1.Parameters.AddWithValue("@subcategory", sub_id);
-
-            cmd1.Parameters.AddWithValue("@Product_code", product_code);
-            cmd1.Parameters.AddWithValue("@Product_name", TextBox33.Text);
-            cmd1.Parameters.AddWithValue("@barcode", TextBox26.Text);
-
-            cmd1.Parameters.AddWithValue("@mrp", TextBox27.Text);
-            cmd1.Parameters.AddWithValue("@Purchase_price", TextBox28.Text);
-
-
-            cmd1.Parameters.AddWithValue("@qty", TextBox29.Text);
-            cmd1.Parameters.AddWithValue("@total_amount", TextBox32.Text);
-            cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-            cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
-            cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
-
-            CON1.Open();
-            cmd1.ExecuteNonQuery();
-            CON1.Close();
-
-
-            if (User.Identity.IsAuthenticated)
-            {
-                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                SqlDataReader dr1000;
-                con1000.Open();
-                dr1000 = cmd1000.ExecuteReader();
-                if (dr1000.Read())
-                {
-                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-                }
-                con1000.Close();
-            }
-
-            SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd11 = new SqlCommand("update product_unbilled_stock set Category=@Category,subcategory=@subcategory,Product_code=@Product_code,Product_name=@Product_name,barcode=@barcode,mrp=@mrp,Purchase_price=@Purchase_price,qty=@qty,total_amount=@total_amount,Com_Id=@Com_Id,date=@date,Supplier=@Supplier where purchase_invoice='" + Label38.Text + "' and row_number='" + Label41.Text + "' and Com_Id='" + company_id + "'", CON11);
-            cmd11.Parameters.AddWithValue("@Category", cat_id);
-            cmd11.Parameters.AddWithValue("@subcategory", sub_id);
-
-            cmd11.Parameters.AddWithValue("@Product_code", product_code);
-            cmd11.Parameters.AddWithValue("@Product_name", TextBox33.Text);
-            cmd11.Parameters.AddWithValue("@barcode", TextBox26.Text);
-
-            cmd11.Parameters.AddWithValue("@mrp", TextBox27.Text);
-            cmd11.Parameters.AddWithValue("@Purchase_price", TextBox28.Text);
-
-
-            cmd11.Parameters.AddWithValue("@qty", TextBox29.Text);
-            cmd11.Parameters.AddWithValue("@total_amount", TextBox32.Text);
-            cmd11.Parameters.AddWithValue("@Com_Id", company_id);
-            cmd11.Parameters.AddWithValue("@date", TextBox8.Text);
-            cmd11.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
-
-            CON11.Open();
-            cmd11.ExecuteNonQuery();
-            CON11.Close();
-
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product updated successfully')", true);
-
-            BindData();
-            getinvoiceno1();
-            TextBox33.Text = "";
-            TextBox26.Text = "";
-            TextBox27.Text = "";
-            TextBox28.Text = "";
-            TextBox29.Text = "";
-            TextBox32.Text = "";
-        }
-        else
-        {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
-        }
-        con.Close();
-
-
-
 
 
 
@@ -1526,14 +1458,14 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
         con1.Open();
-        SqlCommand cmd1 = new SqlCommand("delete from Purchase_unbilled_details where RowNumber='" + s_no + "' and purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con1);
+        SqlCommand cmd1 = new SqlCommand("delete from Purchase_unbilled_entry_details where RowNumber='" + s_no + "' and purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con1);
         cmd1.ExecuteNonQuery();
         con1.Close();
 
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
         con2.Open();
-        SqlCommand cmd2 = new SqlCommand("delete from product_unbilled_stock where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+        SqlCommand cmd2 = new SqlCommand("delete from product_stock where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
         cmd2.ExecuteNonQuery();
         con2.Close();
 
@@ -1546,18 +1478,18 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            tot = tot + float.Parse(e.Row.Cells[6].Text);
+            tot = tot + float.Parse(e.Row.Cells[5].Text);
 
         }
-        TextBox4.Text = tot.ToString();
+        TextBox4.Text = Convert.ToDecimal(tot).ToString("#,##0.00");
 
-        /*if (e.Row.RowType == DataControlRowType.DataRow)
+        if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            tot1 = tot1 + float.Parse(e.Row.Cells[7].Text);
+            tot1 = tot1 + float.Parse(e.Row.Cells[6].Text);
 
-        }*/
-        TextBox10.Text = tot.ToString();
-        TextBox11.Text = tot.ToString();
+        }
+        TextBox10.Text = Convert.ToDecimal(tot1).ToString("#,##0.00");
+        TextBox11.Text = Convert.ToDecimal(tot1).ToString("#,##0.00");
     }
     protected void Button5_Click(object sender, System.EventArgs e)
     {
@@ -1651,11 +1583,170 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox27.Text = row.Cells[3].Text;
         TextBox28.Text = row.Cells[4].Text;
         TextBox29.Text = row.Cells[5].Text;
-        TextBox32.Text = row.Cells[7].Text;
+        TextBox32.Text = row.Cells[6].Text;
         this.ModalPopupExtender5.Show();
     }
 
 
 
 
+    protected void Button20_Click(object sender, EventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+                if (Convert.ToInt32(Label1.Text) > Convert.ToInt32(1))
+                {
+                    Label1.Text = (Convert.ToInt32(Label1.Text) - 1).ToString();
+                }
+
+                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd2 = new SqlCommand("select * from purchase_unbilled_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlDataReader dr2;
+                con2.Open();
+                dr2 = cmd2.ExecuteReader();
+                if (dr2.Read())
+                {
+
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+
+                    DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
+                    TextBox12.Text = dr2["address"].ToString();
+                    TextBox14.Text = dr2["mobile_no"].ToString();
+                    TextBox4.Text = dr2["Toal_qty"].ToString();
+                    TextBox10.Text = Convert.ToDecimal(dr2["total_amount"]).ToString("#,##0.00");
+
+                    TextBox11.Text = Convert.ToDecimal(dr2["Grand__total"]).ToString("#,##0.00");
+                    TextBox7.Text = Convert.ToDecimal(dr2["paid_amount"]).ToString("#,##0.00");
+                    TextBox9.Text = Convert.ToDecimal(dr2["pending_amount"]).ToString("#,##0.00");
+
+                }
+                con2.Close();
+
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_entry_details where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY RowNumber asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+                getinvoiceno1();
+            }
+            con1000.Close();
+        }
+    }
+    protected void Button19_Click(object sender, EventArgs e)
+    {
+        show_category();
+        getinvoiceno();
+        getinvoiceno1();
+
+        TextBox10.Text = "";
+        TextBox11.Text = "";
+
+        TextBox8.Text = "";
+
+        TextBox4.Text = "";
+        TextBox7.Text = "";
+        TextBox9.Text = "";
+        TextBox12.Text = "";
+        TextBox14.Text = "";
+        show_tax();
+        BindData();
+    }
+    protected void Button24_Click(object sender, EventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+                SqlConnection con21 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd21 = new SqlCommand("select max(purchase_invoice) from purchase_unbilled_entry where  Com_Id='" + company_id + "' ", con21);
+                SqlDataReader dr21;
+                con21.Open();
+                dr21 = cmd21.ExecuteReader();
+                if (dr21.Read())
+                {
+                    int value = Convert.ToInt32(dr21[0].ToString());
+                    if (Convert.ToInt32(Label1.Text) < Convert.ToInt32(value + 1))
+                    {
+                        Label1.Text = (Convert.ToInt32(Label1.Text) + 1).ToString();
+                    }
+                }
+                con21.Close();
+                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd2 = new SqlCommand("select * from purchase_unbilled_entry where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlDataReader dr2;
+                con2.Open();
+                dr2 = cmd2.ExecuteReader();
+                if (dr2.Read())
+                {
+
+
+
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+
+                    DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
+                    TextBox12.Text = dr2["address"].ToString();
+                    TextBox14.Text = dr2["mobile_no"].ToString();
+
+                    TextBox4.Text = dr2["Toal_qty"].ToString();
+                    TextBox10.Text = Convert.ToDecimal(dr2["total_amount"]).ToString("#,##0.00");
+
+                    TextBox11.Text = Convert.ToDecimal(dr2["Grand__total"]).ToString("#,##0.00");
+                    TextBox7.Text = Convert.ToDecimal(dr2["paid_amount"]).ToString("#,##0.00");
+                    TextBox9.Text = Convert.ToDecimal(dr2["pending_amount"]).ToString("#,##0.00");
+
+
+                    SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_entry_details where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' ORDER BY RowNumber asc", con);
+                    DataTable dt1 = new DataTable();
+                    SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                    da1.Fill(dt1);
+                    GridView1.DataSource = dt1;
+                    GridView1.DataBind();
+                    getinvoiceno1();
+                }
+                else
+                {
+
+                    show_category();
+                    getinvoiceno();
+                    getinvoiceno1();
+
+                    TextBox10.Text = "";
+                    TextBox11.Text = "";
+                    TextBox14.Text = "";
+                    TextBox8.Text = "";
+
+                    TextBox4.Text = "";
+                    TextBox7.Text = "";
+                    TextBox9.Text = "";
+                    TextBox12.Text = "";
+                    show_tax();
+                    BindData();
+
+
+                }
+                con2.Close();
+            }
+            con1000.Close();
+        }
+    }
 }

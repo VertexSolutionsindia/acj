@@ -74,21 +74,22 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("update Customer_type set type_name='" + HttpUtility.HtmlDecode(TextBox11.Text) + "' where type_id='" + HttpUtility.HtmlDecode(Label16.Text) + "'  and Com_Id='" + company_id + "' ", CON);
+
+                CON.Open();
+                cmd.ExecuteNonQuery();
+                CON.Close();
+                Label18.Text = "updated successfuly";
+                this.ModalPopupExtender2.Hide();
+                showcustomertype();
+                show_category();
+                BindData();
+                getinvoiceno();
             }
             con1000.Close();
         }
-        SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("update Customer_type set type_name='" + HttpUtility.HtmlDecode(TextBox11.Text) + "' where type_id='" + HttpUtility.HtmlDecode(Label16.Text) + "'  and Com_Id='" + company_id + "' ", CON);
 
-        CON.Open();
-        cmd.ExecuteNonQuery();
-        CON.Close();
-        Label18.Text = "updated successfuly";
-        this.ModalPopupExtender2.Show();
-        showcustomertype();
-        show_category();
-        BindData();
-        getinvoiceno();
 
     }
     protected void Button10_Click(object sender, EventArgs e)
@@ -104,20 +105,18 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("delete from Customer_type where type_id='" + Label16.Text + "' and Com_Id='" + company_id + "' ", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                Label18.Text = "Deleted successfuly";
+                BindData();
+
+                getinvoiceno();
             }
             con1000.Close();
         }
-
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("delete from Customer_type where type_id='" + Label16.Text + "' and Com_Id='" + company_id + "' ", con);
-        con.Open();
-        cmd.ExecuteNonQuery();
-        con.Close();
-        Label18.Text = "Deleted successfuly";
-        BindData();
-
-        getinvoiceno();
-
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -128,11 +127,11 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
         else
         {
 
-             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-             SqlCommand cmd1 = new SqlCommand("select * from Customer_type where type_name='" + TextBox3.Text + "' and Com_Id='" + company_id + "' ", con1);
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from Customer_type where type_name='" + TextBox3.Text + "' and Com_Id='" + company_id + "' ", con1);
             con1.Open();
             SqlDataReader dr1;
-            dr1=cmd1.ExecuteReader();
+            dr1 = cmd1.ExecuteReader();
             if (dr1.HasRows)
             {
 
@@ -152,26 +151,25 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
                     {
                         company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                        SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                        SqlCommand cmd = new SqlCommand("insert into Customer_type values(@type_id,@type_name,@Com_Id)", CON);
+                        cmd.Parameters.AddWithValue("@type_id", Label1.Text);
+                        cmd.Parameters.AddWithValue("@type_name", HttpUtility.HtmlDecode(TextBox3.Text));
+                        cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                        CON.Open();
+                        cmd.ExecuteNonQuery();
+                        CON.Close();
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer type added successfully')", true);
+                        BindData();
+                        show_category();
+                        getinvoiceno();
+                        TextBox3.Text = "";
                     }
                     con1000.Close();
                 }
-                SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("insert into Customer_type values(@type_id,@type_name,@Com_Id)", CON);
-                cmd.Parameters.AddWithValue("@type_id", Label1.Text);
-                cmd.Parameters.AddWithValue("@type_name", HttpUtility.HtmlDecode(TextBox3.Text));
-                cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                CON.Open();
-                cmd.ExecuteNonQuery();
-                CON.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer type added successfully')", true);
-                BindData();
-                show_category();
-                getinvoiceno();
-                TextBox3.Text = "";
+
             }
         }
-
-
     }
 
     protected void Button2_Click(object sender, EventArgs e)
@@ -214,17 +212,16 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from Customer_type where Com_Id='" + company_id + "' ORDER BY type_id asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from Customer_type where Com_Id='" + company_id + "' ORDER BY type_id asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
-
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
     {
@@ -239,24 +236,21 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                ImageButton img = (ImageButton)sender;
+                GridViewRow row = (GridViewRow)img.NamingContainer;
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("delete from Customer_type where type_id='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Type deleted successfully')", true);
+
+                BindData();
+                show_category();
+                getinvoiceno();
             }
             con1000.Close();
         }
-
-        ImageButton img = (ImageButton)sender;
-        GridViewRow row = (GridViewRow)img.NamingContainer;
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("delete from Customer_type where type_id='" + row.Cells[1].Text + "' and Com_Id='" + company_id + "' ", con);
-        con.Open();
-        cmd.ExecuteNonQuery();
-        con.Close();
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Type deleted successfully')", true);
-
-        BindData();
-        show_category();
-        getinvoiceno();
-
-
     }
     private void getinvoiceno()
     {
@@ -271,29 +265,30 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+
+                int a;
+
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                con1.Open();
+                string query = "Select Max(type_id) from Customer_type where Com_Id='" + company_id + "'";
+                SqlCommand cmd1 = new SqlCommand(query, con1);
+                SqlDataReader dr = cmd1.ExecuteReader();
+                if (dr.Read())
+                {
+                    string val = dr[0].ToString();
+                    if (val == "")
+                    {
+                        Label1.Text = "1";
+                    }
+                    else
+                    {
+                        a = Convert.ToInt32(dr[0].ToString());
+                        a = a + 1;
+                        Label1.Text = a.ToString();
+                    }
+                }
             }
             con1000.Close();
-        }
-        int a;
-
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        con1.Open();
-        string query = "Select Max(type_id) from Customer_type where Com_Id='" + company_id + "'";
-        SqlCommand cmd1 = new SqlCommand(query, con1);
-        SqlDataReader dr = cmd1.ExecuteReader();
-        if (dr.Read())
-        {
-            string val = dr[0].ToString();
-            if (val == "")
-            {
-                Label1.Text = "1";
-            }
-            else
-            {
-                a = Convert.ToInt32(dr[0].ToString());
-                a = a + 1;
-                Label1.Text = a.ToString();
-            }
         }
     }
     private void show_category()
@@ -309,24 +304,24 @@ public partial class Admin_Cutomer_type : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select * from Customer_type where Com_Id='" + company_id + "' ORDER BY type_id asc", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+
+                DropDownList2.DataSource = ds;
+                DropDownList2.DataTextField = "type_name";
+                DropDownList2.DataValueField = "type_id";
+                DropDownList2.DataBind();
+                DropDownList2.Items.Insert(0, new ListItem("All", "0"));
+
+                con.Close();
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from Customer_type where Com_Id='" + company_id + "' ORDER BY type_id asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
-
-
-        DropDownList2.DataSource = ds;
-        DropDownList2.DataTextField = "type_name";
-        DropDownList2.DataValueField = "type_id";
-        DropDownList2.DataBind();
-        DropDownList2.Items.Insert(0, new ListItem("All", "0"));
-
-        con.Close();
     }
     protected void LoginLink_OnClick(object sender, EventArgs e)
     {

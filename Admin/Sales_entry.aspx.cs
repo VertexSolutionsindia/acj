@@ -297,6 +297,29 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         
 
 
+
+
+
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Purchase entry created successfully')", true);
+
+                        show_category();
+                        getinvoiceno();
+                        TextBox10.Text = "";
+                        TextBox11.Text = "";
+                        TextBox7.Text = "";
+                        TextBox9.Text = "";
+                        TextBox12.Text = "";
+                        BindData();
+                        getinvoiceno1();
+                        TextBox8.Text = "";
+                        TextBox14.Text = "";
+                        TextBox4.Text = "";
+                        show_tax();
+                    }
+                }
+                con1000.Close();
+
         /*string name = "Dear Customer, Thanks for shopping with Dream garments. Your invoice value is "+TextBox11.Text+" "+" For any queries contact:9345717284 ";
         string strUrl = "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=nazeer.deens@gmail.com:vertex&senderID=TEST SMS&receipientno=" + TextBox6.Text + "&dcs=0&msgtxt=" + name + "&state=4 ";
         // Create a request object  

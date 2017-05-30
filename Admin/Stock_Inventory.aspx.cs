@@ -41,7 +41,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
            
 
             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+            SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + company_id + "' and status='billed'  ORDER BY purchase_invoice  asc", con1);
             DataTable dt1 = new DataTable();
             con1.Open();
             SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -256,7 +256,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + company_id + "' ORDER BY no asc", con2);
+        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + company_id + "' and status='billed'  ORDER BY no asc", con2);
         con2.Open();
         DataSet ds1 = new DataSet();
         SqlDataAdapter da2 = new SqlDataAdapter(cmd1);
@@ -318,7 +318,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from product_stock where  Com_Id='" +company_id + "' ORDER BY purchase_invoice asc", con1);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where  Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
                 DataTable dt1 = new DataTable();
                 con1.Open();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -425,7 +425,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
 
            
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where product_name='" + TextBox1.Text + "' and Com_Id='" +company_id + "' ORDER BY Product_code asc", con);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where product_name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' and status='billed' ORDER BY Product_code asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -448,7 +448,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from product_stock where supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY Product_code asc", con);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' and status='billed' ORDER BY Product_code asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);
@@ -494,7 +494,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
 
        
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where Category='" + DropDownList3.SelectedItem.Text + "'  and Com_Id='" + company_id+ "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where Category='" + DropDownList3.SelectedItem.Text + "'  and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -524,7 +524,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where category='" + DropDownList3.SelectedItem.Text + "' and subcategory='" + DropDownList4.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where category='" + DropDownList3.SelectedItem.Text + "' and subcategory='" + DropDownList4.SelectedItem.Text + "'  and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -545,7 +545,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from product_stock where date='" + TextBox3.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where date='" + TextBox3.Text + "'  and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
                 DataTable dt1 = new DataTable();
                 con1.Open();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -570,7 +570,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from product_stock where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "'  and Com_Id='" +company_id + "' ORDER BY purchase_invoice asc", con1);
+                SqlCommand CMD = new SqlCommand("select * from product_stock where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "'  and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
                 DataTable dt1 = new DataTable();
                 con1.Open();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -599,7 +599,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "'  and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -625,7 +625,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' and status='billed' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -682,7 +682,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY no asc", con2);
+        SqlCommand cmd1 = new SqlCommand("Select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' and status='billed' ORDER BY no asc", con2);
         con2.Open();
         DataSet ds1 = new DataSet();
         SqlDataAdapter da2 = new SqlDataAdapter(cmd1);
@@ -717,7 +717,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
                 SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+                SqlCommand CMD = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
                 DataTable dt1 = new DataTable();
                 con1.Open();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -728,7 +728,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
                 if (DropDownList1.SelectedItem.Text == "Select company")
                 {
                     SqlConnection con11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand CMD11 = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' ORDER BY purchase_invoice asc", con11);
+                    SqlCommand CMD11 = new SqlCommand("Select * from product_stock where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + DropDownList1.SelectedItem.Value + "' and status='billed' ORDER BY purchase_invoice asc", con11);
                     DataTable dt11 = new DataTable();
                     con11.Open();
                     SqlDataAdapter da11 = new SqlDataAdapter(CMD);
@@ -759,7 +759,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("Select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("Select * from product_stock where barcode='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' and status='billed' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);

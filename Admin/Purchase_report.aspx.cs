@@ -160,6 +160,37 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
             }
         }
     }
+
+    [System.Web.Script.Services.ScriptMethod()]
+    [System.Web.Services.WebMethod]
+
+    public static List<string> Searchproduct(string prefixText, int count)
+    {
+        using (SqlConnection conn = new SqlConnection())
+        {
+            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "select purchase_invoice from purchase_entry where Com_Id=@Com_Id and " +
+                "purchase_invoice like @purchase_invoice + '%'";
+                cmd.Parameters.AddWithValue("@purchase_invoice", prefixText);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Connection = conn;
+                conn.Open();
+                List<string> customers = new List<string>();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        customers.Add(sdr["purchase_invoice"].ToString());
+                    }
+                }
+                conn.Close();
+                return customers;
+            }
+        }
+    }
     private void show_category()
     {
 
@@ -259,9 +290,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+           
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         SqlCommand CMD = new SqlCommand("select * from purchase_entry where Supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
         DataTable dt1 = new DataTable();
@@ -269,6 +298,9 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
+            }
+            con1000.Close();
+        }
     }
     protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -415,5 +447,30 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
         int purchase_no = Convert.ToInt32(ROW.Cells[0].Text);
         Session["purchase_invoice"] = purchase_no;
         Response.Redirect("~/Admin/View_product_details.aspx");
+    }
+    protected void TextBox5_TextChanged(object sender, EventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from purchase_entry where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+            }
+            con1000.Close();
+        }
     }
 }

@@ -184,47 +184,62 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
         else
         {
 
-            if (User.Identity.IsAuthenticated)
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from Customer_Entry where Custom_Name='" + TextBox3.Text + "' and Com_Id='" + company_id + "' ", con1);
+            con1.Open();
+            SqlDataReader dr1;
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.HasRows)
             {
-                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-                SqlDataReader dr1000;
-                con1000.Open();
-                dr1000 = cmd1000.ExecuteReader();
-                if (dr1000.Read())
-                {
-                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-                }
-                con1000.Close();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('customer Name already exist')", true);
+                TextBox3.Text = "";
             }
-            SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("insert into Customer_Entry values(@Custom_Code,@Custom_Name,@Custom_Add,@Mobile_no,@Profession,@Customer_Type,@Com_Id,@friend_name,@Friend_mobile_No)", CON);
-            cmd.Parameters.AddWithValue("@Custom_Code", Label1.Text);
-            cmd.Parameters.AddWithValue("@Custom_Name", HttpUtility.HtmlDecode(TextBox3.Text));
-            cmd.Parameters.AddWithValue("@Custom_Add", HttpUtility.HtmlDecode(TextBox2.Text));
-            cmd.Parameters.AddWithValue("@Mobile_no", HttpUtility.HtmlDecode(TextBox9.Text));
-            cmd.Parameters.AddWithValue("@Profession", HttpUtility.HtmlDecode(TextBox4.Text));
-            cmd.Parameters.AddWithValue("@Customer_Type", HttpUtility.HtmlDecode(DropDownList1.SelectedItem.Text));
-            cmd.Parameters.AddWithValue("@Com_Id", company_id);
-            cmd.Parameters.AddWithValue("@friend_name", TextBox5.Text);
-            cmd.Parameters.AddWithValue("@Friend_mobile_No", TextBox11.Text);
-            CON.Open();
-            cmd.ExecuteNonQuery();
-            CON.Close();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Entry created successfully')", true);
-            BindData();
-            show_category();
-            getinvoiceno();
-            TextBox3.Text = "";
-            TextBox2.Text = "";
-            TextBox4.Text = "";
-            show_type();
-            TextBox9.Text = "";
-            TextBox5.Text = "";
-            TextBox11.Text = "";
-        }
+            else
+            {
 
+                if (User.Identity.IsAuthenticated)
+                {
+                    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                    SqlDataReader dr1000;
+                    con1000.Open();
+                    dr1000 = cmd1000.ExecuteReader();
+                    if (dr1000.Read())
+                    {
+                        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+                    }
+                    con1000.Close();
+                }
+                SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("insert into Customer_Entry values(@Custom_Code,@Custom_Name,@Custom_Add,@Mobile_no,@Profession,@Customer_Type,@Com_Id,@friend_name,@Friend_mobile_No)", CON);
+                cmd.Parameters.AddWithValue("@Custom_Code", Label1.Text);
+                cmd.Parameters.AddWithValue("@Custom_Name", HttpUtility.HtmlDecode(TextBox3.Text));
+                cmd.Parameters.AddWithValue("@Custom_Add", HttpUtility.HtmlDecode(TextBox2.Text));
+                cmd.Parameters.AddWithValue("@Mobile_no", HttpUtility.HtmlDecode(TextBox9.Text));
+                cmd.Parameters.AddWithValue("@Profession", HttpUtility.HtmlDecode(TextBox4.Text));
+                cmd.Parameters.AddWithValue("@Customer_Type", HttpUtility.HtmlDecode(DropDownList1.SelectedItem.Text));
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Parameters.AddWithValue("@friend_name", TextBox5.Text);
+                cmd.Parameters.AddWithValue("@Friend_mobile_No", TextBox11.Text);
+                CON.Open();
+                cmd.ExecuteNonQuery();
+                CON.Close();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Entry created successfully')", true);
+                TextBox3.Text = "";
+                TextBox2.Text = "";
+                TextBox4.Text = "";
+                show_type();
+                TextBox9.Text = "";
+                getinvoiceno();
+                show_category();
+                TextBox12.Text = "";
+                TextBox13.Text = "";
+                TextBox5.Text = "";
+                TextBox11.Text = "";
+            }
+        }
     }
 
     protected void Button2_Click(object sender, EventArgs e)
@@ -462,10 +477,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
 
     }
     
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-      
-    }
+ 
     protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (User.Identity.IsAuthenticated)
@@ -479,10 +491,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
-
+         
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         SqlCommand CMD = new SqlCommand("select * from Customer_Entry where Custom_Name='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con1);
@@ -492,7 +501,10 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
-    
+            }
+            con1000.Close();
+        }
+
     }
     protected void Button5_Click(object sender, EventArgs e)
     {

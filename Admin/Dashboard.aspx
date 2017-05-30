@@ -241,7 +241,7 @@
                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
-                                    <li><a href="Customer-Entry.aspx">Retail Customer</a></li>
+                                    <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
                                     <li><a href="Vendor.aspx">Supplier Entry</a></li>
                                     <li><a href="Department-Entry.aspx">Department Entry</a></li>
                                     <li><a href="Staff-Entry.aspx">Staff Entry</a></li>
@@ -258,6 +258,7 @@
                                     <li><a href="Purchase_entry.aspx">Billed</a></li>
                                     <li><a href="Purchase_unbilled.aspx">Unbilled</a></li>
                                      <li><a href="Purchase_report.aspx">Report</a></li>
+                                      <li><a href="Unbilled_report.aspx">Unbilled Report</a></li>
                            </ul>
                           
                                
@@ -268,6 +269,7 @@
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
                                     <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
                            </ul>
                           
                                
