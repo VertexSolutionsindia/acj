@@ -27,7 +27,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
 
 
             getinvoiceno();
-            show_category();
+          
             showrating();
             BindData();
 
@@ -48,7 +48,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
                 con1000.Close();
             }
 
-
+            showstaff();
 
         }
     }
@@ -71,7 +71,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
     {
        
         getinvoiceno();
-        show_category();
+      
     }
     private void active()
     {
@@ -111,12 +111,13 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from Sales_entry where Com_Id='" + company_id + "' ORDER BY no asc", con);
+        SqlCommand CMD = new SqlCommand("SELECT * from sales_entry where Com_Id='" + company_id + "' ", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
+
 
        
 
@@ -147,7 +148,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Category deleted successfully')", true);
 
         BindData();
-        show_category();
+      
         getinvoiceno();
 
 
@@ -157,7 +158,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
 
        
     }
-    private void show_category()
+    protected void TextBox1_TextChanged(object sender, EventArgs e)
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -174,20 +175,12 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from Staff_entry where Com_Id='" + company_id + "' ORDER BY Emp_Code asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
-
-
-        DropDownList2.DataSource = ds;
-        DropDownList2.DataTextField = "Emp_Name";
-        DropDownList2.DataValueField = "Emp_Code";
-        DropDownList2.DataBind();
-        DropDownList2.Items.Insert(0, new ListItem("All", "0"));
-
-        con.Close();
+        SqlCommand CMD = new SqlCommand("SELECT DISTINCT CONVERT(VARCHAR(10),date,101)  as Date, staff_name as Staff_Name,sum(grand_total) as Amount FROM sales_entry as a where date='" + TextBox1.Text + "' and Com_Id='" + company_id + "' group by date,staff_name", con);
+        DataTable dt1 = new DataTable();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
     }
     protected void LoginLink_OnClick(object sender, EventArgs e)
     {
@@ -305,6 +298,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
     {
         Label lblTotalPrice = (Label)e.Row.FindControl("Salary");
         lblTotalPrice.Text = m.ToString();
+        TextBox3.Text = m.ToString();
     }
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
@@ -325,34 +319,33 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
     {
         if (User.Identity.IsAuthenticated)
         {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
+            if (User.Identity.IsAuthenticated)
             {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                SqlDataReader dr1000;
+                con1000.Open();
+                dr1000 = cmd1000.ExecuteReader();
+                if (dr1000.Read())
+                {
+                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                }
+                con1000.Close();
             }
-            con1000.Close();
+            SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand CMD = new SqlCommand("select * from sales_entry where staff_name='" + DropDownList2.SelectedItem.Text + "'  and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+            da1.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
+
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where staff_name='" + DropDownList2.SelectedItem.Text + "' and date between '" + TextBox1.Text + "' and '"+TextBox2.Text+"' and Com_Id='" + company_id + "' ORDER BY no asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
-
-       
     }
 
 
-    protected void TextBox1_TextChanged(object sender, EventArgs e)
-    {
-        show_category();
-    }
+  
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.ClearContent();
@@ -369,4 +362,64 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
         /*Tell the compiler that the control is rendered
          * explicitly by overriding the VerifyRenderingInServerForm event.*/
     }
+    protected void TextBox2_TextChanged(object sender, EventArgs e)
+    {
+
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+            }
+            con1000.Close();
+        }
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where date between '" + TextBox1.Text + "' and  '" + TextBox2.Text + "'  and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        DataTable dt1 = new DataTable();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
+    }
+
+
+    public void showstaff()
+    {
+    if (User.Identity.IsAuthenticated)
+    {
+        SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+        SqlDataReader dr1000;
+        con1000.Open();
+        dr1000 = cmd1000.ExecuteReader();
+        if (dr1000.Read())
+        {
+            company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+        }
+        con1000.Close();
+    }
+   SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+   SqlCommand cmd = new SqlCommand("Select * from sales_entry where Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        con.Open();
+        DataSet ds = new DataSet();
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        da.Fill(ds);
+
+
+        DropDownList2.DataSource = ds;
+        DropDownList2.DataTextField = "staff_name";
+        DropDownList2.DataValueField = "invoice_no";
+        DropDownList2.DataBind();
+        DropDownList2.Items.Insert(0, new ListItem("All", "0"));
+
+        con.Close();
+
+}
 }

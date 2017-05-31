@@ -183,7 +183,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                 using (SqlCommand cmd = new SqlCommand("invoice_credit", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(Label1.Text));
+                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(TextBox1.Text));
 
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();

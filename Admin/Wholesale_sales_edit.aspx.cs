@@ -670,11 +670,7 @@ public partial class Admin_Wholesale_sales_edit : System.Web.UI.Page
 
 
 
-    protected void TextBox3_TextChanged(object sender, System.EventArgs e)
-    {
-
-
-    }
+   
 
 
     protected void Gridview2_PreRender(object sender, System.EventArgs e)

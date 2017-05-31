@@ -402,8 +402,54 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox9.Text = "";
                         TextBox6.Text = "";
                         TextBox8.Text = "";
+
                         TextBox23.Text = "";
                     }
+
+                        TextBox14.Text = "";
+                       
+                        show_tax();
+                   
+
+        /*string name = "Dear Customer, Thanks for shopping with Dream garments. Your invoice value is "+TextBox11.Text+" "+" For any queries contact:9345717284 ";
+        string strUrl = "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=nazeer.deens@gmail.com:vertex&senderID=TEST SMS&receipientno=" + TextBox6.Text + "&dcs=0&msgtxt=" + name + "&state=4 ";
+        // Create a request object  
+        WebRequest request = HttpWebRequest.Create(strUrl);
+        // Get the response back  
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        Stream s = (Stream)response.GetResponseStream();
+        StreamReader readStream = new StreamReader(s);
+        string dataString = readStream.ReadToEnd();
+        response.Close();
+        s.Close();
+        readStream.Close();*/
+
+
+        
+
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry created successfully')", true);
+        TextBox1.Text = Label1.Text;
+        show_category();
+        getinvoiceno();
+        getinvoiceno1();
+        BindData();
+
+        
+        
+        TextBox2.Text = "";
+        TextBox12.Text = "";
+        TextBox10.Text = "";
+        TextBox11.Text = "";
+        TextBox26.Text = "";
+        TextBox13.Text = "";
+        TextBox14.Text = "";
+        TextBox11.Text = "";
+        TextBox7.Text = "";
+        TextBox9.Text = "";
+        TextBox6.Text = "";
+        TextBox8.Text = "";
+        TextBox23.Text = "";
+
 
       
       

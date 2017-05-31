@@ -85,36 +85,7 @@
                     <a class="navbar-brand" href="#">ACJ Traders</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                           
-                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-<asp:Button ID="Button4" runat="server"  Text="ADD" class="btn btn-primary"></asp:Button> <span aria-hidden="true" class="glyphicon glyphicon-plus"></span> </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="Main.aspx"><i class="fa fa-home fa-2x" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Category</a></li>
-                                   <li role="separator" class="divider"></li>
-                                <li><a href="Sub_category.aspx"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Sub Category </a></li>
-                                 <li role="separator" class="divider"></li>
-                                <li><a href="Product_entry.aspx"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Product Entry </a></li>
-                                   <li role="separator" class="divider"></li>
-                                <li><a href="Purchase_entry.aspx"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Purchase Entry </a></li>
-                                  <li role="separator" class="divider"></li>
-                                <li><a href="Stock_Inventory.aspx"><i class="fa fa-edit"></i> &nbsp;&nbsp&nbsp;Stock / Inventory </a></li>
-                                 <li role="separator" class="divider"></li>
-                                <li><a href="Customer-Entry.aspx"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>  &nbsp;&nbsp&nbsp;New Customer Entry</a></li>
-
-                                <li role="separator" class="divider"></li>
-                                <li><a href="Vendor.aspx"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp;&nbsp&nbsp;Supplier Entry </a></li>
-                               
-                                  <li role="separator" class="divider"></li>
-                                <li><a href="Department-Entry.aspx"><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;New Department Entry  </a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="Sales_entry.aspx"><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Sales Entry </a></li>
-                               
-                            </ul>
-                        </li>
-                    </ul>
+                 
                           
                     <ul class="nav navbar-nav navbar-right navbar-top-drops">
                         <li class="dropdown"><a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown">
@@ -178,6 +149,7 @@
                                     <li><a href="Purchase_entry.aspx">Billed</a></li>
                                     <li><a href="Purchase_unbilled.aspx">Unbilled</a></li>
                                      <li><a href="Purchase_report.aspx">Report</a></li>
+                                      <li><a href="Unbilled_report.aspx">Unbilled Report</a></li>
                            </ul>
                           
                                
@@ -188,6 +160,7 @@
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
                                     <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
                            </ul>
                           
                                
@@ -209,7 +182,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -307,7 +280,7 @@
 
      <asp:UpdatePanel ID="UpdatePanel3" runat="server">
    <ContentTemplate>
- <asp:TextBox ID="TextBox1" runat="server"  AutoPostBack="true" ontextchanged="TextBox1_TextChanged" 
+ <asp:TextBox ID="TextBox1" runat="server"  AutoPostBack="true" ontextchanged="TextBox1_TextChanged"  
            ></asp:TextBox>
  <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox1"></asp:CalendarExtender>
    </ContentTemplate>
@@ -360,7 +333,7 @@
                                         
                                        
                                        
-                                        
+  
                                    
                                 </div>
                                  
@@ -368,7 +341,27 @@
                             
                            
                      
-                    
+                                                                                                  <div class="container">
+                          <div class="row">
+                          <div class="col-sm-8 col-sm-offset-2 txt">
+                          <div class="col-sm-3"> <h2>Sales Amount : </h2></div>
+                            <div class="col-sm-4">
+                             <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+   <ContentTemplate>
+  <asp:TextBox ID="TextBox3" runat="server" CssClass="txt1" style="font-size:30px" 
+           ></asp:TextBox>
+     </ContentTemplate>
+       <Triggers>
+    <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+                 <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+    
+      </Triggers>
+    </asp:UpdatePanel></div>
+                          </div>
+                          
+                          </div>
+                          <hr />
+                          </div>
                    
                          <div class="container">
  
@@ -389,27 +382,57 @@
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
-   <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" ShowFooter="true" 
+   <asp:GridView ID="GridView1" runat="server" Width="100%" CssClass="Grd1" CellPadding="3" ShowFooter="True" 
          Font-Size="16px" 
             AllowPaging="True" 
         onpageindexchanging="GridView1_PageIndexChanging" 
-        onrowdatabound="GridView1_RowDataBound" ForeColor="#333333" 
-        GridLines="None" PageSize="20">
-       <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        onrowdatabound="GridView1_RowDataBound" PageSize="20" 
+           AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" 
+           BorderStyle="None" BorderWidth="1px">
+      <Columns>
        
-       <EditRowStyle BackColor="#999999" />
-       <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+         
+           <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  >
+        
+           <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+        
+           <asp:BoundField HeaderText="Date" DataField="date" 
+               DataFormatString="{0:dd/MM/yyyy}" >
+            <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+            <asp:BoundField HeaderText="Customer Name" DataField="customer_name"  >
+              <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" >
+                 
+            <HeaderStyle CssClass="Grd1" />
+           </asp:BoundField>
+                 
+            <asp:TemplateField HeaderText="Total Amount">
+                    <ItemTemplate>
+                        <asp:Label ID="lblSalary" runat="server" Text='<%# Eval("total_amount")%>' DataFormatString="{0:N2}" />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="Salary" runat="server" />
+                    </FooterTemplate>
+                    <HeaderStyle CssClass="Grd1" />
+                </asp:TemplateField>
+
+       </Columns>
+       <FooterStyle BackColor="White" ForeColor="#000066" />
+       <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
-           CssClass="gvwCasesPager" BackColor="#284775" ForeColor="White" 
-           HorizontalAlign="Center" />
-       <RowStyle Height="40px" BackColor="white" ForeColor="#333333" />
-       <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-       <SortedAscendingCellStyle BackColor="#E9E7E2" />
-       <SortedAscendingHeaderStyle BackColor="#506C8C" />
-       <SortedDescendingCellStyle BackColor="#FFFDF8" />
-       <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+           CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 
+           HorizontalAlign="Left" />
+       <RowStyle Height="40px" ForeColor="#000066" />
+       <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+       <SortedAscendingCellStyle BackColor="#F1F1F1" />
+       <SortedAscendingHeaderStyle BackColor="#007DBB" />
+       <SortedDescendingCellStyle BackColor="#CAC9C9" />
+       <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
   </ContentTemplate>
     <Triggers>

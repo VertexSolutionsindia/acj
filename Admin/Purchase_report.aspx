@@ -128,7 +128,7 @@
         </nav>
         <section class="page">
 
-            <nav class="navbar-aside navbar-static-side" role="navigation">
+             <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -165,6 +165,7 @@
                                     <li><a href="Purchase_entry.aspx">Billed</a></li>
                                     <li><a href="Purchase_unbilled.aspx">Unbilled</a></li>
                                      <li><a href="Purchase_report.aspx">Report</a></li>
+                                      <li><a href="Unbilled_report.aspx">Unbilled Report</a></li>
                            </ul>
                           
                                
@@ -175,6 +176,7 @@
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
                                     <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
                            </ul>
                           
                                
@@ -196,7 +198,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
