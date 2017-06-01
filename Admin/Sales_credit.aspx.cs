@@ -1455,7 +1455,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
             string product_code = dr1["code"].ToString();
 
             SqlConnection CON1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1 = new SqlCommand("update sales_credit_entry_details set Category=@Category,Sub_category=@Sub_category,Product_code=@Product_code,product_name=@product_name,mrp=@mrp,qty=@qty,dis_per=@dis_per,dis_amount=@dis_amount,total_amount=@total_amount,Com_Id=@Com_Id where invoice_no=@invoice_no and s_no=@s_no and Com_d='"+company_id+"'", CON1);
+            SqlCommand cmd1 = new SqlCommand("update sales_credit_entry_details set Category=@Category,Sub_category=@Sub_category,Product_code=@Product_code,product_name=@product_name,mrp=@mrp,qty=@qty,dis_per=@dis_per,dis_amount=@dis_amount,total_amount=@total_amount,Com_Id=@Com_Id where invoice_no=@invoice_no and s_no=@s_no and Com_Id='"+company_id+"'", CON1);
             cmd1.Parameters.AddWithValue("@invoice_no", Label38.Text);
             cmd1.Parameters.AddWithValue("@s_no", Label41.Text);
             cmd1.Parameters.AddWithValue("@Category", cat_id);
@@ -1510,10 +1510,11 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
         {
 
             float dis_per = float.Parse(TextBox29.Text);
-            float total_amount = float.Parse(TextBox32.Text);
-            float total = (total_amount * dis_per) / 100;
-            TextBox4.Text = total.ToString();
-            TextBox32.Text = (total_amount - total).ToString();
+            float mrp = float.Parse(TextBox27.Text);
+            float qty = float.Parse(TextBox3.Text);
+            float dis_amt = (mrp * dis_per) / 100;
+            TextBox4.Text = dis_amt.ToString();
+            TextBox32.Text = ((mrp - dis_amt)*qty).ToString();
             this.ModalPopupExtender5.Show();
         }
         catch (Exception we)

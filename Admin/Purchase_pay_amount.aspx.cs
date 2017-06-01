@@ -37,6 +37,8 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
                 }
                 con1000.Close();
             }
+            DateTime date = DateTime.Now;
+            TextBox4.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
             getinvoiceno();
             show_category();
             showrating();
@@ -50,20 +52,25 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
                 supplier = Session["Supplier"].ToString();
             }
 
-            SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd = new SqlCommand("select * from pay_amount_status where Buyer='" + supplier + "' and Com_Id='" + company_id + "' ", con);
-            SqlDataReader dr;
-            con.Open();
-            dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                TextBox3.Text = dr["Buyer"].ToString();
-                TextBox1.Text = dr["address"].ToString();
-                TextBox2.Text = dr["pending_amount"].ToString();
-            }
-            con.Close();
+            getoutstandng(supplier);
 
         }
+    }
+
+    private void getoutstandng(string supplier)
+    {
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand cmd = new SqlCommand("select * from pay_amount_status where Buyer='" + supplier + "' and Com_Id='" + company_id + "' ", con);
+        SqlDataReader dr;
+        con.Open();
+        dr = cmd.ExecuteReader();
+        if (dr.Read())
+        {
+            TextBox3.Text = dr["Buyer"].ToString();
+            TextBox1.Text = dr["address"].ToString();
+            TextBox2.Text = dr["pending_amount"].ToString();
+        }
+        con.Close();
     }
     private void active()
     {
@@ -195,19 +202,19 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             con1000.Close();
         }
 
+        
+    }
+    protected void BindData()
+    {
+
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from pay_amount where Com_Id='" + company_id + "'", con1);
+        SqlCommand CMD = new SqlCommand("select * from pay_amount where Com_Id='" + company_id + "' order by NO asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
-    }
-    protected void BindData()
-    {
-
-
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
     {
@@ -301,14 +308,7 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             con1000.Close();
         }
 
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("SELECT DISTINCT date as Date, status as Particulars,sum(Grand__total) as Debit,isnull(sum(value),0) as Credit FROM purchase_entry as a where date='" + TextBox3.Text + "' and Com_Id='" + company_id + "' group by date,status,Grand__total,value", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+       
     }
     protected void TextBox4_TextChanged(object sender, EventArgs e)
     {
@@ -327,14 +327,7 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             con1000.Close();
         }
 
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("SELECT DISTINCT date as Date, status as Particulars,sum(Grand__total) as Debit,isnull(sum(value),0) as Credit FROM purchase_entry as a where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' group by date,status,Grand__total,value", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+        
     }
     protected void TextBox6_TextChanged(object sender, EventArgs e)
     {
@@ -420,7 +413,7 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             cmd22.Parameters.AddWithValue("@total_amount", c);
             cmd22.Parameters.AddWithValue("@pending_amount", c);
             cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
-            cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+            cmd22.Parameters.AddWithValue("@Com_Id", company_id);
             con22.Open();
             cmd22.ExecuteNonQuery();
             con22.Close();
@@ -441,11 +434,11 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
 
 
 
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Amount added successfully')", true);
+        BindData();
 
-           
-
-
-
+        TextBox5.Text = "";
+        getoutstandng(TextBox3.Text);
        
     }
 }

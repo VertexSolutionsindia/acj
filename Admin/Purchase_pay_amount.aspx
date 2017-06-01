@@ -488,8 +488,7 @@
   <div class="panel panel-default">
   <div class="panel-body">
    <div class="col-md-12">
-     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-   <ContentTemplate>
+   
    
  <asp:GridView ID="GridView1" runat="server" Width="100%" AutoGenerateColumns="False" CellPadding="3" 
          Font-Size="16px" 
@@ -501,10 +500,7 @@
       
       
       
-         <asp:BoundField HeaderText="No" DataField="NO"  >
-          <HeaderStyle CssClass="Grd1" />
-          <ItemStyle CssClass="Grd1" />
-          </asp:BoundField>
+         
        <asp:BoundField HeaderText="Supplier" DataField="Buyer"  >
           <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
@@ -556,18 +552,7 @@
        <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
 
-        </ContentTemplate>
-                                     <Triggers>
-              
-              
-                    
-                  
-                  </Triggers>
-              
-                
-               
-              
-                           </asp:UpdatePanel>
+     
                            <asp:Button ID="Button1" runat="server" 
            Text="Export to excel" onclick="Button1_Click"></asp:Button>
 

@@ -196,7 +196,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales credit report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
                            </ul>
                           
                                
@@ -324,11 +324,8 @@
        <Columns>
       
                <asp:BoundField HeaderText="invoice_no" DataField="invoice_no"  />
-                <asp:BoundField HeaderText="Barcode" DataField="barcode"  />
                  <asp:BoundField HeaderText="Product name" DataField="product_name"  />
            <asp:BoundField HeaderText="Mrp" DataField="mrp"  />
-           <asp:BoundField HeaderText="Size" DataField="size" />
-             <asp:BoundField HeaderText="Color" DataField="color" />
             
               <asp:BoundField HeaderText="Qty" DataField="qty" />
                <asp:BoundField HeaderText="Discount %" DataField="dis_per" />

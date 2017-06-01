@@ -895,7 +895,7 @@ End Function</Code>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>No.135-B , NH Road , COIMBATORE-641001 , Call : + 91 9894153656</Value>
+                  <Value>No.135-B , NH Road , COIMBATORE-641001 , Mob: + 91 9894153656</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                   </Style>
@@ -1241,7 +1241,9 @@ End Function</Code>
               <TextRuns>
                 <TextRun>
                   <Value>=Fields!grand_total.Value</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1270,7 +1272,7 @@ End Function</Code>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!discount_amount.Value</Value>
+                  <Value>=Fields!dis_amount.Value</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1300,7 +1302,7 @@ End Function</Code>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Sum(Fields!dis_per.Value, "DataSet1")</Value>
+                  <Value>Discount: </Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1505,7 +1507,7 @@ End Function</Code>
           <Top>1.23535cm</Top>
           <Left>0.74966cm</Left>
           <Height>0.6cm</Height>
-          <Width>10.95785cm</Width>
+          <Width>11.38118cm</Width>
           <ZIndex>13</ZIndex>
           <Style>
             <Border>
@@ -1537,6 +1539,36 @@ End Function</Code>
           <Height>0.6cm</Height>
           <Width>3.08208cm</Width>
           <ZIndex>14</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox1">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>       Authorized Signatory</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Top>5.60952cm</Top>
+          <Left>14.09051cm</Left>
+          <Height>0.6cm</Height>
+          <Width>4.5373cm</Width>
+          <ZIndex>15</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>

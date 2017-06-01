@@ -1221,36 +1221,6 @@ End Function</Code>
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="dis_per">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=Sum(Fields!dis_per.Value, "DataSet1")</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>dis_per</rd:DefaultName>
-          <Top>1.21771cm</Top>
-          <Left>12.10945cm</Left>
-          <Height>0.6cm</Height>
-          <Width>1.38875cm</Width>
-          <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
         <Textbox Name="discount_amount">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -1270,7 +1240,7 @@ End Function</Code>
           <Left>15.04654cm</Left>
           <Height>0.6cm</Height>
           <Width>4.43629cm</Width>
-          <ZIndex>2</ZIndex>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1289,7 +1259,9 @@ End Function</Code>
               <TextRuns>
                 <TextRun>
                   <Value>=Fields!grand_total.Value</Value>
-                  <Style />
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1300,7 +1272,7 @@ End Function</Code>
           <Left>15.04654cm</Left>
           <Height>0.6cm</Height>
           <Width>4.43629cm</Width>
-          <ZIndex>3</ZIndex>
+          <ZIndex>2</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1330,7 +1302,7 @@ End Function</Code>
           <Left>12.10945cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
-          <ZIndex>4</ZIndex>
+          <ZIndex>3</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1360,7 +1332,7 @@ End Function</Code>
           <Left>12.10945cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
-          <ZIndex>5</ZIndex>
+          <ZIndex>4</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1376,7 +1348,7 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>0cm</Height>
           <Width>19.75624cm</Width>
-          <ZIndex>6</ZIndex>
+          <ZIndex>5</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1404,7 +1376,7 @@ End Function</Code>
           <Left>14.38592cm</Left>
           <Height>0.78521cm</Height>
           <Width>5.09691cm</Width>
-          <ZIndex>7</ZIndex>
+          <ZIndex>6</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1420,7 +1392,7 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>5.88257cm</Height>
           <Width>0cm</Width>
-          <ZIndex>8</ZIndex>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1432,7 +1404,7 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>0cm</Height>
           <Width>19.68568cm</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1444,7 +1416,7 @@ End Function</Code>
           <Left>20.08256cm</Left>
           <Height>5.81237cm</Height>
           <Width>0cm</Width>
-          <ZIndex>10</ZIndex>
+          <ZIndex>9</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1456,7 +1428,7 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>0cm</Height>
           <Width>19.75624cm</Width>
-          <ZIndex>11</ZIndex>
+          <ZIndex>10</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1482,7 +1454,7 @@ End Function</Code>
           <Left>0.77606cm</Left>
           <Height>0.6cm</Height>
           <Width>9.59567cm</Width>
-          <ZIndex>12</ZIndex>
+          <ZIndex>11</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1512,7 +1484,7 @@ End Function</Code>
           <Left>0.77606cm</Left>
           <Height>0.6cm</Height>
           <Width>3.08208cm</Width>
-          <ZIndex>13</ZIndex>
+          <ZIndex>12</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1544,6 +1516,36 @@ End Function</Code>
           <Left>15.04654cm</Left>
           <Height>0.6cm</Height>
           <Width>3.76108cm</Width>
+          <ZIndex>13</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Discount: </Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>1.21771cm</Top>
+          <Left>12.10945cm</Left>
+          <Height>0.6cm</Height>
+          <Width>2.5cm</Width>
           <ZIndex>14</ZIndex>
           <Style>
             <Border>
