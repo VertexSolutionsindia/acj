@@ -227,30 +227,38 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 CON.Close();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Entry created successfully')", true);
+                getinvoiceno();
+             
+               
                 TextBox3.Text = "";
                 TextBox2.Text = "";
                 TextBox4.Text = "";
                 show_type();
                 TextBox9.Text = "";
-                getinvoiceno();
-                show_category();
+
                 TextBox12.Text = "";
                 TextBox13.Text = "";
                 TextBox5.Text = "";
                 TextBox11.Text = "";
+                show_category();
+                BindData();
+
+
             }
         }
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        getinvoiceno();
+        show_category();
+        BindData();
         TextBox3.Text = "";
         TextBox2.Text = "";
         TextBox4.Text = "";
         show_type();
         TextBox9.Text = "";
-        getinvoiceno();
-        show_category();
+        
         TextBox12.Text = "";
         TextBox13.Text = "";
         TextBox5.Text = "";
@@ -387,24 +395,25 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select * from Customer_Entry where Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+
+
+                DropDownList2.DataSource = ds;
+                DropDownList2.DataTextField = "Custom_Name";
+                DropDownList2.DataValueField = "Custom_Code";
+                DropDownList2.DataBind();
+                DropDownList2.Items.Insert(0, new ListItem("All", "0"));
+
+                con.Close();
             }
             con1000.Close();
         }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select * from Customer_Entry where Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
 
-
-        DropDownList2.DataSource = ds;
-        DropDownList2.DataTextField = "Custom_Name";
-        DropDownList2.DataValueField = "Custom_Code";
-        DropDownList2.DataBind();
-        DropDownList2.Items.Insert(0, new ListItem("All", "0"));
-
-        con.Close();
     }
 
     private void show_type()

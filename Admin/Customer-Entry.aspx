@@ -504,9 +504,16 @@
 
     
    <div class="col-md-4"><h3>Customer Name : </h3>
-   
+      <asp:UpdatePanel ID="UpdatePanel14" runat="server">
+   <ContentTemplate>
+
    <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="true"  onselectedindexchanged="DropDownList2_SelectedIndexChanged" class="form-control"></asp:DropDownList>
-   
+     </ContentTemplate>
+       <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
+                  
+                </Triggers>
+                           </asp:UpdatePanel>
    
    
    </div>
