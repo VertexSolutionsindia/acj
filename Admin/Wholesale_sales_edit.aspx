@@ -773,6 +773,13 @@
          <HeaderStyle CssClass="red" />
          <ItemStyle CssClass="red" />
          </asp:BoundField>
+         <asp:TemplateField HeaderText="Edit">
+     <ItemTemplate>
+     <asp:ImageButton ID="ImageButton1" ImageUrl="~/edit4.jpg" runat="server" 
+             Width="20px" Height="20px" onclick="ImageButton1_Click" ></asp:ImageButton>
+     </ItemTemplate>
+     
+     </asp:TemplateField>
      <asp:TemplateField>
    <ItemTemplate>
    

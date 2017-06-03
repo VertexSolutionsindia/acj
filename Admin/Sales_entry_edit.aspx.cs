@@ -1065,9 +1065,10 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         try
         {
 
-            float a = float.Parse(TextBox27.Text);
-            float b = float.Parse(TextBox3.Text);
-            TextBox32.Text = (a * b).ToString();
+            float mrp = float.Parse(TextBox27.Text);
+            float qty = float.Parse(TextBox3.Text);
+            float dis_amt = float.Parse(TextBox4.Text);
+            TextBox32.Text = ((mrp-dis_amt) * qty).ToString();
             this.ModalPopupExtender5.Show();
         }
         catch (Exception we)
@@ -1079,10 +1080,11 @@ public partial class Admin_Sales_entry_edit : System.Web.UI.Page
         {
 
             float dis_per = float.Parse(TextBox29.Text);
-            float total_amount = float.Parse(TextBox32.Text);
-            float total = (total_amount * dis_per) / 100;
-            TextBox4.Text = total.ToString();
-            TextBox32.Text = (total_amount - total).ToString();
+            float mrp = float.Parse(TextBox27.Text);
+            float qty = float.Parse(TextBox3.Text);
+            float dis_amt = (mrp * dis_per) / 100;
+            TextBox4.Text = dis_amt.ToString();
+            TextBox32.Text = ((mrp - dis_amt) * qty).ToString();
             this.ModalPopupExtender5.Show();
         }
         catch (Exception we)

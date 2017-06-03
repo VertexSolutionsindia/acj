@@ -1640,10 +1640,10 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
     {
         try
         {
-
-            float a = float.Parse(TextBox27.Text);
-            float b = float.Parse(TextBox3.Text);
-            TextBox32.Text = (a * b).ToString();
+            float mrp = float.Parse(TextBox27.Text);
+            float qty = float.Parse(TextBox3.Text);
+            float dis_amt = float.Parse(TextBox4.Text);
+            TextBox32.Text = ((mrp - dis_amt) * qty).ToString();
             this.ModalPopupExtender5.Show();
         }
         catch (Exception we)
