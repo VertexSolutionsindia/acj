@@ -1,4 +1,4 @@
-﻿#region " Using "
+﻿
 using System;
 using System.Configuration;
 using System.Data;
@@ -12,8 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Drawing;
-#endregion
+
 
 public partial class Admin_Main : System.Web.UI.Page
 {
@@ -28,7 +27,7 @@ public partial class Admin_Main : System.Web.UI.Page
 
             getinvoiceno();
             show_category();
-            showrating();
+         
             BindData();
 
             active();
@@ -263,6 +262,7 @@ public partial class Admin_Main : System.Web.UI.Page
 
         if (User.Identity.IsAuthenticated)
         {
+            
             SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
             SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
             SqlDataReader dr1000;
@@ -274,7 +274,7 @@ public partial class Admin_Main : System.Web.UI.Page
 
                 int a;
 
-                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlConnection con1 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                 con1.Open();
                 string query = "Select Max(category_id) from category where Com_Id='" + company_id + "' ";
                 SqlCommand cmd1 = new SqlCommand(query, con1);
@@ -312,7 +312,7 @@ public partial class Admin_Main : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from category where Com_Id='" + company_id + "' ORDER BY categoryname  asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from category where Com_Id='" + company_id + "' ORDER BY category_id  asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -383,10 +383,7 @@ public partial class Admin_Main : System.Web.UI.Page
     {
 
     }
-    private void showrating()
-    {
-
-    }
+    
     [System.Web.Script.Services.ScriptMethod()]
     [System.Web.Services.WebMethod]
 

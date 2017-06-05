@@ -157,8 +157,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -188,8 +187,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -198,7 +198,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                  
                            </ul>
                           
                                
@@ -211,7 +211,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -266,7 +266,7 @@
 
 
                     <div class="container">
-
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                            <div class="container">
                         
  
@@ -363,6 +363,7 @@
            ontextchanged="TextBox4_TextChanged"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4"></asp:CalendarExtender>
                                       </ContentTemplate>
+                                      
                                       </asp:UpdatePanel></div></div></div>
 
 
@@ -427,7 +428,8 @@
   <div class="panel panel-default">
   <div class="panel-body">
    <div class="col-md-12">
-    
+     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+   <ContentTemplate>
    
  <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="3" 
          Font-Size="16px" 
@@ -441,20 +443,14 @@
       
                <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
            <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  />
-           <asp:BoundField HeaderText="Customer Name" DataField="customer_name" />
+           <asp:BoundField HeaderText="Customer Name" DataField="Mobile_no" />
             
             
               <asp:BoundField HeaderText="Total Qty" DataField="total_qty" />
                <asp:BoundField HeaderText="Total Amount" DataField="total_amount" />
                <asp:BoundField HeaderText="Grand total" DataField="grand_total" />
-               <asp:BoundField HeaderText="Paid Amount" DataField="paid_amount" />
-               <asp:BoundField HeaderText="Pending Amount" DataField="Pending_amount" />
-              <asp:TemplateField>
-              <ItemTemplate>
-              <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/edit4.jpg" 
-                      Width="20px" Height="20px" onclick="ImageButton1_Click" ></asp:ImageButton>
-              </ItemTemplate>
-              </asp:TemplateField>
+              
+             
                <asp:TemplateField>
               <ItemTemplate>
              <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Admin/show1.png" 
@@ -496,7 +492,13 @@
        <SortedDescendingCellStyle BackColor="#CAC9C9" />
        <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
-
+         </ContentTemplate>
+         <Triggers>
+           <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+           <asp:AsyncPostBackTrigger ControlID="TextBox4" EventName="TextChanged"  />
+         </Triggers>
+        
+                                      </asp:UpdatePanel>
       
 </div></div></div></div>
 

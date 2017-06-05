@@ -288,7 +288,7 @@
         </nav>
         <section class="page">
 
-              <nav class="navbar-aside navbar-static-side" role="navigation">
+            <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -304,8 +304,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -335,8 +334,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -345,7 +345,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                
                            </ul>
                           
                                
@@ -358,7 +358,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -389,14 +389,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                 <h2>Unbilled Purchase entry
+                                 <h2>UnBilled Purchase entry
                                    <asp:UpdatePanel ID="UpdatePanel30" runat="server">
    <ContentTemplate>    
      <Span style="float:right">
                                  <h2>
                                  <asp:LinkButton ID="btnRandom" runat="server" CssClass="btn btn-primary" onclick="btnRandom_Click"    ><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> &nbsp;Category</asp:LinkButton>  
-                                 <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click" CssClass="btn btn-primary"    ><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> &nbsp;Sub-Category</asp:LinkButton>   
-                                 <asp:LinkButton ID="LinkButton2" runat="server" CssClass="btn btn-primary" onclick="LinkButton2_Click"    ><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> &nbsp;Product entry</asp:LinkButton> </Span> <small></small></h2>
+                                 <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click" CssClass="btn btn-primary"    ><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> &nbsp;Product Entry</asp:LinkButton>   
+                                </h2>
            
                               </ContentTemplate>
   
@@ -485,7 +485,7 @@
                          HorizontalAlign="Left" ScrollBars="Both" Width="500px" Height="300px"  >
     
          <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
-                     <h3 style="font-size:20px; " class="control-label"> Add Sub-Category  <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+                     <h3 style="font-size:20px; " class="control-label"> Add Product  <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
   
      
   
@@ -496,7 +496,7 @@
        
         <tr>
         <td>
-            <asp:Label ID="Label10" runat="server" class="col-lg-3 control-label" Width="200px" Text="SubCategory Id"></asp:Label></td>
+            <asp:Label ID="Label10" runat="server" class="col-lg-3 control-label" Width="200px" Text="Product Id"></asp:Label></td>
         <td>
             <asp:Label ID="Label11" runat="server" Text=""></asp:Label></td>
         </tr>
@@ -508,11 +508,16 @@
         </tr>
         <tr>
         <td>
-            <asp:Label ID="Label13" runat="server" class="col-lg-3 control-label" Width="200px" Text="Sub-Category Name"></asp:Label></td>
+            <asp:Label ID="Label13" runat="server" class="col-lg-3 control-label" Width="200px" Text="Product Name"></asp:Label></td>
         <td>
             <asp:TextBox ID="TextBox24" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
         </tr>
-     
+      <tr>
+        <td>
+            <asp:Label ID="Label19" runat="server" class="col-lg-3 control-label" Width="200px" Text="Product Mrp"></asp:Label></td>
+        <td>
+            <asp:TextBox ID="TextBox3" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+        </tr>
                     
        
         </tr>
@@ -558,110 +563,7 @@
 
 
 
-    <asp:UpdatePanel ID="UpdatePanel34" runat="server">
-   <ContentTemplate>
-
-   
-       
-        <asp:Button ID="Button13" runat="server" Text="Button" style="display:none" />
-  
-  
-    <asp:Panel ID="Panel4" runat="server" class="panel1" BorderColor="Black" BorderStyle="Solid" BackColor="White" Direction="LeftToRight" style="display:none;" 
-                         HorizontalAlign="Left" ScrollBars="Both" Width="500px" Height="300px" >
     
-         <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
-                     <h3 style="font-size:20px; " class="control-label"> Add product   <asp:ImageButton ID="ImageButton5" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
-  
-       
-  
-           
-        </div>
-        <div class="tablestyles">
-        <table>
-       
-        <tr>
-        <td>
-            <asp:Label ID="Label19" runat="server" Text="Code" class="col-lg-3 control-label"></asp:Label></td>
-        <td>
-            <asp:Label ID="Label20" runat="server" Text=""></asp:Label></td>
-        </tr>
-        <tr>
-        <td><asp:Label ID="Label21" runat="server" Text="Category" class="col-lg-3 control-label"></asp:Label></td>
-        <td>
-           <asp:UpdatePanel ID="UpdatePanel35" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-        <asp:DropDownList ID="DropDownList2" class="form-control input-x2 dropbox" AutoPostBack="true" runat="server" onselectedindexchanged="DropDownList2_SelectedIndexChanged"></asp:DropDownList>
-        
-          
-                 </ContentTemplate>
-        
-          </asp:UpdatePanel>
-        
-        </td>
-        </tr>
-        <tr> 
-        <td><asp:Label ID="Label22" runat="server" Text="Sub-Category" class="col-lg-3 control-label"></asp:Label></td>
-        <td>
-        
-         <asp:UpdatePanel ID="UpdatePanel38" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-        <asp:DropDownList ID="DropDownList6" class="form-control input-x2 dropbox" runat="server"></asp:DropDownList>
-        
-          </ContentTemplate>
-         <Triggers>
-              
-                   <asp:AsyncPostBackTrigger ControlID="DropDownList2" EventName="SelectedIndexChanged"  />
-                    
-                </Triggers>
-          </asp:UpdatePanel>
-        </td>
-        </tr>
-        <tr>
-        <td>
-            <asp:Label ID="Label23" runat="server" Text="Product Name" class="col-lg-3 control-label" Width="200px"></asp:Label></td>
-        <td>
-            <asp:TextBox ID="TextBox25" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
-        </tr>
-     <tr>
-     <td></td>
-        <td>
-            <asp:UpdatePanel ID="UpdatePanel36" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-            
-            <asp:Button ID="Button14" runat="server" Text="Add product" class="btn-primary" style="font-size:15px; height: 26px" Width="100px" Height="20px" onclick="Button14_Click"  
-                   />
-                    <asp:Label ID="Label24" runat="server" Text=""></asp:Label></td>
-            </ContentTemplate>
-            </asp:UpdatePanel>
-            </td>
-        <td>
-         <asp:UpdatePanel ID="UpdatePanel37" runat="server">
-      <ContentTemplate>
-            <asp:Button ID="Button18" runat="server" Text="Delete" Visible="false"
-                 />&nbsp;&nbsp;&nbsp;
-                 </ContentTemplate>
-        
-          </asp:UpdatePanel>
-                
-                
-                    
-       
-        </tr>
-        </table>
-       </div>
-       
-        </asp:Panel>
-       <asp:ModalPopupExtender ID="ModalPopupExtender4" runat="server" TargetControlID="Button13" PopupControlID="Panel4" CancelControlID="ImageButton6" BackgroundCssClass="modelbackground">
-        </asp:ModalPopupExtender>
-
-
-        </ContentTemplate>
-    <Triggers>
-               
-                   <asp:AsyncPostBackTrigger ControlID="LinkButton2" EventName="Click"  />
-                    
-                </Triggers>
-    </asp:UpdatePanel>
 
 
 
@@ -686,7 +588,7 @@
                    
                     
                     <div class="container">
- 
+ <asp:Label ID="Label20" runat="server" Text="Label"></asp:Label>
   <div class="panel panel-default">
   <div class="panel-body">
   <div class="col-md-12">
@@ -969,7 +871,6 @@
     <tr>
     <th align="center">S.No</th>
     <th align="center">Product Name</th>
-    <th align="center">Model</th>
     <th align="center">MRP</th>
     <th align="center">Purchase rate</th>
     <th>Qty</th>
@@ -1011,20 +912,7 @@
   </asp:UpdatePanel>
     
     </td>
-   <td>
-    <asp:UpdatePanel ID="UpdatePanel20" runat="server">
-   <ContentTemplate>
-   <asp:TextBox ID="TextBox3" runat="server" ></asp:TextBox>
-   
-   </ContentTemplate>
-     <Triggers>
-                  <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
-             <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
-                  <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
-                </Triggers>
-
-  </asp:UpdatePanel>
-   </td>
+  
    <td>
     <asp:UpdatePanel ID="UpdatePanel18" runat="server">
    <ContentTemplate>
@@ -1133,11 +1021,7 @@
            <HeaderStyle CssClass="red" />
          <ItemStyle CssClass="red" />
          </asp:BoundField>
-           <asp:BoundField HeaderText="Model" DataField="barcode" ItemStyle-CssClass="red"  
-             HeaderStyle-CssClass="red" >
-            <HeaderStyle CssClass="red" />
-         <ItemStyle CssClass="red" />
-         </asp:BoundField>
+         
             <asp:BoundField HeaderText="Mrp" DataField="mrp" ItemStyle-CssClass="red" 
              HeaderStyle-CssClass="red"  >
              <HeaderStyle CssClass="red" />
@@ -1263,15 +1147,12 @@
         <td>
             <asp:Label ID="Label33" runat="server" Text="Purchase rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-        <asp:UpdatePanel ID="UpdatePanel43" runat="server">
-   <ContentTemplate>
+       
 
             <asp:TextBox ID="TextBox28" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox>
-             </ContentTemplate>
-    <Triggers>
-                 <asp:AsyncPostBackTrigger ControlID="TextBox29" EventName="TextChanged"  />
-                </Triggers>
-    </asp:UpdatePanel>
+           
+     
+                
             
             </td>
         </tr>
@@ -1280,13 +1161,10 @@
             <asp:Label ID="Label34" runat="server" Text="Qty" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
         
-<asp:UpdatePanel ID="UpdatePanel42" runat="server">
-   <ContentTemplate>
+
             <asp:TextBox ID="TextBox29" runat="server"   class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox29_TextChanged"></asp:TextBox>
             
-             </ContentTemplate>
-   
-    </asp:UpdatePanel>
+            
             
             </td>
         </tr>
@@ -1297,16 +1175,10 @@
             <asp:Label ID="Label37" runat="server" Text="Total amount" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
 
-         <asp:UpdatePanel ID="UpdatePanel44" runat="server">
-   <ContentTemplate>
+      
             <asp:TextBox ID="TextBox32" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox>
             
-            </ContentTemplate>
-   <Triggers>
-     
-                 <asp:AsyncPostBackTrigger ControlID="TextBox29" EventName="TextChanged"  />
-                </Triggers>
-    </asp:UpdatePanel>
+           
             
             </td>
         </tr>
@@ -1318,21 +1190,17 @@
             <tr>
             <td></td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel40" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
+                   
                             <asp:Button ID="Button22" runat="server"  CssClass="btn-primary" onclick="Button22_Click" 
                                 style="height: 26px" Text="Update" />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                      
                 </td>
                 <td>
-                    <asp:UpdatePanel ID="UpdatePanel41" runat="server">
-                        <ContentTemplate>
+                   
                             <asp:Button ID="Button23" runat="server"  Visible="false" 
                                 Text="Delete" />
                             &nbsp;&nbsp;&nbsp;
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                      
                     <asp:Label ID="Label39" runat="server" Text=""></asp:Label>
                 </td>
             </tr>
@@ -1622,6 +1490,10 @@
         </form>
     </body>
 </html>
+
+
+
+
 
 
 

@@ -38,50 +38,9 @@ public partial class RabbitDashboard : System.Web.UI.Page
         {
             BindData();
         }
-        if (!IsPostBack)
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("select CONVERT(VARCHAR(10),date,101),sum(total_amount) from purchase_entry group by date", con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
-                con.Close();
-            }
-            string[] x = new string[dt.Rows.Count];
-            int[] y = new int[dt.Rows.Count];
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                x[i] = dt.Rows[i][0].ToString();
-                y[i] = Convert.ToInt32(dt.Rows[i][1]);
-            }
-            Chart2.Series[0].Points.DataBindXY(x, y);
-        }
-
-
        
-        if(!IsPostBack)
-{
-DataTable dt = new DataTable();
-using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]))
-{
-con.Open();
-SqlCommand cmd = new SqlCommand("select CONVERT(VARCHAR(10),date,101),sum(total_amount) from sales_entry group by date", con);
-SqlDataAdapter da = new SqlDataAdapter(cmd);
-da.Fill(dt);
-con.Close();
-}
-string []x=new string[dt.Rows.Count];
-int [] y = new int[dt.Rows.Count];
-for(int i=0;i<dt.Rows.Count;i++)
-{
-x[i] = dt.Rows[i][0].ToString();
-y[i] = Convert.ToInt32(dt.Rows[i][1]);
-}
-Chart1.Series[0].Points.DataBindXY(x,y);
-}
-       
+        
+          
     }
     protected void LoginLink_OnClick(object sender, EventArgs e)
     {

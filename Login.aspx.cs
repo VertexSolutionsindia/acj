@@ -124,7 +124,7 @@ public partial class Loginrabbit : System.Web.UI.Page
                 {
                     Session["name"] = id;
                     Session["company_id"] = company_id;
-                    returnUrl1 = "Admin/Dashboard.aspx";
+                    returnUrl1 = "Admin/Financial_year.aspx";
 
                 }
 

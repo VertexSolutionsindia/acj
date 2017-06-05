@@ -174,10 +174,9 @@
                             <ul class="dropdown-menu">
                                 <li><a href="Main.aspx"><i class="fa fa-home fa-2x" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Category</a></li>
                                    <li role="separator" class="divider"></li>
-                                <li><a href="Sub_category.aspx"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Sub Category </a></li>
+                                <li><a href="Product_entry.aspx"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Product Entry </a></li>
                                  <li role="separator" class="divider"></li>
-                                <li><a href="Product_entry.aspx"><i class="fa fa-building" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Product Entry </a></li>
-                                   <li role="separator" class="divider"></li>
+                              
                                 <li><a href="Purchase_entry.aspx"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp&nbsp;Purchase Entry </a></li>
                                   <li role="separator" class="divider"></li>
                                 <li><a href="Stock_Inventory.aspx"><i class="fa fa-edit"></i> &nbsp;&nbsp&nbsp;Stock / Inventory </a></li>
@@ -237,8 +236,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -268,8 +266,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -278,7 +277,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                   
                            </ul>
                           
                                
@@ -291,7 +290,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -371,21 +370,11 @@
 
 <br />
 <br />
-<div style="width:100%">
-     <div style="float:left; width:50%">
-             <h3 style="clear:both" class="col-lg-3 control-label">Purchase Report</h3>
-            <asp:Chart ID="Chart2" width="400px"   runat="server" Palette="Chocolate"><Series><asp:Series Name="Series1"></asp:Series></Series><ChartAreas><asp:ChartArea Name="ChartArea1"></asp:ChartArea></ChartAreas></asp:Chart>
-     </div>
-     <div style="float:left; width:50%;">
-                 <h3 class="col-lg-3 control-label">Sales report</h3>
 
-              <asp:Chart ID="Chart1" width="400px"   runat="server"><Series><asp:Series Name="Series1"></asp:Series></Series><ChartAreas><asp:ChartArea Name="ChartArea1"></asp:ChartArea></ChartAreas></asp:Chart>
-      </div>
-</div>
 
-</div>
 
-<h1 style="margin-top:20px" class="col-lg-3 control-label">Product Stock</h1>
+
+<h1 style="margin-top:20px; clear:both" class="col-lg-3 control-label">Product Stock</h1>
                         
                     <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="4" 
          Font-Size="16px" 
@@ -396,12 +385,12 @@
        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
        <Columns>
       
-            <asp:BoundField HeaderText="Purchase Invoice" DataField="purchase_invoice" HeaderStyle-CssClass="col-lg-3 control-label"  />
+           
            <asp:BoundField HeaderText="Product Code" DataField="Product_code" HeaderStyle-CssClass="col-lg-3 control-label"    />
            <asp:BoundField HeaderText="Product Name" DataField="product_name" HeaderStyle-CssClass="col-lg-3 control-label"   />
-             <asp:BoundField HeaderText="Barcode" DataField="barcode" HeaderStyle-CssClass="col-lg-3 control-label"  />
-              <asp:BoundField HeaderText="MRP" DataField="mrp" HeaderStyle-CssClass="col-lg-3 control-label"  />
-               <asp:BoundField HeaderText="Purchase Price" DataField="purchase_price" HeaderStyle-CssClass="col-lg-3 control-label"  />
+            
+           
+            
                 <asp:BoundField HeaderText="Qty" DataField="qty" HeaderStyle-CssClass="col-lg-3 control-label"  />
               
        </Columns>

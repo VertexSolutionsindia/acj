@@ -23,6 +23,18 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from currentfinancialyear where no='1'", con1);
+            SqlDataReader dr1;
+            con1.Open();
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
+            {
+                Label1.Text = dr1["financial_year"].ToString();
+
+            }
+            con1.Close();
             if (User.Identity.IsAuthenticated)
             {
                 SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -46,31 +58,46 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
 
             active();
             created();
-            string supplier = "";
-            if (Session["Supplier"] != null)
-            {
-                supplier = Session["Supplier"].ToString();
-            }
+           
 
-            getoutstandng(supplier);
+            getoutstandng();
 
         }
     }
 
-    private void getoutstandng(string supplier)
+    private void getoutstandng()
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("select * from pay_amount_status where Buyer='" + supplier + "' and Com_Id='" + company_id + "' ", con);
-        SqlDataReader dr;
-        con.Open();
-        dr = cmd.ExecuteReader();
-        if (dr.Read())
+        if (User.Identity.IsAuthenticated)
         {
-            TextBox3.Text = dr["Buyer"].ToString();
-            TextBox1.Text = dr["address"].ToString();
-            TextBox2.Text = dr["pending_amount"].ToString();
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                string supplier = "";
+                if (Session["Supplier"] != null)
+                {
+                    supplier = Session["Supplier"].ToString();
+
+                    SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd = new SqlCommand("select * from pay_amount_status where Buyer='" + supplier + "' and Com_Id='" + company_id + "' and year='"+Label1.Text+"' ", con);
+                    SqlDataReader dr;
+                    con.Open();
+                    dr = cmd.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        TextBox3.Text = dr["Buyer"].ToString();
+                        TextBox1.Text = dr["address"].ToString();
+                        TextBox2.Text = dr["pending_amount"].ToString();
+                    }
+                    con.Close();
+                }
+            }
+            con1000.Close();
         }
-        con.Close();
     }
     private void active()
     {
@@ -206,15 +233,32 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
     }
     protected void BindData()
     {
-
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from pay_amount where Com_Id='" + company_id + "' order by NO asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+         if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+         string supplier = "";
+         if (Session["Supplier"] != null)
+         {
+             supplier = Session["Supplier"].ToString();
+             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+             SqlCommand CMD = new SqlCommand("select * from pay_amount where Buyer='" + supplier + "' and Com_Id='" + company_id + "' and year='"+Label1.Text+"' order by NO asc", con1);
+             DataTable dt1 = new DataTable();
+             con1.Open();
+             SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+             da1.Fill(dt1);
+             GridView1.DataSource = dt1;
+             GridView1.DataBind();
+         }
+            }
+            con1000.Close();
+         }
     }
     protected void ImageButton9_Click(object sender, ImageClickEventArgs e)
     {
@@ -362,15 +406,14 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
+        
 
         
             string return_by = "";
             int value1 = 0;
+                 string status1 = "Paid Amount";
             SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-            SqlCommand cmd23 = new SqlCommand("insert into pay_amount values(@Buyer,@Pay_date,@Estimate_value,@Address,@Total_amount,@pay_amount,@pending_amount,@outstanding,@estimate_no,@Com_Id)", con23);
+            SqlCommand cmd23 = new SqlCommand("insert into pay_amount values(@Buyer,@Pay_date,@Estimate_value,@Address,@Total_amount,@pay_amount,@pending_amount,@outstanding,@estimate_no,@Com_Id,@status,@year)", con23);
             cmd23.Parameters.AddWithValue("@Buyer", TextBox3.Text);
             cmd23.Parameters.AddWithValue("@Pay_date", TextBox4.Text);
             cmd23.Parameters.AddWithValue("@Estimate_value", DBNull.Value);
@@ -388,7 +431,8 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
             cmd23.Parameters.AddWithValue("@pending_amount", c1);
             cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
             cmd23.Parameters.AddWithValue("@Com_Id", company_id);
-          
+            cmd23.Parameters.AddWithValue("@status", status1);
+            cmd23.Parameters.AddWithValue("@year", Label1.Text);
             con23.Open();
             cmd23.ExecuteNonQuery();
             con23.Close();
@@ -396,7 +440,7 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
 
 
             SqlConnection con22 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-            SqlCommand cmd22 = new SqlCommand("update pay_amount_status set Buyer=@Buyer,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount,Com_Id=@Com_Id where Buyer='" + TextBox3.Text + "' ", con22);
+            SqlCommand cmd22 = new SqlCommand("update pay_amount_status set Buyer=@Buyer,address=@address,total_amount=@total_amount,pending_amount=@pending_amount,paid_amount=@paid_amount where Buyer='" + TextBox3.Text + "' and Com_Id='"+company_id+"' and year='"+Label1.Text+"'  ", con22);
 
 
             cmd22.Parameters.AddWithValue("@Buyer", TextBox3.Text);
@@ -422,12 +466,13 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
         string status="Purchase";
         int value=0;
             SqlConnection con26= new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
-            SqlCommand cmd26 = new SqlCommand("insert into purchase_amount values(@date,@status,@amount,@value,@Com_Id)", con26);
+            SqlCommand cmd26 = new SqlCommand("insert into purchase_amount values(@date,@status,@amount,@value,@Com_Id,@year)", con26);
             cmd26.Parameters.AddWithValue("@date", TextBox4.Text);
         cmd26.Parameters.AddWithValue("@status",status);
         cmd26.Parameters.AddWithValue("@amount", TextBox5.Text);
         cmd26.Parameters.AddWithValue("value", value);
         cmd26.Parameters.AddWithValue("@Com_Id", company_id);
+        cmd26.Parameters.AddWithValue("@year", Label1.Text);
         con26.Open();
         cmd26.ExecuteNonQuery();
         con26.Close();
@@ -438,7 +483,10 @@ public partial class Admin_Purchase_pay_amount : System.Web.UI.Page
         BindData();
 
         TextBox5.Text = "";
-        getoutstandng(TextBox3.Text);
+        getoutstandng();
+            }
+            con1000.Close();
+        }
        
     }
 }

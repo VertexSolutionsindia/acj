@@ -22,7 +22,19 @@
 
                  </script>
 
-
+                 <script type = "text/javascript">
+                     function Confirm() {
+                         var confirm_value = document.createElement("INPUT");
+                         confirm_value.type = "hidden";
+                         confirm_value.name = "confirm_value";
+                         if (confirm("Do you want to delete data?")) {
+                             confirm_value.value = "Yes";
+                         } else {
+                             confirm_value.value = "No";
+                         }
+                         document.forms[0].appendChild(confirm_value);
+                     }
+    </script>
         <!-- Bootstrap -->
           <script src="bootstrap/js/jquery-3.1.1.min.js"></script>
 
@@ -144,8 +156,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -175,8 +186,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -185,7 +197,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                   
                            </ul>
                           
                                
@@ -198,7 +210,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -253,7 +265,7 @@
 
 
                     <div class="container">
-
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                            <div class="container">
                         
  
@@ -429,6 +441,7 @@
                <asp:BoundField HeaderText="Purchase Invoice" DataField="purchase_invoice"  />
            <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  />
            <asp:BoundField HeaderText="Supplier" DataField="Supplier" />
+           <asp:BoundField HeaderText="Total qty" DataField="Toal_qty" />
              <asp:BoundField HeaderText="Total amount" DataField="Grand__total" />
             
               <asp:BoundField HeaderText="Paid Amount" DataField="paid_amount" />
@@ -443,7 +456,7 @@
               <asp:TemplateField>
               <ItemTemplate>
               <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/delete3.png"  
-                      Width="20px" Height="20px" onclick="ImageButton3_Click" ></asp:ImageButton>
+                      Width="20px" Height="20px" onclick="ImageButton3_Click" OnClientClick = "Confirm()" ></asp:ImageButton>
               </ItemTemplate>
               </asp:TemplateField>
                  

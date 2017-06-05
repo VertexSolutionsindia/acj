@@ -24,6 +24,17 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from currentfinancialyear where no='1'", con1);
+            SqlDataReader dr1;
+            con1.Open();
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
+            {
+                Label1.Text = dr1["financial_year"].ToString();
+
+            }
+            con1.Close();
 
             getinvoiceno();
             show_category();
@@ -50,6 +61,93 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             }
         }
     }
+    #region " [ Button Event ] "
+    protected void Button8_Click(object sender, EventArgs e)
+    {
+        // select appropriate contenttype, while binary transfer it identifies filetype
+        string contentType = string.Empty;
+        if (DropDownList5.SelectedValue.Equals(".pdf"))
+            contentType = "application/pdf";
+        if (DropDownList5.SelectedValue.Equals(".doc"))
+            contentType = "application/ms-word";
+        if (DropDownList5.SelectedValue.Equals(".xls"))
+            contentType = "application/xls";
+
+        DataTable dsData = new DataTable();
+
+        DataSet ds = null;
+        SqlDataAdapter da = null;
+
+
+
+        try
+        {
+            string constring = ConfigurationManager.AppSettings["connection"];
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("creditbillreport", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Com_id", Convert.ToInt32(company_id));
+
+                    da = new SqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    con.Open();
+                    da.Fill(ds);
+                    con.Close();
+
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+
+
+        dsData = ds.Tables[0];
+
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList5.SelectedValue;
+        string extension;
+        string encoding;
+        string mimeType;
+        string[] streams;
+        Warning[] warnings;
+
+        LocalReport report = new LocalReport();
+        report.ReportPath = Server.MapPath("~/Admin/Creditbillreport.rdlc");
+        ReportDataSource rds = new ReportDataSource();
+        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
+        rds.Value = dsData;
+        report.DataSources.Add(rds);
+
+        Byte[] mybytes = report.Render(DropDownList5.SelectedItem.Text, null,
+                        out extension, out encoding,
+                        out mimeType, out streams, out warnings); //for exporting to PDF
+        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
+        {
+            fs.Write(mybytes, 0, mybytes.Length);
+        }
+
+        Response.ClearHeaders();
+        Response.ClearContent();
+        Response.Buffer = true;
+        Response.Clear();
+        Response.ContentType = contentType;
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
+        Response.WriteFile(Server.MapPath("~/img/" + FileName));
+        Response.Flush();
+        Response.Close();
+        Response.End();
+
+
+
+
+
+    }
+    #endregion
     private void active()
     {
 
@@ -216,7 +314,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where Com_Id='" + company_id + "' ORDER BY no desc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where Com_Id='" + company_id + "' and year='"+Label1.Text+"' ORDER BY no desc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -297,7 +395,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where customer_name='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where customer_name='" + TextBox2.Text + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -335,7 +433,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             }
 
             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date='" + Convert.ToDateTime(TextBox3.Text) + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con1);
+            SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date='" + Convert.ToDateTime(TextBox3.Text) + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
             DataTable dt1 = new DataTable();
             con1.Open();
             SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -364,7 +462,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
         }
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -409,15 +507,15 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
 
             SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
             con2.Open();
-            string query2 = "Select * from sales_credit_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + " ' ";
+            string query2 = "Select * from sales_credit_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + " '  and year='" + Label1.Text + "' ";
             SqlCommand cmd2 = new SqlCommand(query2, con2);
             SqlDataReader dr2 = cmd2.ExecuteReader();
             while (dr2.Read())
             {
-                string barcode = dr2["barcode"].ToString();
+                string barcode = dr2["product_name"].ToString();
                 string qty = dr2["qty"].ToString();
                 SqlConnection con5 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd5 = new SqlCommand("update product_stock set qty=qty+@qty where barcode='" + barcode + "'", con5);
+                SqlCommand cmd5 = new SqlCommand("update product_stock set qty=qty+@qty where Product_name='" + barcode + "'  and year='" + Label1.Text + "'", con5);
                 cmd5.Parameters.AddWithValue("@qty", qty);
                 con5.Open();
                 cmd5.ExecuteNonQuery();
@@ -430,14 +528,14 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from sales_credit_entry where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'", con);
+            SqlCommand cmd = new SqlCommand("delete from sales_credit_entry where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "'", con);
             cmd.ExecuteNonQuery();
             con.Close();
 
             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
             con1.Open();
-            SqlCommand cmd1 = new SqlCommand("delete from sales_credit_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'", con1);
+            SqlCommand cmd1 = new SqlCommand("delete from sales_credit_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "'", con1);
             cmd1.ExecuteNonQuery();
             con1.Close();
 
@@ -471,7 +569,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
         GridViewRow row = (GridViewRow)img.NamingContainer;
         int purchase_no = Convert.ToInt32(ROW.Cells[0].Text);
         Session["purchase_invoice"] = purchase_no;
-        Response.Redirect("~/Admin/View_sales_product_details.aspx");
+        Response.Redirect("~/Admin/View_sales_product_details1.aspx");
     }
     protected void TextBox5_TextChanged(object sender, EventArgs e)
     {
@@ -490,7 +588,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where invoice_no='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where invoice_no='" + TextBox5.Text + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -582,4 +680,89 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
         Response.End();
     }
     #endregion
+    #region " [ Button Event ] "
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+       
+
+        // select appropriate contenttype, while binary transfer it identifies filetype
+        string contentType = string.Empty;
+        if (DropDownList5.SelectedValue.Equals(".pdf"))
+            contentType = "application/pdf";
+        if (DropDownList5.SelectedValue.Equals(".doc"))
+            contentType = "application/ms-word";
+        if (DropDownList5.SelectedValue.Equals(".xls"))
+            contentType = "application/xls";
+
+        DataTable dsData = new DataTable();
+
+        DataSet ds = null;
+        SqlDataAdapter da = null;
+
+
+
+        try
+        {
+            string constring = ConfigurationManager.AppSettings["connection"];
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("Customrcreditbillreport", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Customer_name", TextBox2.Text);
+                    cmd.Parameters.AddWithValue("@Com_id", company_id);
+                    da = new SqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    con.Open();
+                    da.Fill(ds);
+                    con.Close();
+
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+
+
+        dsData = ds.Tables[0];
+
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList5.SelectedValue;
+        string extension;
+        string encoding;
+        string mimeType;
+        string[] streams;
+        Warning[] warnings;
+
+        LocalReport report = new LocalReport();
+        report.ReportPath = Server.MapPath("~/Admin/Cus_credit_bill.rdlc");
+        ReportDataSource rds = new ReportDataSource();
+        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
+        rds.Value = dsData;
+        report.DataSources.Add(rds);
+
+        Byte[] mybytes = report.Render(DropDownList5.SelectedItem.Text, null,
+                        out extension, out encoding,
+                        out mimeType, out streams, out warnings); //for exporting to PDF
+        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
+        {
+            fs.Write(mybytes, 0, mybytes.Length);
+        }
+
+        Response.ClearHeaders();
+        Response.ClearContent();
+        Response.Buffer = true;
+        Response.Clear();
+        Response.ContentType = contentType;
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
+        Response.WriteFile(Server.MapPath("~/img/" + FileName));
+        Response.Flush();
+        Response.Close();
+        Response.End();
+    }
+
+      #endregion
+
 }

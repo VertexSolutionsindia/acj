@@ -151,8 +151,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -182,8 +181,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -192,7 +192,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                  
                            </ul>
                           
                                
@@ -205,7 +205,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -263,7 +263,7 @@
 
                            <div class="container">
                         
- 
+ <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
   <div class="panel panel-default">
   <div class="panel-body">
    <div class="col-md-6">
@@ -363,20 +363,7 @@
 
    <div class="col-md-6">
 
-                        <div class="form-group"><label class="col-lg-3 control-label">Supplier</label>
-                           <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-   <ContentTemplate>
-  <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-           ontextchanged="TextBox2_TextChanged"></asp:TextBox>
-             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox2" WatermarkText="Enter Supplier Name" ></asp:TextBoxWatermarkExtender>
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers1" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox2"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                        
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                      </div>
 
 
 
@@ -391,7 +378,7 @@
 </div>
 <div class="col-lg-12">
 
-<h4>Purchase Date  </h4>
+
 <hr />
 </div>
 
@@ -399,33 +386,14 @@
 <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">From</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-   <ContentTemplate>
-  
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-                                        ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox3"></asp:CalendarExtender>
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                           </div>
 
 
 
 
    <div class="col-md-6">
 
-                        <div class="form-group"><label class="col-lg-3 control-label">To</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-   <ContentTemplate>
-  <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" 
-           ontextchanged="TextBox4_TextChanged"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4"></asp:CalendarExtender>
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                       </div>
 
 
 
@@ -444,45 +412,14 @@
 <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">Purchase Invoice No</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-   <ContentTemplate>
-  
-                                    <asp:TextBox ID="TextBox5" runat="server" 
-                                        class="form-control input-x2 dropbox"  AutoPostBack="true" ontextchanged="TextBox5_TextChanged"
-                                        ></asp:TextBox>
-                                      <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="TextBox5" WatermarkText="Enter Purchase Invoice No" ></asp:TextBoxWatermarkExtender>
-                           <asp:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers10" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox5"  CompletionListCssClass="completionList"
-     CompletionListItemCssClass="listItem"
-     CompletionListHighlightedItemCssClass="itemHighlighted">
-      </asp:AutoCompleteExtender>
-                                      </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                             </div>
 
 
 
 
    <div class="col-md-6">
 
-                        <div class="form-group"><label class="col-lg-3 control-label">Model</label>
-
-                                    <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-   <ContentTemplate>
-  <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="true"  
-           class="form-control input-x2 dropbox" 
-           onselectedindexchanged="DropDownList2_SelectedIndexChanged"></asp:DropDownList>
-                              
-                                      </ContentTemplate>
-                                      <Triggers>
-              
-               
-                     <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged"  />
-                 
-                  </Triggers>
-                                      </asp:UpdatePanel></div></div></div>
+                       </div>
 
 
 
@@ -518,16 +455,15 @@
            BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
        <Columns>
       
-               <asp:BoundField HeaderText="Purchase Invoice" DataField="purchase_invoice" HeaderStyle-CssClass="red" ItemStyle-CssClass="red"  />
-               <asp:BoundField HeaderText="Date" DataField="date" HeaderStyle-CssClass="red" ItemStyle-CssClass="red"  />
+              
+                <asp:BoundField HeaderText="Product Code" DataField="Product_code" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
          
            <asp:BoundField HeaderText="Product Name" DataField="product_name" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
-             <asp:BoundField HeaderText="Model" DataField="barcode" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
+           
             
-              <asp:BoundField HeaderText="MRP" DataField="mrp" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
-               <asp:BoundField HeaderText="Purchase Price" DataField="purchase_price" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
+              
                 <asp:BoundField HeaderText="Qty" DataField="qty" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
-                  <asp:BoundField HeaderText="Supplier" DataField="Supplier" HeaderStyle-CssClass="red" ItemStyle-CssClass="red" />
+                 
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
        <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
@@ -548,11 +484,11 @@
                                      <Triggers>
               
                   <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />
-                   <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
-                     <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
-                     <asp:AsyncPostBackTrigger ControlID="TextBox5" EventName="TextChanged"  />
-                        <asp:AsyncPostBackTrigger ControlID="TextBox4" EventName="TextChanged"  />
-                          <asp:AsyncPostBackTrigger ControlID="DropDownList2" EventName="SelectedIndexChanged"  />
+                 
+                  
+                    
+                      
+                      
                     <asp:AsyncPostBackTrigger ControlID="DropDownList3" EventName="SelectedIndexChanged"  />
                      <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged"  />
                      <asp:AsyncPostBackTrigger ControlID="DropDownList4" EventName="SelectedIndexChanged"  />

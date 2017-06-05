@@ -14,7 +14,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 #endregion
-
 public partial class Admin_View_product_details1 : System.Web.UI.Page
 {
     public static int company_id = 0;
@@ -28,7 +27,7 @@ public partial class Admin_View_product_details1 : System.Web.UI.Page
             showrating();
             BindData();
 
-            
+            active();
             created();
 
 
@@ -48,6 +47,10 @@ public partial class Admin_View_product_details1 : System.Web.UI.Page
             }
         }
     }
+    private void active()
+    {
+
+    }
     protected void lnkView_Click(object sender, EventArgs e)
     {
         GridViewRow grdrow = (GridViewRow)((LinkButton)sender).NamingContainer;
@@ -60,6 +63,7 @@ public partial class Admin_View_product_details1 : System.Web.UI.Page
 
 
     }
+
     private void created()
     {
 

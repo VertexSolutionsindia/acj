@@ -21,7 +21,17 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from currentfinancialyear where no='1'", con1);
+            SqlDataReader dr1;
+            con1.Open();
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
+            {
+                Label1.Text = dr1["financial_year"].ToString();
 
+            }
+            con1.Close();
             getinvoiceno();
             show_category();
             showrating();
@@ -213,7 +223,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_entry where Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where Com_Id='" + company_id + "' and year='"+Label1.Text+"' ORDER BY purchase_invoice asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -292,7 +302,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
 
            
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_entry where Supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where Supplier='" + TextBox2.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY purchase_invoice asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -330,7 +340,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date='" + TextBox3.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date='" + TextBox3.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -356,7 +366,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
         }
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY purchase_invoice asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -372,55 +382,71 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
     
     protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
     {
-
-        ImageButton IMG = (ImageButton)sender;
-        GridViewRow ROW = (GridViewRow)IMG.NamingContainer;
-       
-      
-        ImageButton img = (ImageButton)sender;
-        GridViewRow row = (GridViewRow)img.NamingContainer;
-        int purchase_no =Convert.ToInt32( ROW.Cells[0].Text);
+         string confirmValue = Request.Form["confirm_value"];
+         if (confirmValue == "Yes")
+         {
+             ImageButton IMG = (ImageButton)sender;
+             GridViewRow ROW = (GridViewRow)IMG.NamingContainer;
 
 
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-
-            }
-            con1000.Close();
-        }
+             ImageButton img = (ImageButton)sender;
+             GridViewRow row = (GridViewRow)img.NamingContainer;
+             int purchase_no = Convert.ToInt32(ROW.Cells[0].Text);
 
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+             if (User.Identity.IsAuthenticated)
+             {
+                 SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                 SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                 SqlDataReader dr1000;
+                 con1000.Open();
+                 dr1000 = cmd1000.ExecuteReader();
+                 if (dr1000.Read())
+                 {
+                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-        con.Open();
-        SqlCommand cmd = new SqlCommand("delete from Purchase_entry where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + "'", con);
-        cmd.ExecuteNonQuery();
-        con.Close();
 
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                     SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                     con2.Open();
+                     string query2 = "Select * from purchase_entry_details where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + " ' and year='" + Label1.Text + "' ";
+                     SqlCommand cmd2 = new SqlCommand(query2, con2);
+                     SqlDataReader dr2 = cmd2.ExecuteReader();
+                     while (dr2.Read())
+                     {
+                         string barcode = dr2["Product_name"].ToString();
+                         string qty = dr2["qty"].ToString();
+                         SqlConnection con5 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                         SqlCommand cmd5 = new SqlCommand("update product_stock set qty=qty-@qty where Product_name='" + barcode + "' and year='" + Label1.Text + "'", con5);
+                         cmd5.Parameters.AddWithValue("@qty", qty);
+                         con5.Open();
+                         cmd5.ExecuteNonQuery();
+                         con5.Close();
+                     }
+                     con2.Close();
 
-        con1.Open();
-        SqlCommand cmd1 = new SqlCommand("delete from Purchase_entry_details where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + "'", con1);
-        cmd1.ExecuteNonQuery();
-        con1.Close();
+                     SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
-        SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                     con.Open();
+                     SqlCommand cmd = new SqlCommand("delete from Purchase_entry where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "'", con);
+                     cmd.ExecuteNonQuery();
+                     con.Close();
 
-        con2.Open();
-        SqlCommand cmd2 = new SqlCommand("delete from product_stock where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + "'", con2);
-        cmd2.ExecuteNonQuery();
-        con2.Close();
+                     SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
-        BindData();
-       
+                     con1.Open();
+                     SqlCommand cmd1 = new SqlCommand("delete from Purchase_entry_details where purchase_invoice='" + purchase_no + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "'", con1);
+                     cmd1.ExecuteNonQuery();
+                     con1.Close();
+
+
+
+
+
+                     BindData();
+                 }
+                 con1000.Close();
+             }
+         }
     }
 
     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -463,7 +489,7 @@ public partial class Admin_Purchase_report : System.Web.UI.Page
 
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand CMD = new SqlCommand("select * from purchase_entry where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY purchase_invoice asc", con);
+                SqlCommand CMD = new SqlCommand("select * from purchase_entry where purchase_invoice='" + TextBox5.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY purchase_invoice asc", con);
                 DataTable dt1 = new DataTable();
                 SqlDataAdapter da1 = new SqlDataAdapter(CMD);
                 da1.Fill(dt1);

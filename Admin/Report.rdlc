@@ -20,14 +20,6 @@
           <DataField>date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="customer_name">
-          <DataField>customer_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="customer_Address">
-          <DataField>customer_Address</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Mobile_no">
           <DataField>Mobile_no</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -48,14 +40,6 @@
           <DataField>grand_total</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
-        <Field Name="paid_amount">
-          <DataField>paid_amount</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="Pending_amount">
-          <DataField>Pending_amount</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
         <Field Name="status">
           <DataField>status</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -68,14 +52,6 @@
           <DataField>Com_Id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="dis_per">
-          <DataField>dis_per</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="discount_amount">
-          <DataField>discount_amount</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="Expr1">
           <DataField>Expr1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -86,10 +62,6 @@
         </Field>
         <Field Name="Category">
           <DataField>Category</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Sub_category">
-          <DataField>Sub_category</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="product_name">
@@ -124,6 +96,18 @@
           <DataField>Expr4</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="dis_per">
+          <DataField>dis_per</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="discount_amount">
+          <DataField>discount_amount</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="no">
+          <DataField>no</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSet1</DataSourceName>
@@ -131,7 +115,7 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSet1</rd:DataSetName>
-        <rd:SchemaPath>D:\Git\ACJ\acj\App_Code\DataSet1.xsd</rd:SchemaPath>
+        <rd:SchemaPath>E:\acj\App_Code\DataSet1.xsd</rd:SchemaPath>
         <rd:TableName>DataTable1</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -1008,72 +992,12 @@ End Function</Code>
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="customer_name">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!customer_name.Value, "DataSet1")</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>customer_name</rd:DefaultName>
-          <Top>3.3782cm</Top>
-          <Left>1.72376cm</Left>
-          <Height>0.6cm</Height>
-          <Width>6.12479cm</Width>
-          <ZIndex>5</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="customer_Address">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!customer_Address.Value, "DataSet1")</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>customer_Address</rd:DefaultName>
-          <Top>4.17195cm</Top>
-          <Left>1.72376cm</Left>
-          <Height>1.78999cm</Height>
-          <Width>6.12479cm</Width>
-          <ZIndex>6</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
         <Line Name="Line2">
           <Top>2.79612cm</Top>
           <Left>0.32632cm</Left>
           <Height>0cm</Height>
           <Width>19.68568cm</Width>
-          <ZIndex>7</ZIndex>
+          <ZIndex>5</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1085,7 +1009,7 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>6.00569cm</Height>
           <Width>0cm</Width>
-          <ZIndex>8</ZIndex>
+          <ZIndex>6</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1097,7 +1021,7 @@ End Function</Code>
           <Left>20.012cm</Left>
           <Height>6.00569cm</Height>
           <Width>0cm</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1125,7 +1049,7 @@ End Function</Code>
           <Left>7.65646cm</Left>
           <Height>0.78521cm</Height>
           <Width>5.27813cm</Width>
-          <ZIndex>10</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1157,7 +1081,7 @@ End Function</Code>
           <Left>2.77071cm</Left>
           <Height>0.67938cm</Height>
           <Width>16.23188cm</Width>
-          <ZIndex>11</ZIndex>
+          <ZIndex>9</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1173,13 +1097,75 @@ End Function</Code>
           <Left>0.32632cm</Left>
           <Height>0cm</Height>
           <Width>19.68568cm</Width>
-          <ZIndex>12</ZIndex>
+          <ZIndex>10</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
           </Style>
         </Line>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>CASH BILL</Value>
+                  <Style>
+                    <FontSize>16pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Top>3.0607cm</Top>
+          <Left>9.22549cm</Left>
+          <Height>0.81167cm</Height>
+          <Width>3.17991cm</Width>
+          <ZIndex>11</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Mobile_no">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!Mobile_no.Value, "DataSet1")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Mobile_no</rd:DefaultName>
+          <Top>4.19841cm</Top>
+          <Left>1.94945cm</Left>
+          <Height>0.6cm</Height>
+          <Width>5.33104cm</Width>
+          <ZIndex>12</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>

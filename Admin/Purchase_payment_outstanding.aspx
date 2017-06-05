@@ -233,8 +233,7 @@
             </div><!--/.container-fluid -->
         </nav>
         <section class="page">
-
-              <nav class="navbar-aside navbar-static-side" role="navigation">
+        <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -250,8 +249,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -281,8 +279,9 @@
                                 <a href="Account_ledger.aspx"><i class="fa fa-line-chart fa-2x" aria-hidden="true"></i><span class="nav-label">&nbsp;&nbsp; Accounts </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Account_ledger.aspx">Account ledger</a></li>
-                                    <li><a href="Purchase_payment_outstanding.aspx">Purchase Payment status</a></li>
-                                     <li><a href="Sales_payment_outstanding.aspx">Sales Payment status</a></li>
+                                    <li><a href="Purchase_payment_outstanding.aspx">Billed Payment status</a></li>
+                                     <li><a href="Unbilled_payment_outstanding.aspx">UnBilled Payment status</a></li>
+                                     <li><a href="Sales_payment_outstanding.aspx">Credit Bill Payment status</a></li>
                            </ul>
                           
                                
@@ -291,7 +290,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                    
                            </ul>
                           
                                
@@ -304,7 +303,7 @@
                                 <li><a href="Sales_entry.aspx">Cash Sales</a></li>
                                 <li><a href="sales_report_details.aspx">Cash Sales Report</a></li>
                                 <li><a href="Sales_credit.aspx">Credit sales</a></li>
-                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>>
+                                <li><a href="Sales_credit_report.aspx">Credit sales Report</a></li>
                            </ul>
                           
                                
@@ -359,7 +358,7 @@
 
 
                     <div class="container">
-
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                            <div class="container">
                         
  
@@ -385,12 +384,19 @@
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">
    <ContentTemplate>
   
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
-                                        ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                    
+                                  <asp:DropDownList ID="DropDownList1" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true"
+                                      onselectedindexchanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
+                                  <asp:Button ID="Button2" runat="server" Text="All" onclick="Button2_Click"></asp:Button>
+                                      
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
-
+                                       <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" >
+                                   <asp:ListItem>PDF</asp:ListItem>
+                                   <asp:ListItem>WORD</asp:ListItem>
+                                   <asp:ListItem>EXCEL</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="70px" Height="30px" onclick="Button8_Click" 
+                                    Text="Report" />
 
 
 

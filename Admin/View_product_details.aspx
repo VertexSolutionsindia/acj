@@ -128,7 +128,7 @@
         </nav>
         <section class="page">
 
-         <nav class="navbar-aside navbar-static-side" role="navigation">
+        <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -144,8 +144,7 @@
                           
                           <ul class="nav nav-second-level collapse">
                                     <li><a href="Main.aspx">Category</a></li>
-                                    <li><a href="Sub_category.aspx">Sub-Category</a></li>
-                                    <li><a href="Product_entry.aspx">Product Entry</a></li>
+                                     <li><a href="Product_entry.aspx">Product Entry</a></li>
                                     <li><a href="Tax_Entry.aspx">Tax entry</a></li>
                                     <li><a href="Customer_type.aspx">Customer Type entry</a></li>
                                     <li><a href="Customer-Entry.aspx">Customer Entry</a></li>
@@ -185,7 +184,7 @@
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                    <li><a href="Unbilled_Stock.aspx">UnBilled Stock</a></li>
+                                    
                            </ul>
                           
                                
@@ -327,9 +326,9 @@
       
                <asp:BoundField HeaderText="Purchase Invoice" DataField="purchase_invoice"  />
                <asp:BoundField HeaderText="Category" DataField="Category" />
-                 <asp:BoundField HeaderText="Sub category" DataField="subcategory" />
+               
                  <asp:BoundField HeaderText="Product name" DataField="Product_name"  />
-           <asp:BoundField HeaderText="Barcode" DataField="barcode"  />
+         
            <asp:BoundField HeaderText="Mrp" DataField="mrp" />
              <asp:BoundField HeaderText="Purchase price" DataField="Purchase_price" />
             

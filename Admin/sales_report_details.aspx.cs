@@ -22,6 +22,17 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from currentfinancialyear where no='1'", con1);
+            SqlDataReader dr1;
+            con1.Open();
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
+            {
+                Label1.Text = dr1["financial_year"].ToString();
+
+            }
+            con1.Close();
 
             getinvoiceno();
             show_category();
@@ -111,9 +122,9 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
 
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select distinct customer_name from sales_entry where Com_Id=@Com_Id and " +
-                "customer_name like @customer_name + '%'";
-                cmd.Parameters.AddWithValue("@customer_name", prefixText);
+                cmd.CommandText = "select distinct Mobile_no from sales_entry where Com_Id=@Com_Id and " +
+                "Mobile_no like @Mobile_no + '%'";
+                cmd.Parameters.AddWithValue("@Mobile_no", prefixText);
                 cmd.Parameters.AddWithValue("@Com_Id", company_id);
                 cmd.Connection = conn;
                 conn.Open();
@@ -122,7 +133,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
                 {
                     while (sdr.Read())
                     {
-                        customers.Add(sdr["customer_name"].ToString());
+                        customers.Add(sdr["Mobile_no"].ToString());
                     }
                 }
                 conn.Close();
@@ -214,7 +225,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where Com_Id='" + company_id + "' ORDER BY no desc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where Com_Id='" + company_id + "' and year='"+Label1.Text+"' ORDER BY no desc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -295,7 +306,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where customer_name='" + TextBox2.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where Mobile_no='" + TextBox2.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -333,7 +344,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             }
 
             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand CMD = new SqlCommand("select * from sales_entry where date='" + Convert.ToDateTime(TextBox3.Text) + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con1);
+            SqlCommand CMD = new SqlCommand("select * from sales_entry where date='" + Convert.ToDateTime(TextBox3.Text) + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
             DataTable dt1 = new DataTable();
             con1.Open();
             SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -362,7 +373,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
         }
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -392,9 +403,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
                 {
                     company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-                }
-                con1000.Close();
-            }
+                
 
             ImageButton IMG = (ImageButton)sender;
             GridViewRow ROW = (GridViewRow)IMG.NamingContainer;
@@ -407,15 +416,15 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
 
             SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
             con2.Open();
-            string query2 = "Select * from sales_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + " ' ";
+            string query2 = "Select * from sales_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + " ' and year='" + Label1.Text + "' ";
             SqlCommand cmd2 = new SqlCommand(query2, con2);
             SqlDataReader dr2 = cmd2.ExecuteReader();
             while (dr2.Read())
             {
-                string barcode = dr2["barcode"].ToString();
+                string barcode = dr2["product_name"].ToString();
                 string qty = dr2["qty"].ToString();
                 SqlConnection con5 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd5 = new SqlCommand("update product_stock set qty=qty+@qty where barcode='" + barcode + "'", con5);
+                SqlCommand cmd5 = new SqlCommand("update product_stock set qty=qty+@qty where Product_name='" + barcode + "' and year='" + Label1.Text + "'", con5);
                 cmd5.Parameters.AddWithValue("@qty", qty);
                 con5.Open();
                 cmd5.ExecuteNonQuery();
@@ -428,20 +437,23 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from sales_entry where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'", con);
+            SqlCommand cmd = new SqlCommand("delete from sales_entry where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "'", con);
             cmd.ExecuteNonQuery();
             con.Close();
 
             SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
             con1.Open();
-            SqlCommand cmd1 = new SqlCommand("delete from sales_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "'", con1);
+            SqlCommand cmd1 = new SqlCommand("delete from sales_entry_details where invoice_no='" + purchase_no + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "'", con1);
             cmd1.ExecuteNonQuery();
             con1.Close();
 
 
 
             BindData();
+                }
+                con1000.Close();
+            }
         }
 
     }
@@ -488,7 +500,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where invoice_no='" + TextBox5.Text + "' and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where invoice_no='" + TextBox5.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
@@ -527,7 +539,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@No",Convert.ToInt32 (row.Cells[0].Text));
-
+                    cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();
                     con.Open();

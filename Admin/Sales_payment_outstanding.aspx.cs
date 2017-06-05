@@ -22,7 +22,17 @@ public partial class Admin_Sales_payment_outstanding : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1 = new SqlCommand("select * from currentfinancialyear where no='1'", con1);
+            SqlDataReader dr1;
+            con1.Open();
+            dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
+            {
+                Label1.Text = dr1["financial_year"].ToString();
 
+            }
+            con1.Close();
             getinvoiceno();
             show_category();
             showrating();
@@ -30,7 +40,7 @@ public partial class Admin_Sales_payment_outstanding : System.Web.UI.Page
 
             active();
             created();
-
+            show_supplier();
             if (User.Identity.IsAuthenticated)
             {
                 SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -48,6 +58,112 @@ public partial class Admin_Sales_payment_outstanding : System.Web.UI.Page
 
 
         }
+    }
+    #region " [ Button Event ] "
+    protected void Button8_Click(object sender, EventArgs e)
+    {
+        // select appropriate contenttype, while binary transfer it identifies filetype
+        string contentType = string.Empty;
+        if (DropDownList5.SelectedValue.Equals(".pdf"))
+            contentType = "application/pdf";
+        if (DropDownList5.SelectedValue.Equals(".doc"))
+            contentType = "application/ms-word";
+        if (DropDownList5.SelectedValue.Equals(".xls"))
+            contentType = "application/xls";
+
+        DataTable dsData = new DataTable();
+
+        DataSet ds = null;
+        SqlDataAdapter da = null;
+
+
+
+        try
+        {
+            string constring = ConfigurationManager.AppSettings["connection"];
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("salesbill", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(company_id));
+
+                    da = new SqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    con.Open();
+                    da.Fill(ds);
+                    con.Close();
+
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+
+
+        dsData = ds.Tables[0];
+
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList5.SelectedValue;
+        string extension;
+        string encoding;
+        string mimeType;
+        string[] streams;
+        Warning[] warnings;
+
+        LocalReport report = new LocalReport();
+        report.ReportPath = Server.MapPath("~/Admin/salesbill.rdlc");
+        ReportDataSource rds = new ReportDataSource();
+        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
+        rds.Value = dsData;
+        report.DataSources.Add(rds);
+
+        Byte[] mybytes = report.Render(DropDownList5.SelectedItem.Text, null,
+                        out extension, out encoding,
+                        out mimeType, out streams, out warnings); //for exporting to PDF
+        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
+        {
+            fs.Write(mybytes, 0, mybytes.Length);
+        }
+
+        Response.ClearHeaders();
+        Response.ClearContent();
+        Response.Buffer = true;
+        Response.Clear();
+        Response.ContentType = contentType;
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
+        Response.WriteFile(Server.MapPath("~/img/" + FileName));
+        Response.Flush();
+        Response.Close();
+        Response.End();
+
+
+
+
+
+    }
+    #endregion
+    private void show_supplier()
+    {
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand cmd1 = new SqlCommand("Select * from Customer_Entry where  Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con1);
+        con1.Open();
+        DataSet ds11 = new DataSet();
+        SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+        da1.Fill(ds11);
+
+
+        DropDownList1.DataSource = ds11;
+        DropDownList1.DataTextField = "Custom_Name";
+        DropDownList1.DataValueField = "Custom_Code";
+        DropDownList1.DataBind();
+        DropDownList1.Items.Insert(0, new ListItem("All", "0"));
+
+
+
+        con1.Close();
     }
     private void active()
     {
@@ -177,7 +293,7 @@ public partial class Admin_Sales_payment_outstanding : System.Web.UI.Page
 
          
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from receive_amount_status where Com_Id='" + company_id + "' ", con1);
+        SqlCommand CMD = new SqlCommand("select * from receive_amount_status where Com_Id='" + company_id + "' and year='" + Label1.Text + "' ", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
@@ -305,5 +421,27 @@ public partial class Admin_Sales_payment_outstanding : System.Web.UI.Page
 
         Response.Redirect("Sales_pay_amount.aspx");
 
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand CMD = new SqlCommand("select * from receive_amount_status where  Com_Id='" + company_id + "' and year='" + Label1.Text + "' ", con1);
+        DataTable dt1 = new DataTable();
+        con1.Open();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
+    }
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        SqlCommand CMD = new SqlCommand("select * from receive_amount_status where Buyer='" + DropDownList1.SelectedItem.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ", con1);
+        DataTable dt1 = new DataTable();
+        con1.Open();
+        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        da1.Fill(dt1);
+        GridView1.DataSource = dt1;
+        GridView1.DataBind();
     }
 }

@@ -186,7 +186,7 @@ public partial class Admin_Vendor : System.Web.UI.Page
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd = new SqlCommand("Select * from product_entry where Com_Id='" + company_id + "' ORDER BY code asc", con);
+                SqlCommand cmd = new SqlCommand("Select * from subcategory where Com_Id='" + company_id + "' ORDER BY subcategory_id asc", con);
                 con.Open();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -194,15 +194,15 @@ public partial class Admin_Vendor : System.Web.UI.Page
 
 
                 DropDownList1.DataSource = ds;
-                DropDownList1.DataTextField = "product_name";
-                DropDownList1.DataValueField = "code";
+                DropDownList1.DataTextField = "subcategoryname";
+                DropDownList1.DataValueField = "subcategory_id";
                 DropDownList1.DataBind();
                 DropDownList1.Items.Insert(0, new ListItem("All", "0"));
 
 
                 DropDownList3.DataSource = ds;
-                DropDownList3.DataTextField = "product_name";
-                DropDownList3.DataValueField = "code";
+                DropDownList3.DataTextField = "subcategoryname";
+                DropDownList3.DataValueField = "subcategory_id";
                 DropDownList3.DataBind();
                 DropDownList3.Items.Insert(0, new ListItem("All", "0"));
 
