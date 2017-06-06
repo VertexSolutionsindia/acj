@@ -316,7 +316,13 @@
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
 
-
+                                       <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" >
+                                   <asp:ListItem>PDF</asp:ListItem>
+                                   <asp:ListItem>WORD</asp:ListItem>
+                                   <asp:ListItem>EXCEL</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="120px" Height="30px" onclick="Button8_Click" 
+                                    Text="Cash bill Report" />
 
 
 
@@ -366,7 +372,8 @@
                                       
                                       </asp:UpdatePanel></div></div></div>
 
-
+                                       <asp:Button ID="Button3" runat="server" class="btn-primary" style="margin-left:20px"  Width="150px" Height="30px" onclick="Button3_Click" 
+                                    Text="Date wise bill Report" />
 
 
 

@@ -67,6 +67,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             BindData();
             getinvoiceno1();
             show_category1();
+            BindData2();
 
 
         }
@@ -604,10 +605,17 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-
-        if (TextBox7.Text == "")
+        if (DropDownList3.SelectedItem.Text == "All")
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please enter paid amount')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Select valid supplier')", true);
+        }
+        else if (TextBox4.Text == "")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please add products')", true);
+        }
+        else if (TextBox7.Text == "")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please give paid amount')", true);
         }
         else
         {
@@ -632,7 +640,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                     if (dr1.HasRows)
                     {
 
-                        string status = "Billed Purchase";
+                        string status = "UnBilled Purchase";
                         float value = 0;
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("update purchase_unbilled_entry set date=@date,Supplier=@Supplier,address=@address,mobile_no=@mobile_no,Toal_qty=@Toal_qty,total_amount=@total_amount,Grand__total=@Grand__total,Com_Id=@Com_Id,paid_amount=@paid_amount,pending_amount=@pending_amount,status=@status,value=@value where purchase_invoice=@purchase_invoice and year='" + Label20.Text + "'", CON);
@@ -703,7 +711,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
 
-                                string status1 = "Billed Purchase";
+                                string status1 = "UnBill";
 
                                 SqlConnection con26 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                                 SqlCommand cmd26 = new SqlCommand("update unpay_amount set Estimate_value=@Estimate_value,address=@address,total_amount=@total_amount,pay_amount=@pay_amount,pending_amount=@pending_amount,outstanding=outstanding+@outstanding,status=@status where Buyer='" + DropDownList3.SelectedItem.Text + "' AND invoice_no='" + Label1.Text + "' and year='" + Label20.Text + "'", con26);
@@ -746,6 +754,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox14.Text = "";
                         TextBox4.Text = "";
                         show_tax();
+                        BindData2();
 
                     }
                     else
@@ -754,7 +763,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
 
-                        string status = "Purchase";
+                        string status = "Unbilled Purchase";
                         float value = 0;
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("insert into purchase_unbilled_entry values(@purchase_invoice,@date,@Supplier,@address,@mobile_no,@Toal_qty,@total_amount,@Grand__total,@Com_Id,@paid_amount,@pending_amount,@status,@value,@year)", CON);
@@ -807,7 +816,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
 
-                                string status1 = "Bill";
+                                string status1 = "UnBill";
                                 SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                                 SqlCommand cmd24 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                                 cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
@@ -856,7 +865,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         else
                         {
 
-                            string status1 = "Bill";
+                            string status1 = "UnBill";
                             SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                             SqlCommand cmd23 = new SqlCommand("insert into unpay_amount_status values(@Buyer,@address,@total_amount,@pending_amount,@paid_amount,@Com_Id,@year)", con23);
                             cmd23.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
@@ -915,6 +924,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox8.Text = "";
                         TextBox14.Text = "";
                         TextBox4.Text = "";
+                        BindData2();
                         show_tax();
                     }
                 }
@@ -951,6 +961,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox12.Text = "";
         show_tax();
         BindData();
+        BindData2();
         TextBox14.Text = "";
     }
     private void active()
@@ -1801,6 +1812,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox14.Text = "";
         show_tax();
         BindData();
+        BindData2();
     }
     protected void Button24_Click(object sender, EventArgs e)
     {
@@ -1887,5 +1899,91 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             }
             con1000.Close();
         }
+    }
+    protected void Button13_Click(object sender, EventArgs e)
+    {
+        this.ModalPopupExtender4.Show();
+    }
+    protected void BindData2()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_entry where Com_Id='" + company_id + "' ORDER BY  purchase_invoice asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView3.DataSource = dt1;
+                GridView3.DataBind();
+            }
+            con1000.Close();
+        }
+
+    }
+    protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                ImageButton img = (ImageButton)sender;
+                GridViewRow row = (GridViewRow)img.NamingContainer;
+
+
+
+
+                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd2 = new SqlCommand("select * from purchase_unbilled_entry where purchase_invoice='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlDataReader dr2;
+                con2.Open();
+                dr2 = cmd2.ExecuteReader();
+                if (dr2.Read())
+                {
+                    Label1.Text = dr2["purchase_invoice"].ToString();
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+
+                    DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
+                    TextBox12.Text = dr2["address"].ToString();
+                    TextBox14.Text = dr2["mobile_no"].ToString();
+                    TextBox4.Text = dr2["Toal_qty"].ToString();
+                    TextBox10.Text = Convert.ToDecimal(dr2["total_amount"]).ToString("#,##0.00");
+
+                    TextBox11.Text = Convert.ToDecimal(dr2["Grand__total"]).ToString("#,##0.00");
+                    TextBox7.Text = Convert.ToDecimal(dr2["paid_amount"]).ToString("#,##0.00");
+                    TextBox9.Text = Convert.ToDecimal(dr2["pending_amount"]).ToString("#,##0.00");
+
+                }
+                con2.Close();
+
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from purchase_unbilled_entry_details where purchase_invoice='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label20.Text + "' ORDER BY RowNumber asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+                getinvoiceno1();
+
+            }
+            con1000.Close();
+        }
+
+
+
     }
 }

@@ -374,9 +374,10 @@
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
 
+                                     
 
-
-
+                                       <asp:Button ID="Button3" runat="server" class="btn-primary" style="margin-left:20px"  Width="150px" Height="30px" onclick="Button3_Click" 
+                                    Text="Date wise bill Report" />
 
 
 
@@ -386,7 +387,7 @@
 
 </div>
 
-
+  
 
 <div class="panel-body">
    <div class="col-md-6">

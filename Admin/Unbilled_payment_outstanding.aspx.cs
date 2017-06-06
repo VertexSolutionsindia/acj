@@ -91,6 +91,7 @@ public partial class Admin_Unbilled_payment_outstanding : System.Web.UI.Page
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@No", Convert.ToInt32(company_id));
+                    cmd.Parameters.AddWithValue("@year", Label1.Text);
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();
                     con.Open();

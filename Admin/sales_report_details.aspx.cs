@@ -59,6 +59,93 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             }
         }
     }
+    #region " [ Button Event ] "
+    protected void Button8_Click(object sender, EventArgs e)
+    {
+        // select appropriate contenttype, while binary transfer it identifies filetype
+        string contentType = string.Empty;
+        if (DropDownList5.SelectedValue.Equals(".pdf"))
+            contentType = "application/pdf";
+        if (DropDownList5.SelectedValue.Equals(".doc"))
+            contentType = "application/ms-word";
+        if (DropDownList5.SelectedValue.Equals(".xls"))
+            contentType = "application/xls";
+
+        DataTable dsData = new DataTable();
+
+        DataSet ds = null;
+        SqlDataAdapter da = null;
+
+
+
+        try
+        {
+            string constring = ConfigurationManager.AppSettings["connection"];
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("cashbillprint", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
+                    cmd.Parameters.AddWithValue("@year", Label1.Text);
+                    da = new SqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    con.Open();
+                    da.Fill(ds);
+                    con.Close();
+
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+
+
+        dsData = ds.Tables[0];
+
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList5.SelectedValue;
+        string extension;
+        string encoding;
+        string mimeType;
+        string[] streams;
+        Warning[] warnings;
+
+        LocalReport report = new LocalReport();
+        report.ReportPath = Server.MapPath("~/Admin/Cashbillreport.rdlc");
+        ReportDataSource rds = new ReportDataSource();
+        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
+        rds.Value = dsData;
+        report.DataSources.Add(rds);
+
+        Byte[] mybytes = report.Render(DropDownList5.SelectedItem.Text, null,
+                        out extension, out encoding,
+                        out mimeType, out streams, out warnings); //for exporting to PDF
+        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
+        {
+            fs.Write(mybytes, 0, mybytes.Length);
+        }
+
+        Response.ClearHeaders();
+        Response.ClearContent();
+        Response.Buffer = true;
+        Response.Clear();
+        Response.ContentType = contentType;
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
+        Response.WriteFile(Server.MapPath("~/img/" + FileName));
+        Response.Flush();
+        Response.Close();
+        Response.End();
+
+
+
+
+
+    }
+    #endregion
     private void active()
     {
 
@@ -540,6 +627,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@No",Convert.ToInt32 (row.Cells[0].Text));
                     cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
+                    cmd.Parameters.AddWithValue("@year", Label1.Text);
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();
                     con.Open();
@@ -590,6 +678,94 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
         Response.Flush();
         Response.Close();
         Response.End();
+    }
+    #endregion
+    #region " [ Button Event ] "
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        // select appropriate contenttype, while binary transfer it identifies filetype
+        string contentType = string.Empty;
+        if (DropDownList5.SelectedValue.Equals(".pdf"))
+            contentType = "application/pdf";
+        if (DropDownList5.SelectedValue.Equals(".doc"))
+            contentType = "application/ms-word";
+        if (DropDownList5.SelectedValue.Equals(".xls"))
+            contentType = "application/xls";
+
+        DataTable dsData = new DataTable();
+
+        DataSet ds = null;
+        SqlDataAdapter da = null;
+
+
+
+        try
+        {
+            string constring = ConfigurationManager.AppSettings["connection"];
+            using (SqlConnection con = new SqlConnection(constring))
+            {
+                using (SqlCommand cmd = new SqlCommand("datewisecashsalesreport", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@fromdate", TextBox3.Text);
+                    cmd.Parameters.AddWithValue("@todate", TextBox4.Text);
+                    cmd.Parameters.AddWithValue("@com_id", Convert.ToInt32(company_id));
+                    cmd.Parameters.AddWithValue("@year", Label1.Text);
+                    da = new SqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    con.Open();
+                    da.Fill(ds);
+                    con.Close();
+
+                }
+            }
+        }
+        catch
+        {
+            throw;
+        }
+
+
+
+        dsData = ds.Tables[0];
+
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + DropDownList5.SelectedValue;
+        string extension;
+        string encoding;
+        string mimeType;
+        string[] streams;
+        Warning[] warnings;
+
+        LocalReport report = new LocalReport();
+        report.ReportPath = Server.MapPath("~/Admin/datewisecashbill.rdlc");
+        ReportDataSource rds = new ReportDataSource();
+        rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file
+        rds.Value = dsData;
+        report.DataSources.Add(rds);
+
+        Byte[] mybytes = report.Render(DropDownList5.SelectedItem.Text, null,
+                        out extension, out encoding,
+                        out mimeType, out streams, out warnings); //for exporting to PDF
+        using (FileStream fs = File.Create(Server.MapPath("~/img/") + FileName))
+        {
+            fs.Write(mybytes, 0, mybytes.Length);
+        }
+
+        Response.ClearHeaders();
+        Response.ClearContent();
+        Response.Buffer = true;
+        Response.Clear();
+        Response.ContentType = contentType;
+        Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName);
+        Response.WriteFile(Server.MapPath("~/img/" + FileName));
+        Response.Flush();
+        Response.Close();
+        Response.End();
+
+
+
+
+
     }
     #endregion
 }

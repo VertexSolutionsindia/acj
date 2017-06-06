@@ -63,6 +63,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
             show_type();
             active();
             created();
+            
             getinvoiceno1();
             if (User.Identity.IsAuthenticated)
             {
@@ -91,7 +92,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
             }
             con1.Close();
             TextBox6.Text = "Cash Bill";
-
+            BindData2();
         }
        
     }
@@ -196,6 +197,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@No", Convert.ToInt32(TextBox1.Text));
                     cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
+                    cmd.Parameters.AddWithValue("@year", Label3.Text);
                     da = new SqlDataAdapter(cmd);
                     ds = new DataSet();
                     con.Open();
@@ -255,19 +257,28 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
     #endregion
     protected void Button1_Click(object sender, EventArgs e)
     {
-
-        if (User.Identity.IsAuthenticated)
+        if (DropDownList3.SelectedItem.Text == "All")
         {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please select staff')", true);
+        }
+        else if (TextBox2.Text == "")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please add products')", true);
+        }
+        else
+        {
+            if (User.Identity.IsAuthenticated)
             {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
-                  SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                  SqlCommand cmd1 = new SqlCommand("select * from sales_entry where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label3.Text + "' ", con1);
+                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                SqlDataReader dr1000;
+                con1000.Open();
+                dr1000 = cmd1000.ExecuteReader();
+                if (dr1000.Read())
+                {
+                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                    SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand cmd1 = new SqlCommand("select * from sales_entry where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label3.Text + "' ", con1);
                     con1.Open();
                     SqlDataReader dr1;
                     dr1 = cmd1.ExecuteReader();
@@ -280,13 +291,13 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         SqlCommand cmd = new SqlCommand("update sales_entry set date=@date,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,status=@status,value=@value,Com_Id=@Com_Id,dis_per=@dis_per,discount_amount=@discount_amount where invoice_no=@invoice_no and Com_Id='" + company_id + "' and year='" + Label3.Text + "' ", CON);
                         cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
                         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
-                       
+
                         cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
                         cmd.Parameters.AddWithValue("@staff_name", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@total_qty", TextBox2.Text);
-                        cmd.Parameters.AddWithValue("@total_amount",float.Parse( TextBox10.Text));
-                        cmd.Parameters.AddWithValue("@grand_total",float.Parse( TextBox11.Text));
-                     
+                        cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox10.Text));
+                        cmd.Parameters.AddWithValue("@grand_total", float.Parse(TextBox11.Text));
+
                         cmd.Parameters.AddWithValue("@status", ststus);
                         cmd.Parameters.AddWithValue("@value", value);
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
@@ -304,7 +315,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         getinvoiceno();
                         getinvoiceno1();
                         BindData();
-
+                        BindData2();
 
 
                         TextBox2.Text = "";
@@ -312,9 +323,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox10.Text = "";
                         TextBox11.Text = "";
                         TextBox26.Text = "";
-                       
+
                         TextBox11.Text = "";
-                      
+
                         TextBox6.Text = "Cash Bill";
                         TextBox8.Text = "";
                         TextBox23.Text = "";
@@ -329,14 +340,14 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         SqlCommand cmd = new SqlCommand("insert into sales_entry values(@invoice_no,@date,@Mobile_no,@staff_name,@total_qty,@total_amount,@grand_total,@status,@value,@Com_Id,@dis_per,@discount_amount,@year)", CON);
                         cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
                         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
-                     
+
                         cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
                         cmd.Parameters.AddWithValue("@staff_name", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@total_qty", TextBox2.Text);
-                    
+
                         cmd.Parameters.AddWithValue("@total_amount", float.Parse(TextBox10.Text));
                         cmd.Parameters.AddWithValue("@grand_total", float.Parse(TextBox11.Text));
-                    
+
                         cmd.Parameters.AddWithValue("@status", ststus);
                         cmd.Parameters.AddWithValue("@value", value);
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
@@ -381,7 +392,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         getinvoiceno();
                         getinvoiceno1();
                         BindData();
-
+                        BindData2();
 
 
                         TextBox2.Text = "";
@@ -389,63 +400,64 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox10.Text = "";
                         TextBox11.Text = "";
                         TextBox26.Text = "";
-                     
+
                         TextBox11.Text = "";
-                     
+
                         TextBox6.Text = "Cash Bill";
                         TextBox8.Text = "";
 
                         TextBox23.Text = "";
                     }
 
-                      
-                       
-                        show_tax();
-                   
-
-        /*string name = "Dear Customer, Thanks for shopping with Dream garments. Your invoice value is "+TextBox11.Text+" "+" For any queries contact:9345717284 ";
-        string strUrl = "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=nazeer.deens@gmail.com:vertex&senderID=TEST SMS&receipientno=" + TextBox6.Text + "&dcs=0&msgtxt=" + name + "&state=4 ";
-        // Create a request object  
-        WebRequest request = HttpWebRequest.Create(strUrl);
-        // Get the response back  
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        Stream s = (Stream)response.GetResponseStream();
-        StreamReader readStream = new StreamReader(s);
-        string dataString = readStream.ReadToEnd();
-        response.Close();
-        s.Close();
-        readStream.Close();*/
 
 
-        
-
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry created successfully')", true);
-        TextBox1.Text = Label1.Text;
-        show_category();
-        getinvoiceno();
-        getinvoiceno1();
-        BindData();
-
-        
-        
-        TextBox2.Text = "";
-        TextBox12.Text = "";
-        TextBox10.Text = "";
-        TextBox11.Text = "";
-        TextBox26.Text = "";
-  
-        TextBox11.Text = "";
-     
-        TextBox6.Text = "";
-        TextBox8.Text = "";
-        TextBox23.Text = "";
+                    show_tax();
 
 
-      
-      
+                    /*string name = "Dear Customer, Thanks for shopping with Dream garments. Your invoice value is "+TextBox11.Text+" "+" For any queries contact:9345717284 ";
+                    string strUrl = "http://api.mVaayoo.com/mvaayooapi/MessageCompose?user=nazeer.deens@gmail.com:vertex&senderID=TEST SMS&receipientno=" + TextBox6.Text + "&dcs=0&msgtxt=" + name + "&state=4 ";
+                    // Create a request object  
+                    WebRequest request = HttpWebRequest.Create(strUrl);
+                    // Get the response back  
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    Stream s = (Stream)response.GetResponseStream();
+                    StreamReader readStream = new StreamReader(s);
+                    string dataString = readStream.ReadToEnd();
+                    response.Close();
+                    s.Close();
+                    readStream.Close();*/
 
+
+
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Sales entry created successfully')", true);
+                    TextBox1.Text = Label1.Text;
+                    show_category();
+                    getinvoiceno();
+                    getinvoiceno1();
+                    BindData();
+
+
+
+                    TextBox2.Text = "";
+                    TextBox12.Text = "";
+                    TextBox10.Text = "";
+                    TextBox11.Text = "";
+                    TextBox26.Text = "";
+
+                    TextBox11.Text = "";
+
+                    TextBox6.Text = "";
+                    TextBox8.Text = "";
+                    TextBox23.Text = "";
+
+
+
+
+
+                }
+                con1000.Close();
             }
-            con1000.Close();
         }
 
     }
@@ -1168,10 +1180,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
     {
         TextBox5.Focus();
     }*/
-    protected void Button6_Click(object sender, System.EventArgs e)
-    {
-       
-    }
+   
     protected void Button16_Click(object sender, EventArgs e)
     {
        
@@ -1409,6 +1418,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         getinvoiceno();
         getinvoiceno1();
         BindData();
+        BindData2();
         TextBox10.Text = "";
         TextBox11.Text = "";
   
@@ -1531,5 +1541,90 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         catch (Exception we)
         { }
     }
-   
+
+    protected void Button6_Click(object sender, EventArgs e)
+    {
+        this.ModalPopupExtender2.Show();
+    }
+    protected void BindData2()
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from sales_entry where Com_Id='" + company_id + "' ORDER BY  invoice_no asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView3.DataSource = dt1;
+                GridView3.DataBind();
+            }
+            con1000.Close();
+        }
+
+    }
+    protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
+    {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                ImageButton img = (ImageButton)sender;
+                GridViewRow row = (GridViewRow)img.NamingContainer;
+
+
+
+
+                SqlConnection con2 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd2 = new SqlCommand("select * from sales_entry where invoice_no='" + row.Cells[0].Text + "' and Com_Id='" + company_id + "'", con2);
+                SqlDataReader dr2;
+                con2.Open();
+                dr2 = cmd2.ExecuteReader();
+                if (dr2.Read())
+                {
+                    Label1.Text = dr2["invoice_no"].ToString();
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox6.Text = dr2["Mobile_no"].ToString();
+
+                    DropDownList3.SelectedItem.Text = dr2["staff_name"].ToString();
+                    TextBox2.Text = dr2["total_qty"].ToString();
+                    TextBox10.Text = Convert.ToDecimal(dr2["total_amount"]).ToString("#,##0.00");
+                    TextBox23.Text = dr2["dis_per"].ToString();
+                    TextBox26.Text = dr2["discount_amount"].ToString();
+                    TextBox11.Text = Convert.ToDecimal(dr2["grand_total"]).ToString("#,##0.00");
+
+
+                }
+                con2.Close();
+
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from sales_entry_details where invoice_no='" + Label1.Text + "' and Com_Id='" + company_id + "' and year='" + Label3.Text + "' ORDER BY s_no asc", con);
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
+                getinvoiceno1();
+
+            }
+            con1000.Close();
+        }
+    
+    
+    
+    }
 }

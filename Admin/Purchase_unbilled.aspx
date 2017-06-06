@@ -626,11 +626,61 @@
            Height="30px"  Text="New" onclick="Button19_Click"  ></asp:Button>&nbsp;
                       <asp:Button ID="Button1" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Create" onclick="Button1_Click" ></asp:Button>&nbsp;
  <asp:Button ID="Button2" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="Clear" onclick="Button2_Click" ></asp:Button>
+                             <asp:Button ID="Button13" runat="server" class="btn-primary" Width="70px" Height="30px"  Text="View" 
+                                    onclick="Button13_Click" ></asp:Button> 
                           </ContentTemplate>
                           <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="TextBox7" EventName="TextChanged"  />
                           </Triggers>
-                           </asp:UpdatePanel>    
+                           </asp:UpdatePanel>   
+                           
+                             <asp:UpdatePanel ID="UpdatePanel20" runat="server">
+      <ContentTemplate>
+      <asp:Button ID="Button14" runat="server" Text="Button" style="display:none" />
+        <asp:Panel ID="panel1" runat="server" class="panel0" BorderColor="Black" BorderStyle="Solid" BackColor="White" Direction="LeftToRight" style="display:none" 
+                         HorizontalAlign="Left" ScrollBars="Both" Width="700px" Height="300px"  >
+         <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
+                     <h3 style="font-size:20px; " class="control-label"> View list  <asp:ImageButton ID="ImageButton5" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+  
+           
+        </div>
+        <div class="tablestyles1">
+         <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="false" Width="100%">
+                   
+                   <Columns>
+                 
+                   <asp:BoundField HeaderText="Invoice No" DataField="purchase_invoice" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label"  />
+           
+               <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                 <asp:BoundField HeaderText="Customer name" DataField="Supplier" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                   <asp:BoundField HeaderText="Total Qty" DataField="Toal_qty" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                    <asp:BoundField HeaderText="Total Amount" DataField="Grand__total" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                  
+                     <asp:TemplateField>
+                   <ItemTemplate>
+
+                   <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton3_Click"></asp:ImageButton>
+                   </ItemTemplate>
+                   
+                   </asp:TemplateField>
+                   </Columns>
+                   
+                   </asp:GridView>  
+        </div>
+
+        </asp:Panel>
+       <asp:ModalPopupExtender ID="ModalPopupExtender4" runat="server" TargetControlID="Button14" PopupControlID="panel1" CancelControlID="ImageButton5" BackgroundCssClass="modelbackground">
+        </asp:ModalPopupExtender>  
+                           
+                    </ContentTemplate>
+    <Triggers>
+              
+                  <asp:AsyncPostBackTrigger ControlID="Button13" EventName="Click"  />
+                </Triggers>
+               
+    </asp:UpdatePanel>     
+                           
+                            
                  <div class="panel-body">
                            <div class="form-horizontal">
                                <br />
