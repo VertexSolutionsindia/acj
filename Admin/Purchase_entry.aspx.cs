@@ -56,7 +56,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
 
               
                 DateTime date = DateTime.Now;
-                TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+                TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                 getinvoiceno();
                 getinvoicenosubcategory();
                 getinvoiceno2();
@@ -638,7 +638,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("update purchase_entry set date=@date,Supplier=@Supplier,address=@address,mobile_no=@mobile_no,Toal_qty=@Toal_qty,total_amount=@total_amount,Grand__total=@Grand__total,Com_Id=@Com_Id,paid_amount=@paid_amount,pending_amount=@pending_amount,status=@status,value=@value where purchase_invoice=@purchase_invoice and year='" + Label20.Text + "'", CON);
                         cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                         cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox12.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
@@ -743,7 +743,8 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
                         show_tax();
@@ -914,7 +915,8 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
                         show_tax();
@@ -945,8 +947,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
 
         TextBox10.Text = "";
         TextBox11.Text = "";
-     
-        TextBox8.Text = "";
+
+        DateTime date = DateTime.Now;
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
       
         TextBox4.Text="";
         TextBox7.Text = "";
@@ -1760,7 +1763,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 if (dr2.Read())
                 {
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
 
                   DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
                   TextBox12.Text = dr2["address"].ToString();
@@ -1797,7 +1800,8 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        TextBox8.Text = "";
+        DateTime date = DateTime.Now;
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
         TextBox7.Text = "";
@@ -1807,6 +1811,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         show_tax();
         BindData();
         BindData2();
+
     }
     protected void Button24_Click(object sender, EventArgs e)
     {
@@ -1845,7 +1850,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
 
                  
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
 
                     DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
                     TextBox12.Text = dr2["address"].ToString();

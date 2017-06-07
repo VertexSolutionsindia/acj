@@ -80,7 +80,7 @@ public partial class Admin_Sub_category : System.Web.UI.Page
             DropDownList4.SelectedItem.Text = dr["category_name"].ToString();
 
             TextBox16.Text = dr["subcategoryname"].ToString();
-            TextBox2.Text = dr["mrp"].ToString();
+            TextBox4.Text = dr["mrp"].ToString();
         }
         con.Close();
 

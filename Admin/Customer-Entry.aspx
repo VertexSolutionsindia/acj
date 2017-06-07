@@ -79,15 +79,15 @@
         
 </asp:ToolkitScriptManager>
     <div>
-        <nav class="navbar navbar-inverse yamm navbar-fixed-top">
+              <nav class="navbar navbar-inverse yamm navbar-fixed-top">
             <div class="container-fluid">
                 <button type="button" class="navbar-minimalize minimalize-styl-2  pull-left "><i class="fa fa-bars"></i></button>
                 <span class="search-icon"><i class="fa fa-search"></i></span>
                 <div class="search" style="display: none;">
-                    <form1 role="form">
+                    <form role="form">
                         <input type="text" class="form-control" autocomplete="off" placeholder="Write something and press enter">
                         <span class="search-close"><i class="fa fa-times"></i></span>
-                    </form1>
+                    </form>
                 </div>
                   <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -102,7 +102,7 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                            
-                         <li class="dropdown">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 <asp:Button ID="Button4" runat="server"  Text="ADD" class="btn btn-primary"></asp:Button> <span aria-hidden="true" class="glyphicon glyphicon-plus"></span> </a>
                             <ul class="dropdown-menu">
@@ -128,10 +128,8 @@
                                
                             </ul>
                         </li>
-                        </li>
-                        
                     </ul>
-                     </div>     
+                          
                     <ul class="nav navbar-nav navbar-right navbar-top-drops">
                         <li class="dropdown"><a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown">
 
@@ -141,11 +139,11 @@
                         <li class="dropdown profile-dropdown">
                             <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" ><img src="../default-profile-pic.png" alt="" width="25px"><%=User.Identity.Name%></b></span>  <span class="fa fa-caret-down" aria-hidden="true" style=""></a>
                             <ul class="dropdown-menu">
-                                <li><a href="Profile_main.aspx"><i class="fa fa-user"></i>My Profile</a></li>
+                       <%--         <li><a href="Profile_main.aspx"><i class="fa fa-user"></i>My Profile</a></li>
                                 <li><a href="Seetings.aspx"><i class="fa fa-calendar"></i>Settings</a></li>                         
                                 <li><a href="Advanced_Settings.aspx"><i class="fa fa-envelope"></i>Advanced Settings</a></li>
                                 <li><a href="#"><i class="fa fa-barcode"></i>Custom Field</a></li>
-                                <li class="divider"></li>
+                                <li class="divider"></li>--%>
                                
                                  <li ><a href="#" ><asp:LinkButton id="LoginLink" Text="Log Out"  class="fa fa-sign-out" aria-hidden="true"
                       OnClick="LoginLink_OnClick" runat="server" /></a></li>
@@ -154,11 +152,10 @@
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->
-            
         </nav>
         <section class="page">
 
-               <nav class="navbar-aside navbar-static-side" role="navigation">
+             <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
                         <ul class="nav metismenu" id="side-menu">
@@ -193,7 +190,7 @@
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Billed</a></li>
                                     <li><a href="Purchase_unbilled.aspx">Unbilled</a></li>
-                                     <li><a href="Purchase_report.aspx">Report</a></li>
+                                  <li><a href="Purchase_report.aspx">Billed Report</a></li>
                                       <li><a href="Unbilled_report.aspx">Unbilled Report</a></li>
                            </ul>
                           
@@ -214,8 +211,8 @@
                              <li>
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                    <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
-                                 
+                                         <li><a href="Stock_Inventory.aspx">Overall Stock</a></li>
+                                   
                            </ul>
                           
                                

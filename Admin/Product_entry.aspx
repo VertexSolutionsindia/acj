@@ -131,11 +131,11 @@
                         <li class="dropdown profile-dropdown">
                             <a href="#" class="dropdown-toggle button-wave" data-toggle="dropdown" role="button" ><img src="../default-profile-pic.png" alt="" width="25px"><%=User.Identity.Name%></b></span>  <span class="fa fa-caret-down" aria-hidden="true" style=""></a>
                             <ul class="dropdown-menu">
-                                <li><a href="Profile_main.aspx"><i class="fa fa-user"></i>My Profile</a></li>
+                       <%--         <li><a href="Profile_main.aspx"><i class="fa fa-user"></i>My Profile</a></li>
                                 <li><a href="Seetings.aspx"><i class="fa fa-calendar"></i>Settings</a></li>                         
                                 <li><a href="Advanced_Settings.aspx"><i class="fa fa-envelope"></i>Advanced Settings</a></li>
                                 <li><a href="#"><i class="fa fa-barcode"></i>Custom Field</a></li>
-                                <li class="divider"></li>
+                                <li class="divider"></li>--%>
                                
                                  <li ><a href="#" ><asp:LinkButton id="LoginLink" Text="Log Out"  class="fa fa-sign-out" aria-hidden="true"
                       OnClick="LoginLink_OnClick" runat="server" /></a></li>
@@ -182,7 +182,7 @@
                              <ul class="nav nav-second-level collapse">
                                     <li><a href="Purchase_entry.aspx">Billed</a></li>
                                     <li><a href="Purchase_unbilled.aspx">Unbilled</a></li>
-                                     <li><a href="Purchase_report.aspx">Report</a></li>
+                                    <li><a href="Purchase_report.aspx">Billed Report</a></li>
                                       <li><a href="Unbilled_report.aspx">Unbilled Report</a></li>
                            </ul>
                           
@@ -203,7 +203,7 @@
                              <li>
                                 <a href="Stock_Inventory.aspx"><i class="fa fa-clone fa-2x" aria-hidden="true"></i> <span class="nav-label">&nbsp;&nbsp; Inventory </span><span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level collapse">
-                                    <li><a href="Stock_Inventory.aspx">Billed Stock</a></li>
+                                     <li><a href="Stock_Inventory.aspx">Overall Stock</a></li>
                                    
                            </ul>
                           
@@ -562,7 +562,7 @@
                          HorizontalAlign="Left" ScrollBars="Both" Width="500px" Height="300px"  >
     
          <div style="padding:12px; border:1px solid #e5e5e5;   border-radius:10px; background-color:#E6E6FA;color:#233445; font-size:15px; font-weight:400px; font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif; ">
-                     <h3 style="font-size:20px; " class="control-label"> Update Sub-Category  <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
+                     <h3 style="font-size:20px; " class="control-label"> Update Product Entry  <asp:ImageButton ID="ImageButton6" runat="server" ImageUrl="~/exit11.png" width="30px" height="30px" style="float:right" /></h3>
   
      
   
@@ -573,19 +573,19 @@
        
         <tr>
         <td>
-            <asp:Label ID="Label28" runat="server" class="col-lg-3 control-label" Width="200px" Text="SubCategory Id"></asp:Label></td>
+            <asp:Label ID="Label28" runat="server" class="col-lg-3 control-label" Width="200px" Text="Product Id"></asp:Label></td>
         <td>
             <asp:Label ID="Label29" runat="server" Text=""></asp:Label></td>
         </tr>
         <tr>
         <td >
-            <asp:Label ID="Label2" runat="server" class="col-lg-3 control-label" Width="200px"  Text="Category Name"></asp:Label></td>
+            <asp:Label ID="Label2" runat="server" class="col-lg-3 control-label" Width="200px"  Text="Category"></asp:Label></td>
         <td>
             <asp:DropDownList ID="DropDownList4" class="form-control input-x2 dropbox" runat="server"></asp:DropDownList></td>
         </tr>
         <tr>
         <td>
-            <asp:Label ID="Label30" runat="server" class="col-lg-3 control-label" Width="200px" Text="Sub-Category Name"></asp:Label></td>
+            <asp:Label ID="Label30" runat="server" class="col-lg-3 control-label" Width="200px" Text="Product Name"></asp:Label></td>
         <td>
             <asp:TextBox ID="TextBox16" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
         </tr>
