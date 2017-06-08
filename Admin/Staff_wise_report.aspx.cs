@@ -380,7 +380,7 @@ public partial class Admin_Staff_wise_report : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where date between '" + TextBox1.Text + "' and  '" + TextBox2.Text + "'  and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_entry where date between '" + Convert.ToDateTime(TextBox1.Text).ToString("MM-dd-yyyy") + "' and  '" + Convert.ToDateTime(TextBox2.Text).ToString("MM-dd-yyyy") + "'  and Com_Id='" + company_id + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);

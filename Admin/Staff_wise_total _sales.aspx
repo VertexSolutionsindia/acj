@@ -286,7 +286,7 @@
    <ContentTemplate>
  <asp:TextBox ID="TextBox1" runat="server"  AutoPostBack="true" ontextchanged="TextBox1_TextChanged" 
            ></asp:TextBox>
- <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox1"  Format="yyyy-MM-dd"></asp:CalendarExtender>
+ <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox1"  Format="dd-MM-yyyy"></asp:CalendarExtender>
    </ContentTemplate>
    
     </asp:UpdatePanel>
@@ -300,7 +300,7 @@
    <ContentTemplate>
  <asp:TextBox ID="TextBox2" runat="server"  AutoPostBack="true" ontextchanged="TextBox2_TextChanged"  
            ></asp:TextBox>
- <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2" Format="yyyy-MM-dd"></asp:CalendarExtender>
+ <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2" Format="dd-MM-yyyy"></asp:CalendarExtender>
    </ContentTemplate>
    
     </asp:UpdatePanel>

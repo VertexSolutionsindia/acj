@@ -326,6 +326,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
 
     protected void TextBox2_TextChanged(object sender, EventArgs e)
     {
+
         if (User.Identity.IsAuthenticated)
         {
             SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -341,12 +342,14 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between  '" + TextBox3.Text + "' and '" + TextBox2.Text + "' and  Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY no asc", con);
+        SqlCommand CMD = new SqlCommand("select * from purchase_entry where date between  '" + Convert.ToDateTime(TextBox3.Text).ToString("MM-dd-yyyy") + "' and '" + Convert.ToDateTime(TextBox2.Text).ToString("MM-dd-yyyy") + "' and  Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
+
+
     }
    
     public override void VerifyRenderingInServerForm(Control control)

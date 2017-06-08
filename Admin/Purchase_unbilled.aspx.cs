@@ -57,7 +57,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
             DateTime date = DateTime.Now;
-            TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+            TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             getinvoiceno();
             getinvoicenosubcategory();
             getinvoiceno2();
@@ -645,7 +645,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("update purchase_unbilled_entry set date=@date,Supplier=@Supplier,address=@address,mobile_no=@mobile_no,Toal_qty=@Toal_qty,total_amount=@total_amount,Grand__total=@Grand__total,Com_Id=@Com_Id,paid_amount=@paid_amount,pending_amount=@pending_amount,status=@status,value=@value where purchase_invoice=@purchase_invoice and year='" + Label20.Text + "'", CON);
                         cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                         cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox12.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
@@ -750,7 +750,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
                         show_tax();
@@ -768,7 +769,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("insert into purchase_unbilled_entry values(@purchase_invoice,@date,@Supplier,@address,@mobile_no,@Toal_qty,@total_amount,@Grand__total,@Com_Id,@paid_amount,@pending_amount,@status,@value,@year)", CON);
                         cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                         cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox12.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
@@ -820,7 +821,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                                 SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                                 SqlCommand cmd24 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                                 cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                                cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
+                                cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                                 cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                                 cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
 
@@ -885,7 +886,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                             SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                             SqlCommand cmd24 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                             cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                            cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
+                            cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                             cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                             cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
 
@@ -921,7 +922,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
                         BindData2();
@@ -953,7 +955,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        TextBox8.Text = "";
+        DateTime date = DateTime.Now;
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
         TextBox7.Text = "";
@@ -1354,7 +1357,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         cmd1.Parameters.AddWithValue("@qty", TextBox13.Text);
                         cmd1.Parameters.AddWithValue("@total_amount", float.Parse(TextBox16.Text));
                         cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-                        cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd1.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                         cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd1.Parameters.AddWithValue("@RowNumber", Label2.Text);
                         cmd1.Parameters.AddWithValue("@year", Label20.Text);
@@ -1509,7 +1512,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                     cmd1.Parameters.AddWithValue("@qty", TextBox29.Text);
                     cmd1.Parameters.AddWithValue("@total_amount", TextBox32.Text);
                     cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-                    cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+                    cmd1.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
                     cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
 
                     CON1.Open();
@@ -1803,7 +1806,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        TextBox8.Text = "";
+        DateTime date = DateTime.Now;
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
         TextBox7.Text = "";
@@ -1884,7 +1888,8 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                     TextBox10.Text = "";
                     TextBox11.Text = "";
                     TextBox14.Text = "";
-                    TextBox8.Text = "";
+                    DateTime date = DateTime.Now;
+                    TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
                     TextBox4.Text = "";
                     TextBox7.Text = "";
@@ -1954,7 +1959,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                 if (dr2.Read())
                 {
                     Label1.Text = dr2["purchase_invoice"].ToString();
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
 
                     DropDownList3.SelectedItem.Text = dr2["supplier"].ToString();
                     TextBox12.Text = dr2["address"].ToString();

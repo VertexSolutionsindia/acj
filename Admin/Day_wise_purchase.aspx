@@ -253,7 +253,7 @@
    <ContentTemplate>
     <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
                                         ontextchanged="TextBox3_TextChanged"></asp:TextBox>
-                                      <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox3"></asp:CalendarExtender>
+                                      <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox3" Format="dd-MM-yyyy"></asp:CalendarExtender>
 
   
    </ContentTemplate>
@@ -270,7 +270,7 @@
     <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox"  
            AutoPostBack="true" ontextchanged="TextBox2_TextChanged"
                                         ></asp:TextBox>
-                                      <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2"></asp:CalendarExtender>
+                                      <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox2" Format="dd-MM-yyyy"></asp:CalendarExtender>
 
   
    </ContentTemplate>

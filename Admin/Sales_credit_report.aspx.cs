@@ -176,8 +176,8 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
                 using (SqlCommand cmd = new SqlCommand("datewisecreditsalesreport", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@fromdate", TextBox3.Text);
-                    cmd.Parameters.AddWithValue("@todate", TextBox4.Text);
+                    cmd.Parameters.AddWithValue("@fromdate", Convert.ToDateTime(TextBox3.Text).ToString("MM-dd-yyyy"));
+                    cmd.Parameters.AddWithValue("@todate", Convert.ToDateTime(TextBox4.Text).ToString("MM-dd-yyyy"));
                     cmd.Parameters.AddWithValue("@com_id", Convert.ToInt32(company_id));
                     cmd.Parameters.AddWithValue("@year", Label1.Text);
                     da = new SqlDataAdapter(cmd);
@@ -551,7 +551,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
         }
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date between '" + TextBox3.Text + "' and '" + TextBox4.Text + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where date between '" + Convert.ToDateTime(TextBox3.Text).ToString("MM-dd-yyyy") + "' and '" + Convert.ToDateTime(TextBox4.Text).ToString("MM-dd-yyyy") + "' and Com_Id='" + company_id + "'  and year='" + Label1.Text + "' ORDER BY invoice_no asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);

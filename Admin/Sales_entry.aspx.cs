@@ -46,7 +46,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
 
 
             DateTime date = DateTime.Now;
-            TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+            TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + DropDownList3.ClientID + "', event)");
            
             TextBox12.Attributes.Add("onkeypress", "return controlEnter('" + TextBox17.ClientID + "', event)");
@@ -290,7 +290,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("update sales_entry set date=@date,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,status=@status,value=@value,Com_Id=@Com_Id,dis_per=@dis_per,discount_amount=@discount_amount where invoice_no=@invoice_no and Com_Id='" + company_id + "' and year='" + Label3.Text + "' ", CON);
                         cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
 
                         cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
                         cmd.Parameters.AddWithValue("@staff_name", DropDownList3.SelectedItem.Text);
@@ -327,7 +327,8 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox11.Text = "";
 
                         TextBox6.Text = "Cash Bill";
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox23.Text = "";
 
                     }
@@ -339,7 +340,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("insert into sales_entry values(@invoice_no,@date,@Mobile_no,@staff_name,@total_qty,@total_amount,@grand_total,@status,@value,@Com_Id,@dis_per,@discount_amount,@year)", CON);
                         cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                        cmd.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
 
                         cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
                         cmd.Parameters.AddWithValue("@staff_name", DropDownList3.SelectedItem.Text);
@@ -404,7 +405,8 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox11.Text = "";
 
                         TextBox6.Text = "Cash Bill";
-                        TextBox8.Text = "";
+                        DateTime date = DateTime.Now;
+                        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
                         TextBox23.Text = "";
                     }
@@ -448,10 +450,10 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                     TextBox11.Text = "";
 
                     TextBox6.Text = "";
-                    TextBox8.Text = "";
+                  
                     TextBox23.Text = "";
 
-
+            
 
 
 
@@ -569,7 +571,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         TextBox23.Text = "";
         TextBox26.Text = "";
         DateTime date = DateTime.Now;
-        TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     private void active()
     {
@@ -1302,7 +1304,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                 if (dr2.Read())
                 {
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
                
                     DropDownList3.SelectedItem.Text = dr2["staff_name"].ToString();
@@ -1366,7 +1368,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
 
 
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
                  
                     DropDownList3.SelectedItem.Text = dr2["staff_name"].ToString();
@@ -1400,8 +1402,8 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                     TextBox2.Text = "";
 
                     TextBox6.Text = "";
-                  
-                    TextBox8.Text = "";
+                    DateTime date = DateTime.Now;
+                    TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                     TextBox23.Text = "";
                     TextBox26.Text = "";
 
@@ -1429,7 +1431,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
         TextBox23.Text = "";
         TextBox26.Text = "";
         DateTime date = DateTime.Now;
-        TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     protected void Button22_Click(object sender, System.EventArgs e)
     {
@@ -1596,7 +1598,7 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                 if (dr2.Read())
                 {
                     Label1.Text = dr2["invoice_no"].ToString();
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
 
                     DropDownList3.SelectedItem.Text = dr2["staff_name"].ToString();

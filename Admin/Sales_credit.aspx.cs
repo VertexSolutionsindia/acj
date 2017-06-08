@@ -41,7 +41,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
             }
             con11.Close();
             DateTime date = DateTime.Now;
-            TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+            TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + TextBox13.ClientID + "', event)");
             TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox14.ClientID + "', event)");
             TextBox14.Attributes.Add("onkeypress", "return controlEnter('" + DropDownList3.ClientID + "', event)");
@@ -301,7 +301,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                          SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                          SqlCommand cmd = new SqlCommand("update sales_credit_entry set date=@date,customer_name=@customer_name,customer_Address=@customer_Address,Mobile_no=@Mobile_no,staff_name=@staff_name,total_qty=@total_qty,total_amount=@total_amount,grand_total=@grand_total,paid_amount=@paid_amount,Pending_amount=@Pending_amount,status=@status,value=@value,Com_Id=@Com_Id,dis_per=@dis_per,discount_amount=@discount_amount where invoice_no=@invoice_no and Com_Id='" + company_id + "' and year='" + Label11.Text + "' ", CON);
                          cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                         cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                          cmd.Parameters.AddWithValue("@customer_name", TextBox13.Text);
                          cmd.Parameters.AddWithValue("@customer_Address", TextBox14.Text);
                          cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
@@ -420,7 +420,8 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                          TextBox7.Text = "";
                          TextBox9.Text = "";
                          TextBox6.Text = "";
-                         TextBox8.Text = "";
+                         DateTime date = DateTime.Now;
+                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                          TextBox23.Text = "";
 
                      }
@@ -432,7 +433,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                          SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                          SqlCommand cmd = new SqlCommand("insert into sales_credit_entry values(@invoice_no,@date,@customer_name,@customer_Address,@Mobile_no,@staff_name,@total_qty,@total_amount,@grand_total,@paid_amount,@Pending_amount,@status,@value,@Com_Id,@dis_per,@discount_amount,@year)", CON);
                          cmd.Parameters.AddWithValue("@invoice_no", Label1.Text);
-                         cmd.Parameters.AddWithValue("@date", TextBox8.Text);
+                         cmd.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                          cmd.Parameters.AddWithValue("@customer_name", TextBox13.Text);
                          cmd.Parameters.AddWithValue("@customer_Address", TextBox14.Text);
                          cmd.Parameters.AddWithValue("@Mobile_no", TextBox6.Text);
@@ -488,7 +489,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                                  SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                                  SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                                  cmd24.Parameters.AddWithValue("@Buyer", TextBox13.Text);
-                                 cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
+                                 cmd24.Parameters.AddWithValue("@pay_date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                                  cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                                  cmd24.Parameters.AddWithValue("@address", TextBox14.Text);
 
@@ -553,7 +554,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                              SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                              SqlCommand cmd24 = new SqlCommand("insert into receive_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                              cmd24.Parameters.AddWithValue("@Buyer", TextBox13.Text);
-                             cmd24.Parameters.AddWithValue("@pay_date", TextBox8.Text);
+                             cmd24.Parameters.AddWithValue("@pay_date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                              cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                              cmd24.Parameters.AddWithValue("@address", TextBox14.Text);
 
@@ -611,7 +612,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                      TextBox7.Text = "";
                      TextBox9.Text = "";
                      TextBox6.Text = "";
-                     TextBox8.Text = "";
+                  
                      TextBox23.Text = "";
 
                  }
@@ -730,7 +731,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
         TextBox23.Text = "";
         TextBox26.Text = "";
         DateTime date = DateTime.Now;
-        TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
+        TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     private void active()
     {
@@ -1661,7 +1662,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                 if (dr2.Read())
                 {
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
                     TextBox13.Text = dr2["customer_name"].ToString();
                     TextBox14.Text = dr2["customer_Address"].ToString();
@@ -1727,7 +1728,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
 
 
 
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
                     TextBox13.Text = dr2["customer_name"].ToString();
                     TextBox14.Text = dr2["customer_Address"].ToString();
@@ -1766,7 +1767,8 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                     TextBox6.Text = "";
                     TextBox7.Text = "";
                     TextBox9.Text = "";
-                    TextBox8.Text = "";
+                    DateTime date = DateTime.Now;
+                    TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                     TextBox23.Text = "";
                     TextBox26.Text = "";
 
@@ -1853,7 +1855,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                 if (dr2.Read())
                 {
                     Label1.Text = dr2["invoice_no"].ToString();
-                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("MM-dd-yyyy");
+                    TextBox8.Text = Convert.ToDateTime(dr2["date"]).ToString("dd-MM-yyyy");
                     TextBox6.Text = dr2["Mobile_no"].ToString();
                     TextBox13.Text = dr2["customer_name"].ToString();
                     TextBox14.Text = dr2["customer_Address"].ToString();
