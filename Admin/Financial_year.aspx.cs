@@ -39,8 +39,25 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                 con1000.Close();
             }
 
-            
 
+            SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd = new SqlCommand("select * from currentfinancialyear where no='1'", con);
+            SqlDataReader dr;
+            con.Open();
+            dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                DateTime date = Convert.ToDateTime(dr["start_date"]);
+                DateTime date1 = Convert.ToDateTime(dr["end_date"]);
+                DateTime today = DateTime.Now;
+                if (today >= date && today <= date1)
+                {
+                    Response.Redirect("~/Admin/Dashboard.aspx");
+                }
+
+            }
+
+           
             getinvoiceno();
             show_category();
             showrating();
@@ -53,7 +70,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
             show_financial();
             getcurrentfinancial();
         }
-       
+
     }
     private void show_financial()
     {
@@ -340,7 +357,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
 
 
     }
-    
+
     protected void Button3_Click(object sender, EventArgs e)
     {
         getinvoiceno();
@@ -378,7 +395,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                 if (dr2.Read())
                 {
                     TextBox1.Text = dr2["financial_year"].ToString();
-                    TextBox2.Text =Convert.ToDateTime(  dr2["start_date"]).ToString("MM/dd/yyyy");
+                    TextBox2.Text = Convert.ToDateTime(dr2["start_date"]).ToString("MM/dd/yyyy");
                     TextBox4.Text = Convert.ToDateTime(dr2["end_date"]).ToString("MM/dd/yyyy");
                 }
                 con2.Close();
@@ -416,11 +433,11 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                         SqlCommand cmd = new SqlCommand("Update financial_year set financial_year=@financial_year,Com_Id=@Com_Id,start_date=@start_date,end_date=@end_date where no=@no", CON);
                         cmd.Parameters.AddWithValue("@no", Label1.Text);
                         cmd.Parameters.AddWithValue("@financial_year", TextBox1.Text);
-                    
+
 
 
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                        cmd.Parameters.AddWithValue("@start_date",TextBox2.Text);
+                        cmd.Parameters.AddWithValue("@start_date", TextBox2.Text);
                         cmd.Parameters.AddWithValue("@end_date", TextBox4.Text);
                         CON.Open();
                         cmd.ExecuteNonQuery();
@@ -449,8 +466,8 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
 
 
                         cmd.Parameters.AddWithValue("@Com_Id", company_id);
-                        cmd.Parameters.AddWithValue("@start_date",TextBox2.Text);
-                        cmd.Parameters.AddWithValue("@end_date",TextBox4.Text);
+                        cmd.Parameters.AddWithValue("@start_date", TextBox2.Text);
+                        cmd.Parameters.AddWithValue("@end_date", TextBox4.Text);
                         CON.Open();
                         cmd.ExecuteNonQuery();
                         CON.Close();
@@ -572,7 +589,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                             string date2 = "03/31/2018";
 
                             cmd10.Parameters.AddWithValue("@start_date", date1);
-                            cmd10.Parameters.AddWithValue("@end_date",date2);
+                            cmd10.Parameters.AddWithValue("@end_date", date2);
                         }
                         if (ListBox1.SelectedItem.Text == "2018-2019")
                         {
@@ -645,7 +662,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
     }
     private void getcurrentfinancial()
     {
-         if (User.Identity.IsAuthenticated)
+        if (User.Identity.IsAuthenticated)
         {
             SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
             SqlCommand cmd1000 = new SqlCommand("select * from user_details where Name='" + User.Identity.Name + "'", con1000);
@@ -656,22 +673,22 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand cmd = new SqlCommand("Select no,financial_year from currentfinancialyear where no='1' and Com_Id='" + company_id + "'", con);
-        con.Open();
-        DataSet ds = new DataSet();
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        da.Fill(ds);
+                SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd = new SqlCommand("Select no,financial_year from currentfinancialyear where no='1' and Com_Id='" + company_id + "'", con);
+                con.Open();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
 
-        ListBox2.DataSource = ds;
-        ListBox2.DataTextField = "financial_year";
-        ListBox2.DataValueField = "no";
-        ListBox2.DataBind();
+                ListBox2.DataSource = ds;
+                ListBox2.DataTextField = "financial_year";
+                ListBox2.DataValueField = "no";
+                ListBox2.DataBind();
 
-        con.Close();
+                con.Close();
             }
-             con1000.Close();
-         }
+            con1000.Close();
+        }
     }
     protected void Button9_Click(object sender, EventArgs e)
     {
@@ -722,4 +739,6 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
             TextBox4.Text = "03-31-2020";
         }
     }
+
+
 }
