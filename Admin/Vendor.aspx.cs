@@ -610,7 +610,89 @@ public partial class Admin_Vendor : System.Web.UI.Page
     {
 
     }
-    protected void Button5_Click(object sender, EventArgs e)
+
+
+    protected void TextBox3_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox3.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Supplier Name')", true);
+
+            TextBox3.Text.Remove(TextBox3.Text.Length - 1);
+            TextBox3.Text = "";
+        }
+    }
+    protected void TextBox4_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox4.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide Number only')", true);
+
+            TextBox4.Text = "";
+        }
+    }
+    protected void TextBox6_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox6.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Supplier Name')", true);
+
+            TextBox6.Text.Remove(TextBox6.Text.Length - 1);
+            TextBox6.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
+    }
+
+    protected void TextBox5_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox5.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide Number only')", true);
+
+            TextBox5.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
+    }
+    protected void TextBox1_TextChanged1(object sender, EventArgs e)
+    {
+        if (TextBox1.Text != "")
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                SqlDataReader dr1000;
+                con1000.Open();
+                dr1000 = cmd1000.ExecuteReader();
+                if (dr1000.Read())
+                {
+                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+                    SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand CMD = new SqlCommand("select * from Vendor where Vendor_Name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' ", con1);
+                    DataTable dt1 = new DataTable();
+                    con1.Open();
+                    SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                    da1.Fill(dt1);
+                    GridView1.DataSource = dt1;
+                    GridView1.DataBind();
+                }
+                con1000.Close();
+            }
+        }
+        else
+        {
+            BindData();
+        }
+    }
+    protected void Button3_Click(object sender, EventArgs e)
     {
         Response.ClearContent();
         Response.AddHeader("content-disposition", "attachment; filename=gvtoexcel.xls");

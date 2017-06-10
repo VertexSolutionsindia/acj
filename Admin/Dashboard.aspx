@@ -355,11 +355,11 @@
 <div class="top">
 <a href="Staff-Entry.aspx" >
 
-<button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-briefcase" aria-hidden="true"></i></button><br /><span class="col-lg-3 control-label">Staff entry</span></a></div>
+<button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-briefcase" aria-hidden="true"></i></button><br /><span class="col-lg-3 control-label">Staff Entry</span></a></div>
 <div class="top" >
 <a href="Sales_entry.aspx" >
 
-<button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-ticket" aria-hidden="true"></i></button><br />&nbsp;&nbsp;&nbsp;<span class="col-lg-3 control-label">Sales entry</span></a></div>
+<button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-ticket" aria-hidden="true"></i></button><br />&nbsp;&nbsp;&nbsp;<span class="col-lg-3 control-label">Sales Entry</span></a></div>
 <div class="top" >
 <a href="">
 

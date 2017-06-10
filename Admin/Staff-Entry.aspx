@@ -324,13 +324,12 @@
                                 
                                 </div>
 
-
-                                                                                           <div class="form-group"><label class="col-lg-3 control-label">Mobile No </label>
+            <div class="form-group"><label class="col-lg-3 control-label">Mobile No </label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel13" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox13" runat="server" class="form-control input-x2 dropbox" 
+                                    <asp:TextBox ID="TextBox13" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox13_TextChanged" 
                                         ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
@@ -469,8 +468,8 @@
 
 
 
-                       <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search"></asp:TextBoxWatermarkExtender>
+                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Staff Name"></asp:TextBoxWatermarkExtender>
                          <br />
                         
 
@@ -492,10 +491,13 @@
 
     
    <div class="col-md-4"><h3>Staff Name</h3>
+   <asp:UpdatePanel ID="UpdatePanel15" runat="server">
+   <ContentTemplate>
        <asp:DropDownList ID="DropDownList2" runat="server" class="form-control" AutoPostBack="true" 
            onselectedindexchanged="DropDownList2_SelectedIndexChanged" ></asp:DropDownList>
    
-   
+      </ContentTemplate>
+                           </asp:UpdatePanel>
    </div>
     
 
@@ -707,7 +709,7 @@
         <td>
             <asp:Label ID="Label8" runat="server" Text="Mobile No" Width="200px" class="col-lg-3 control-label" ></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox4" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox4" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox4_TextChanged"></asp:TextBox>
         </tr>
          <tr>
         <td>

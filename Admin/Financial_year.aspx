@@ -201,19 +201,28 @@
                    
                    <Columns>
                  
-                   <asp:BoundField HeaderText="No" DataField="no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label"  />
-           
-               <asp:BoundField HeaderText="Financial year" DataField="financial_year" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                   <asp:BoundField HeaderText="No" DataField="no">
+             <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             
                
+                <asp:BoundField HeaderText="Financial year" DataField="financial_year" >
+               <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+
                   
-                     <asp:TemplateField>
+                     <asp:TemplateField HeaderText="Edit">
                    <ItemTemplate>
                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/edit4.jpg" Width="20px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
                    </ItemTemplate>
-                   
+                    <HeaderStyle CssClass="Grd1" />
+                    <ItemStyle CssClass="Grd1" />
                    </asp:TemplateField>
                    </Columns>
-                   
+                     <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
                    </asp:GridView>   
                          </div>
   

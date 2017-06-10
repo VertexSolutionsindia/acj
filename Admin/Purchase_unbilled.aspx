@@ -389,7 +389,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                 <h2>UnBilled Purchase entry
+                                 <h2>UnBilled Purchase Entry
                                    <asp:UpdatePanel ID="UpdatePanel30" runat="server">
    <ContentTemplate>    
      <Span style="float:right">
@@ -776,19 +776,19 @@
         <td>
             <asp:Label ID="Label3" runat="server" Text="Supplier Name" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox1" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox1" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox1_TextChanged" ></asp:TextBox>
         </tr>
         <tr>
         <td>
             <asp:Label ID="Label30" runat="server" Text="Supplier Address" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox17" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox17" runat="server"   class="form-control input-x2 dropbox" ></asp:TextBox>
         </tr>
      <tr>
         <td>
             <asp:Label ID="Label4" runat="server" Text="Mobile Number" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox18" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox18" runat="server"   class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox18_TextChanged" ></asp:TextBox></td>
         </tr>
          <tr>
         <td>
@@ -895,7 +895,8 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel15" runat="server" >
    <ContentTemplate>
-                                  <asp:TextBox ID="TextBox14" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                  <asp:TextBox ID="TextBox14" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox14_TextChanged" 
+                                        ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -922,7 +923,7 @@
     <th align="center">S.No</th>
     <th align="center">Product Name</th>
     <th align="center">MRP</th>
-    <th align="center">Purchase rate</th>
+    <th align="center">Purchase Rate</th>
     <th>Qty</th>
     <th>Total Amount</th>
     </tr>
@@ -1195,7 +1196,7 @@
         </tr>
      <tr>
         <td>
-            <asp:Label ID="Label33" runat="server" Text="Purchase rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
+            <asp:Label ID="Label33" runat="server" Text="Purchase Rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
        
 
@@ -1529,7 +1530,7 @@
                     (i[r].q = i[r].q || []).push(arguments);
                 }, i[r].l = 1 * new Date();
                 a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
+                        m = s.getElementsByTagName(o)[0];F
                 a.async = 1;
                 a.src = g;
                 m.parentNode.insertBefore(a, m)

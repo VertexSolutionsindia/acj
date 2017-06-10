@@ -447,4 +447,36 @@ public partial class Admin_Department_Entry : System.Web.UI.Page
        
     }
 
+    protected void TextBox1_TextChanged1(object sender, EventArgs e)
+    {
+        if (TextBox1.Text != "")
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                SqlDataReader dr1000;
+                con1000.Open();
+                dr1000 = cmd1000.ExecuteReader();
+                if (dr1000.Read())
+                {
+                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+                    SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand CMD = new SqlCommand("select * from Department where Depart_Name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' ORDER BY Depart_Code asc", con1);
+                    DataTable dt1 = new DataTable();
+                    con1.Open();
+                    SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                    da1.Fill(dt1);
+                    GridView1.DataSource = dt1;
+                    GridView1.DataBind();
+                }
+                con1000.Close();
+            }
+        }
+        else
+        {
+            BindData();
+        }
+    }
 }

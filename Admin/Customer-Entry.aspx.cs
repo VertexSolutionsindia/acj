@@ -25,7 +25,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
         {
             TextBox3.Attributes.Add("onkeypress", "return controlEnter('" + TextBox2.ClientID + "', event)");
             TextBox2.Attributes.Add("onkeypress", "return controlEnter('" + TextBox9.ClientID + "', event)");
-            
+
             getinvoiceno();
             show_category();
             showrating();
@@ -62,7 +62,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
         TextBox16.Text = ROW.Cells[2].Text;
         TextBox6.Text = ROW.Cells[3].Text;
         TextBox10.Text = ROW.Cells[4].Text;
-    
+
         TextBox7.Text = ROW.Cells[5].Text;
         TextBox8.Text = ROW.Cells[6].Text;
         TextBox12.Text = ROW.Cells[7].Text;
@@ -159,7 +159,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
                 SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
 
                 con.Open();
-                SqlCommand cmd = new SqlCommand("delete from Customer_Entry where Custom_Code='" + usrid+"' and Com_Id='" + company_id + "'", con);
+                SqlCommand cmd = new SqlCommand("delete from Customer_Entry where Custom_Code='" + usrid + "' and Com_Id='" + company_id + "'", con);
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -228,8 +228,8 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
                 CON.Close();
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Customer Entry created successfully')", true);
                 getinvoiceno();
-             
-               
+
+
                 TextBox3.Text = "";
                 TextBox2.Text = "";
                 TextBox4.Text = "";
@@ -258,7 +258,7 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
         TextBox4.Text = "";
         show_type();
         TextBox9.Text = "";
-        
+
         TextBox12.Text = "";
         TextBox13.Text = "";
         TextBox5.Text = "";
@@ -485,8 +485,8 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
     {
 
     }
-    
- 
+
+
     protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (User.Identity.IsAuthenticated)
@@ -500,16 +500,16 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
             {
                 company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-         
 
-        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from Customer_Entry where Custom_Name='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con1);
-        DataTable dt1 = new DataTable();
-        con1.Open();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+
+                SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand CMD = new SqlCommand("select * from Customer_Entry where Custom_Name='" + DropDownList2.SelectedItem.Text + "' and Com_Id='" + company_id + "' ORDER BY Custom_Code asc", con1);
+                DataTable dt1 = new DataTable();
+                con1.Open();
+                SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                da1.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             con1000.Close();
         }
@@ -534,12 +534,86 @@ public partial class Admin_Customer_Entry : System.Web.UI.Page
     }
     protected void TextBox9_TextChanged(object sender, EventArgs e)
     {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox9.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
 
+            TextBox9.Text = "";
+        }
     }
-
-
     protected void TextBox1_TextChanged(object sender, EventArgs e)
     {
 
+    }
+    protected void TextBox2_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+    protected void TextBox3_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox3.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Customer Name')", true);
+
+            TextBox3.Text.Remove(TextBox3.Text.Length - 1);
+            TextBox3.Text = "";
+        }
+    }
+    protected void TextBox16_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox16.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Customer Name')", true);
+
+            TextBox16.Text.Remove(TextBox16.Text.Length - 1);
+            TextBox16.Text = "";
+
+        }
+        this.ModalPopupExtender3.Show();
+    }
+    protected void TextBox10_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox10.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox10.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
+    }
+    protected void TextBox13_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox13.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox13.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
+    }
+    protected void TextBox11_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox11.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox11.Text = "";
+        }
     }
 }

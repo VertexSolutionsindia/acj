@@ -310,7 +310,8 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox" 
+                                      AutoPostBack="true" ontextchanged="TextBox3_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -329,7 +330,7 @@
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">
    <ContentTemplate>
                                     <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox" 
-                                        TextMode="MultiLine"></asp:TextBox>
+                                        TextMode="MultiLine" ontextchanged="TextBox2_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -349,7 +350,7 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel8" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox" ontextchanged="TextBox9_TextChanged" 
+                                    <asp:TextBox ID="TextBox9" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true" ontextchanged="TextBox9_TextChanged" 
                                         ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
@@ -413,7 +414,7 @@
                                 
                                 </div>
 
-                                   <div class="form-group"><label class="col-lg-3 control-label">Friend or referral Name : </label>
+                                   <div class="form-group"><label class="col-lg-3 control-label">Friend or Referral Name : </label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel10" runat="server">
@@ -437,7 +438,8 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel13" runat="server">
    <ContentTemplate>
-                                 <asp:TextBox ID="TextBox11" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                 <asp:TextBox ID="TextBox11" runat="server" 
+                                     class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox11_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -596,7 +598,7 @@
              <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
-            <asp:BoundField HeaderText="friend or Referral Name" DataField="friend_name" >
+            <asp:BoundField HeaderText="Friend or Referral Name" DataField="friend_name" >
               <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
@@ -683,7 +685,7 @@
         <td>
             <asp:Label ID="Label30" runat="server" Text="Customer Name" class="col-lg-3 control-label" Width="200px"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox16" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox16" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox16_TextChanged"></asp:TextBox></td>
         </tr>
       <tr>
         <td>
@@ -695,7 +697,7 @@
         <td>
             <asp:Label ID="Label5" runat="server" Text="Mobile No" class="col-lg-3 control-label" Width="200px"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox10" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox10" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox10_TextChanged"></asp:TextBox></td>
         </tr>
        
          <tr>
@@ -720,7 +722,7 @@
         <td>
             <asp:Label ID="Label7" runat="server" Text="Mobile No" class="col-lg-3 control-label" Width="200px"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox13" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox13" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox13_TextChanged"></asp:TextBox></td>
         </tr>      
        
         </tr>

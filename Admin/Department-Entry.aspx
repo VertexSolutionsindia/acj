@@ -405,8 +405,8 @@
 
 
 
-                       <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search"></asp:TextBoxWatermarkExtender>
+                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true"  ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Department"></asp:TextBoxWatermarkExtender>
                          <br />
                         
 
@@ -458,7 +458,7 @@
   <div class="panel-body">
                         <div class="col-md-12" >
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Show &nbsp;<asp:DropDownList ID="DropDownList4" runat="server" class="dropbox1" style="margin-top:10px;">
+                                 <%--   <h3 class="panel-title">Show &nbsp;<asp:DropDownList ID="DropDownList4" runat="server" class="dropbox1" style="margin-top:10px;">
                                     <asp:ListItem>5</asp:ListItem>
                                         <asp:ListItem>10</asp:ListItem>
                                         <asp:ListItem>25</asp:ListItem>
@@ -478,7 +478,7 @@
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
+                                    </div>--%>
                                 </div>
 
                                 <div class="panel-body">

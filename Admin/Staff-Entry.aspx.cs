@@ -517,4 +517,64 @@ public partial class Admin_Staff_Entry : System.Web.UI.Page
     {
         /* Verifies that the control is rendered */
     }
+    protected void TextBox1_TextChanged1(object sender, EventArgs e)
+    {
+        if (TextBox1.Text != "")
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+                SqlDataReader dr1000;
+                con1000.Open();
+                dr1000 = cmd1000.ExecuteReader();
+                if (dr1000.Read())
+                {
+                    company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+                    SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+                    SqlCommand CMD = new SqlCommand("select * from Staff_Entry where Emp_Name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' ORDER BY Emp_Code asc", con1);
+                    DataTable dt1 = new DataTable();
+                    con1.Open();
+                    SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+                    da1.Fill(dt1);
+                    GridView1.DataSource = dt1;
+                    GridView1.DataBind();
+                }
+                con1000.Close();
+            }
+        }
+        else
+        {
+            BindData();
+        }
+
+    }
+    protected void TextBox13_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox13.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox13.Text = "";
+        }
+    }
+    protected void TextBox4_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox4.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox4.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
+    }
 }

@@ -302,7 +302,7 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox3_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -343,7 +343,8 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel7" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox4_TextChanged" 
+                                        ></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -356,7 +357,7 @@
                                 
                                 </div>
 
-                                 <div class="form-group"><label class="col-lg-3 control-label">Product name : </label>
+                                 <div class="form-group"><label class="col-lg-3 control-label">Product Name : </label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel6" runat="server">
@@ -482,8 +483,9 @@
 
 
 
-                       <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search"></asp:TextBoxWatermarkExtender>
+                       <asp:TextBox ID="TextBox1" runat="server" 
+          AutoPostBack="true" ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Supplier Name"></asp:TextBoxWatermarkExtender>
                          <br />
                         
 
@@ -554,7 +556,7 @@
   <div class="panel-body">
                         <div class="col-md-12" >
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Show &nbsp;<asp:DropDownList ID="DropDownList4" runat="server" class="dropbox1" style="margin-top:10px;">
+                                    <h3 class="panel-title"><%--Show &nbsp;--%><%--<asp:DropDownList ID="DropDownList4" runat="server" class="dropbox1" style="margin-top:10px;">
                                     <asp:ListItem>5</asp:ListItem>
                                         <asp:ListItem>10</asp:ListItem>
                                         <asp:ListItem>25</asp:ListItem>
@@ -569,19 +571,15 @@
                                         <asp:ListItem></asp:ListItem>
                                     
                                     
-                                    </asp:DropDownList>&nbsp; Entries </h3>
+                                    </asp:DropDownList>--%><%--&nbsp; Entries </h3>--%>
                                     <hr />
-                                    <div class="panel-actions">
+                         <%--           <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
+                                    </div>--%>
                                 </div>
 
-                                <div class="panel-body">
-                                   
-                                       <div class="col-md-3">
-
-</div>
+<div class="panel-body">                          
 <div class="col-md-12">
    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
    <ContentTemplate>
@@ -636,7 +634,7 @@
            <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
-           <asp:BoundField HeaderText="Product" DataField="Product" >
+           <asp:BoundField HeaderText="Product Name" DataField="Product" >
             <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
@@ -695,8 +693,7 @@
    <ContentTemplate>
     <asp:Button ID="Button14" runat="server" Text="Delete Seleted Rows" CssClass="buttonbox" OnClientClick="return validate1()" onclick="Button14_Click"/>
        
-       <asp:Button ID="Button5" runat="server" Text="Export To Excel" 
-           onclick="Button5_Click"></asp:Button>
+     
        
        
         <asp:Button ID="Button15" runat="server" Text="Button" style="display:none" />
@@ -725,8 +722,7 @@
         <td>
             <asp:Label ID="Label2" runat="server" Text="Supplier Name" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox6" runat="server"  class="form-control input-x2 dropbox"></asp:TextBox></td>
-        </tr>
+            <asp:TextBox ID="TextBox6" runat="server"  class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox6_TextChanged"></asp:TextBox>
         <tr>
         <td>
             <asp:Label ID="Label30" runat="server" Text="Supplier Address" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
@@ -737,7 +733,7 @@
         <td>
             <asp:Label ID="Label4" runat="server" Text="Mobile Number" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
-            <asp:TextBox ID="TextBox5" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox></td>
+            <asp:TextBox ID="TextBox5" runat="server"   class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox5_TextChanged"></asp:TextBox>
         </tr>
          <tr>
         <td>
@@ -809,44 +805,24 @@
                        <asp:AsyncPostBackTrigger ControlID="Button14" EventName="Click"  />
                 </Triggers>
     </asp:UpdatePanel>
+
+       <asp:Button ID="Button3" runat="server" 
+           Text="Export to excel" onclick="Button3_Click"></asp:Button>
   
+</div>                     
+
+ </div>
+  </div>
+ </div>
 </div>
-                                        <!-- End .form-group  -->
-                                        
-                                       
-                                       
-                                        
-                                    
-                                </div>
-                            </div><!-- End .panel --> 
-                      
+</div>
+  </div>
+ </div>
+</div>
+</div>
                         
 
-
-
-                        </div>
-                      
-
-
-                        
-                    </div><!--end .row-->
-
-                  
-                  
-                        </div>
-                   
-                   
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        
-
-                
-                   
-                  
-                           
+                         
         </section>
 
         <script type="text/javascript" src="js/jquery.min.js"></script>

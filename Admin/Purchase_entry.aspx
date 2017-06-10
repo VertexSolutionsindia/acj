@@ -389,7 +389,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                 <h2>Purchase entry
+                                 <h2>Purchase Entry
 
                                  
                                    <asp:UpdatePanel ID="UpdatePanel30" runat="server">
@@ -927,7 +927,7 @@
     <th align="center">S.No</th>
     <th align="center">Product Name</th>
     <th align="center">MRP</th>
-    <th align="center">Purchase rate</th>
+    <th align="center">Purchase Rate</th>
     <th>Qty</th>
     <th>Total Amount</th>
     </tr>
@@ -1077,7 +1077,7 @@
          <ItemStyle CssClass="red" />
          </asp:BoundField>
           
-            <asp:BoundField HeaderText="Mrp" DataField="mrp" ItemStyle-CssClass="red" 
+            <asp:BoundField HeaderText="Mrp" DataField="Mrp" ItemStyle-CssClass="red" 
              HeaderStyle-CssClass="red"  >
              <HeaderStyle CssClass="red" />
          <ItemStyle CssClass="red" />
@@ -1195,7 +1195,7 @@
         </tr>
      <tr>
         <td>
-            <asp:Label ID="Label33" runat="server" Text="Purchase rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
+            <asp:Label ID="Label33" runat="server" Text="Purchase Rate" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
        
 

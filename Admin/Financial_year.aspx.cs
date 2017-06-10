@@ -69,6 +69,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
             BindData2();
             show_financial();
             getcurrentfinancial();
+            Button1.Visible = false;
         }
 
     }
@@ -115,6 +116,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
         }
         con2.Close();
 
+        Button1.Visible = true;
 
 
     }
@@ -162,17 +164,21 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('financial year deleted successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Financial Year deleted successfully')", true);
                 BindData();
-
-
                 getinvoiceno();
-
                 TextBox1.Text = "";
                 BindData2();
+                show_financial();
+                getcurrentfinancial();
+                TextBox2.Text = "";
+                TextBox4.Text = "";
+                Button1.Visible = false;
+
 
             }
             con1000.Close();
+        
         }
     }
     protected void Button2_Click(object sender, EventArgs e)
@@ -184,6 +190,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
         getcurrentfinancial();
         TextBox2.Text = "";
         TextBox4.Text = "";
+        Button1.Visible = false;
     }
     private void active()
     {
@@ -367,6 +374,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
         getcurrentfinancial();
         TextBox2.Text = "";
         TextBox4.Text = "";
+        Button1.Visible = false;
 
     }
     protected void Button7_Click(object sender, EventArgs e)
@@ -401,6 +409,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                 con2.Close();
             }
             con1000.Close();
+            Button1.Visible = true;
         }
     }
     protected void Button5_Click(object sender, EventArgs e)
@@ -529,6 +538,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
 
                     TextBox2.Text = Convert.ToDateTime(dr2["start_date"]).ToString("MM/dd/yyyy");
                     TextBox4.Text = Convert.ToDateTime(dr2["end_date"]).ToString("MM/dd/yyyy");
+                    Button1.Visible = true;
                 }
                 else
                 {
@@ -540,6 +550,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                     getcurrentfinancial();
                     TextBox2.Text = "";
                     TextBox4.Text = "";
+                    Button1.Visible = false;
 
                 }
                 con2.Close();
@@ -580,7 +591,7 @@ public partial class Admin_Day_wise_purchase : System.Web.UI.Page
                     if (reader1.HasRows)
                     {
                         SqlConnection con10 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                        SqlCommand cmd10 = new SqlCommand("update currentfinancialyear set financial_year=@financial_year,Com_Id=@Com_Id,start_date=@@start_date,end_date=@end_date where no='" + value + "' and  Com_Id='" + company_id + "'", con10);
+                        SqlCommand cmd10 = new SqlCommand("update currentfinancialyear set financial_year=@financial_year,Com_Id=@Com_Id,start_date=@start_date,end_date=@end_date where no='" + value + "' and  Com_Id='" + company_id + "'", con10);
                         cmd10.Parameters.AddWithValue("@financial_year", ListBox1.SelectedItem.Text);
                         cmd10.Parameters.AddWithValue("@Com_Id", company_id);
                         if (ListBox1.SelectedItem.Text == "2017-2018")

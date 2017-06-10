@@ -512,10 +512,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
     }
 
-    protected void TextBox1_TextChanged(object sender, System.EventArgs e)
-    {
 
-    }
     protected void Gridview1_Load(object sender, System.EventArgs e)
     {
 
@@ -1199,11 +1196,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
 
 
     }
-    protected void TextBox17_TextChanged(object sender, System.EventArgs e)
-    {
 
-
-    }
 
     protected void TextBox19_TextChanged(object sender, System.EventArgs e)
     {
@@ -1242,10 +1235,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
     {
 
     }
-    protected void TextBox18_TextChanged(object sender, System.EventArgs e)
-    {
 
-    }
     protected void TextBox13_TextChanged(object sender, System.EventArgs e)
     {
         try
@@ -1279,12 +1269,25 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
     {
         try
         {
+            Int64 temp = Convert.ToInt64(TextBox14.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox14.Text = "";
+        }
+        try
+        {
 
             float total = float.Parse(TextBox16.Text);
             /*TextBox15.Text = string.Format("{0:0.00}", (total * tax / 100).ToString();
             float A = float.Parse(TextBox15.Text);*/
             TextBox16.Text = string.Format("{0:0.00}", (total)).ToString();
             Button3.Focus();
+
+           
+
 
         }
         catch (Exception er)
@@ -1987,8 +1990,32 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             }
             con1000.Close();
         }
+    }
 
+    protected void TextBox1_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox1.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Supplier Name')", true);
 
+            TextBox1.Text.Remove(TextBox1.Text.Length - 1);
+            TextBox1.Text = "";
 
+        }
+        this.ModalPopupExtender3.Show();
+    }
+    protected void TextBox18_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            Int64 temp = Convert.ToInt64(TextBox18.Text);
+        }
+        catch (Exception h)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please provide number only')", true);
+
+            TextBox18.Text = "";
+        }
+        this.ModalPopupExtender3.Show();
     }
 }
