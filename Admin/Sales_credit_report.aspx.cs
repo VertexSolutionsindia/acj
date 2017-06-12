@@ -403,7 +403,7 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where Com_Id='" + company_id + "' and year='"+Label1.Text+"' ORDER BY no desc", con);
+        SqlCommand CMD = new SqlCommand("select * from sales_credit_entry where Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
         DataTable dt1 = new DataTable();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
         da1.Fill(dt1);

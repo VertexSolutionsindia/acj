@@ -378,7 +378,7 @@
 <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">Supplier name</label>
+                             <div class="form-group"><label class="col-lg-3 control-label">Supplier Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">

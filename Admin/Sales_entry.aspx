@@ -581,7 +581,7 @@
                                 
                                 
                                 </div>
-                                <div class="form-group"><label class="col-lg-3 control-label">Customer name</label>
+                                <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -627,7 +627,7 @@
 
                                 
 
-                                 <div class="form-group"><label class="col-lg-3 control-label">Staff name</label>
+                                 <div class="form-group"><label class="col-lg-3 control-label">Staff Name</label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -812,7 +812,8 @@
   
      
   
-      <asp:Button ID="Button5" runat="server" Text="Clear" CssClass="btn-primary"  ></asp:Button>
+      <asp:Button ID="Button5" runat="server" Text="Clear" CssClass="btn-primary" 
+              AutoPostBack="true" onclick="Button5_Click1"  ></asp:Button>
       
   </ContentTemplate>
     

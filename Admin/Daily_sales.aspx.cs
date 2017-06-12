@@ -65,13 +65,22 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
     {
 
     }
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        /*Tell the compiler that the control is rendered
+         * explicitly by overriding the VerifyRenderingInServerForm event.*/
+    }
     protected void Button1_Click(object sender, EventArgs e)
     {
-
-
-
+        Response.ClearContent();
+        Response.AddHeader("content-disposition", "attachment; filename=gvtoexcel.xls");
+        Response.ContentType = "application/excel";
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        HtmlTextWriter htw = new HtmlTextWriter(sw);
+        GridView1.RenderControl(htw);
+        Response.Write(sw.ToString());
+        Response.End();
     }
-
     protected void Button2_Click(object sender, EventArgs e)
     {
 

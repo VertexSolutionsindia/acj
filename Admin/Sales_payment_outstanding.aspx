@@ -335,7 +335,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>sales credit Outstanding
+                                <h2>Sales Credit Outstanding
                                  </h2>
                              
                              
@@ -379,7 +379,7 @@
 <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">Customer name</label>
+                             <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">

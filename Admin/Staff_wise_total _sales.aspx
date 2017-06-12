@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Staff wise Total amount
+                                <h2>Staff Wise Total Amount
                                  </h2>
                              
                              

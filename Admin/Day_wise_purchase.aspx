@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Date wise Purchase amount
+                                <h2>Date Wise Purchase Amount
                                  </h2>
                              
                              

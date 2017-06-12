@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Credit Sales report
+                                <h2>Credit Sales Report
                                  </h2>
                              
                              
@@ -307,7 +307,7 @@
    <ContentTemplate>
   <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
            ontextchanged="TextBox2_TextChanged"></asp:TextBox>
-             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox2" WatermarkText="Enter customer Name" ></asp:TextBoxWatermarkExtender>
+             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox2" WatermarkText="Enter Customer Name" ></asp:TextBoxWatermarkExtender>
                            <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers1" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox2"  CompletionListCssClass="completionList"
      CompletionListItemCssClass="listItem"
      CompletionListHighlightedItemCssClass="itemHighlighted">
@@ -321,11 +321,11 @@
                                    <asp:ListItem>EXCEL</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="120px" Height="30px" onclick="Button8_Click" 
-                                    Text="Credit bill Report" />
+                                    Text="Credit Bill Report" />
 
                                      <asp:Button ID="Button1" runat="server" 
-          class="btn-primary"  Width="150px" Height="30px"  
-                                    Text="Customer wise Credit bill Report" 
+          class="btn-primary"  Width="200px" Height="30px"  
+                                    Text="Customer Wise Credit Bill Report" 
           onclick="Button1_Click" />
 
 
@@ -377,7 +377,7 @@
                                      
 
                                        <asp:Button ID="Button3" runat="server" class="btn-primary" style="margin-left:20px"  Width="150px" Height="30px" onclick="Button3_Click" 
-                                    Text="Date wise bill Report" />
+                                    Text="Date Wise Bill Report" />
 
 
 
@@ -401,7 +401,7 @@
                                     <asp:TextBox ID="TextBox5" runat="server" 
                                         class="form-control input-x2 dropbox"  AutoPostBack="true" ontextchanged="TextBox5_TextChanged"
                                         ></asp:TextBox>
-                                     <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="TextBox5" WatermarkText="Enter invoice No" ></asp:TextBoxWatermarkExtender>
+                                     <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="TextBox5" WatermarkText="Enter Invoice No" ></asp:TextBoxWatermarkExtender>
                            <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers112" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox5"  CompletionListCssClass="completionList"
      CompletionListItemCssClass="listItem"
      CompletionListHighlightedItemCssClass="itemHighlighted">
@@ -450,16 +450,43 @@
        <HeaderStyle HorizontalAlign="Center" BackColor="#006699" ForeColor="White" />
        <Columns>
       
-               <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
-           <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  />
-           <asp:BoundField HeaderText="Customer Name" DataField="customer_name" />
-             <asp:BoundField HeaderText="Staff name" DataField="staff_name" />
+               <asp:BoundField HeaderText="Invoice No" DataField="invoice_no" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  >
+                  <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+           <asp:BoundField HeaderText="Customer Name" DataField="customer_name" >
+                  <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+             <asp:BoundField HeaderText="Staff Name" DataField="staff_name" >
+                    <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
             
-              <asp:BoundField HeaderText="total Qty" DataField="total_qty" />
-               <asp:BoundField HeaderText="Total Amount" DataField="total_amount" />
-               <asp:BoundField HeaderText="Grand total" DataField="grand_total" />
-               <asp:BoundField HeaderText="paid Amount" DataField="paid_amount" />
-               <asp:BoundField HeaderText="Pending Amount" DataField="Pending_amount" />
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" >
+                     <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+               <asp:BoundField HeaderText="Total Amount" DataField="total_amount" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+               <asp:BoundField HeaderText="Grand Total" DataField="grand_total" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+               <asp:BoundField HeaderText="paid Amount" DataField="paid_amount" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
+               <asp:BoundField HeaderText="Pending Amount" DataField="Pending_amount" >
+                      <HeaderStyle CssClass="Grd1" />
+           <ItemStyle CssClass="Grd1" />
+           </asp:BoundField>
               
                <asp:TemplateField>
               <ItemTemplate>
@@ -490,7 +517,8 @@
                  
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+     <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
            CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 

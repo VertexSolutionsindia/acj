@@ -474,7 +474,7 @@
                    <asp:BoundField HeaderText="Invoice No" DataField="invoice_no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label"  />
            
                <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
-                 <asp:BoundField HeaderText="Customer name" DataField="Mobile_no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
+                 <asp:BoundField HeaderText="Customer Name" DataField="Mobile_no" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
                    <asp:BoundField HeaderText="Total Qty" DataField="total_qty" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
                     <asp:BoundField HeaderText="Total Amount" DataField="grand_total" HeaderStyle-CssClass="col-lg-3 control-label" FooterStyle-CssClass="col-lg-3 control-label" />
                   
@@ -565,7 +565,7 @@
    <ContentTemplate>
                                     <asp:TextBox ID="TextBox6" runat="server" AutoPostBack="true" class="form-control input-x2 dropbox" 
                                         ontextchanged="TextBox6_TextChanged"></asp:TextBox>
-                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox6" WatermarkText="Enter mobile no" ></asp:TextBoxWatermarkExtender>
+                                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox6" WatermarkText="Enter Mobile No" ></asp:TextBoxWatermarkExtender>
                            <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers2" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox6"  CompletionListCssClass="completionList"
      CompletionListItemCssClass="listItem"
      CompletionListHighlightedItemCssClass="itemHighlighted">
@@ -589,7 +589,7 @@
    <ContentTemplate>
                                     <asp:TextBox ID="TextBox13" runat="server" 
                                         class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox13_TextChanged"></asp:TextBox>
-                                  <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="TextBox13" WatermarkText="Enter Customer name" ></asp:TextBoxWatermarkExtender>
+                                  <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="TextBox13" WatermarkText="Enter Customer Name" ></asp:TextBoxWatermarkExtender>
                            <asp:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomersdetails" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox13"  CompletionListCssClass="completionList"
      CompletionListItemCssClass="listItem"
      CompletionListHighlightedItemCssClass="itemHighlighted">
@@ -666,7 +666,7 @@
         </tr>
          <tr>
         <td>
-            <asp:Label ID="Label7" runat="server" Text="Friends or referal name" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
+            <asp:Label ID="Label7" runat="server" Text="Friends or Referal Name" Width="200px" class="col-lg-3 control-label"></asp:Label></td>
         <td>
             <asp:TextBox ID="TextBox24" runat="server"   class="form-control input-x2 dropbox"></asp:TextBox></td>
         </tr>
@@ -757,7 +757,7 @@
 
                                 
 
-                                 <div class="form-group"><label class="col-lg-3 control-label">Staff name</label>
+                                 <div class="form-group"><label class="col-lg-3 control-label">Staff Name</label>
                               
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -942,7 +942,8 @@
   
      
   
-      <asp:Button ID="Button5" runat="server" Text="Clear" CssClass="btn-primary"  ></asp:Button>
+      <asp:Button ID="Button5" runat="server" Text="Clear" CssClass="btn-primary" 
+             AutoPostBack="true"  onclick="Button5_Click1"  ></asp:Button>
       
   </ContentTemplate>
     

@@ -242,7 +242,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Cash Sales report
+                                <h2>Cash Sales Report
                                  </h2>
                              
                              
@@ -322,7 +322,7 @@
                                    <asp:ListItem>EXCEL</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="120px" Height="30px" onclick="Button8_Click" 
-                                    Text="Cash bill Report" />
+                                    Text="Cash Bill Report" />
 
 
 
@@ -373,7 +373,7 @@
                                       </asp:UpdatePanel></div></div></div>
 
                                        <asp:Button ID="Button3" runat="server" class="btn-primary" style="margin-left:20px"  Width="150px" Height="30px" onclick="Button3_Click" 
-                                    Text="Date wise bill Report" />
+                                    Text="Date Wise Bill Report" />
 
 
 
@@ -444,18 +444,41 @@
         onpageindexchanging="GridView1_PageIndexChanging" 
         onrowdatabound="GridView1_RowDataBound" PageSize="100" BackColor="White" BorderColor="#CCCCCC" 
            BorderStyle="None" BorderWidth="1px">
-       <RowStyle HorizontalAlign="Center" ForeColor="#000066" />
-       <HeaderStyle HorizontalAlign="Center" BackColor="#006699" ForeColor="White" />
+       <RowStyle HorizontalAlign="Center" ForeColor="#333333" BackColor="White" />
+       <HeaderStyle HorizontalAlign="Center" BackColor="#FAFBFC" ForeColor="#656565" />
        <Columns>
       
-               <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  />
-           <asp:BoundField HeaderText="Date" DataField="date" DataFormatString="{0:dd/MM/yyyy}"  />
-           <asp:BoundField HeaderText="Customer Name" DataField="Mobile_no" />
+               <asp:BoundField HeaderText="Invoice No" DataField="invoice_no"  >
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
+           <asp:BoundField HeaderText="Date" DataField="date" 
+                   DataFormatString="{0:dd/MM/yyyy}"  >
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
+           <asp:BoundField HeaderText="Customer Name" DataField="Mobile_no" >
             
             
-              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" />
-               <asp:BoundField HeaderText="Total Amount" DataField="total_amount" />
-               <asp:BoundField HeaderText="Grand total" DataField="grand_total" />
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
+            
+            
+              <asp:BoundField HeaderText="Total Qty" DataField="total_qty" >
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
+               <asp:BoundField HeaderText="Total Amount" DataField="total_amount" >
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
+               <asp:BoundField HeaderText="Grand Total" DataField="grand_total" >
+              
+             
+               <HeaderStyle CssClass="Grd1" />
+               <ItemStyle CssClass="Grd1" />
+               </asp:BoundField>
               
              
                <asp:TemplateField>
@@ -463,14 +486,18 @@
              <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Admin/show1.png" 
                       Width="100px" Height="20px" onclick="ImageButton2_Click"></asp:ImageButton>
               </ItemTemplate>
+                   <HeaderStyle CssClass="Grd1" />
+                   <ItemStyle CssClass="Grd1" />
               </asp:TemplateField>
-              <asp:TemplateField>
+              <asp:TemplateField HeaderText="Delete">
               <ItemTemplate>
               <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/delete3.png"  
                       Width="20px" Height="20px" onclick="ImageButton3_Click" OnClientClick = "Confirm()" ></asp:ImageButton>
               </ItemTemplate>
+                  <HeaderStyle CssClass="Grd1" />
+                  <ItemStyle CssClass="Grd1" />
               </asp:TemplateField>
-             <asp:TemplateField>
+             <asp:TemplateField HeaderText="Print Format">
               <ItemTemplate>
              <asp:DropDownList ID="ddlFileFormat1"  runat="server" Width="50px">
                         <asp:ListItem Text="PDF" ></asp:ListItem>
@@ -478,16 +505,21 @@
                         <asp:ListItem Text="EXCEL"></asp:ListItem>
                     </asp:DropDownList>
               </ItemTemplate>
+                 <HeaderStyle CssClass="Grd1" />
+                 <ItemStyle CssClass="Grd1" />
               </asp:TemplateField>
                <asp:TemplateField>
               <ItemTemplate>
              <asp:Button ID="Button2" runat="server"  Text=" View & Print" onclick="Button2_Click" />
               </ItemTemplate>
+                   <HeaderStyle CssClass="Grd1" />
+                   <ItemStyle CssClass="Grd1" />
               </asp:TemplateField>
                  
        </Columns>
        <FooterStyle BackColor="White" ForeColor="#000066" />
-       <HeaderStyle Height="40px" BackColor="#fafbfc" Font-Bold="True" CssClass="red" ForeColor="#656565" />
+          <HeaderStyle Height="40px" BackColor="#006699" Font-Bold="True" CssClass="red" 
+           ForeColor="White" />
        <PagerSettings FirstPageText="First" LastPageText="Last" />
        <PagerStyle Wrap="true" BorderStyle="Solid" Width="100%" 
            CssClass="gvwCasesPager" BackColor="White" ForeColor="#000066" 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Daily_sales.aspx.cs" Inherits="Admin_Daily_sales" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="Daily_sales.aspx.cs" Inherits="Admin_Daily_sales" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -70,10 +70,10 @@
                 <button type="button" class="navbar-minimalize minimalize-styl-2  pull-left "><i class="fa fa-bars"></i></button>
                 <span class="search-icon"><i class="fa fa-search"></i></span>
                 <div class="search" style="display: none;">
-                    <form role="form">
+                    <form1 role="form">
                         <input type="text" class="form-control" autocomplete="off" placeholder="Write something and press enter">
                         <span class="search-close"><i class="fa fa-times"></i></span>
-                    </form>
+                    </form1>
                 </div>
                   <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Date wise sales amount
+                                <h2>Date Wise Sales Amount
                                  </h2>
                              
                              
@@ -391,12 +391,13 @@
        </asp:GridView>
   </ContentTemplate>
     <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="GridView1"  />
-               <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
+                 <asp:AsyncPostBackTrigger ControlID="GridView1"  />
+                 <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
                  <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
                 </Triggers>
     </asp:UpdatePanel>
-  
+    <br /><asp:Button ID="Button1" runat="server" CssClass="btn-primary" Text="Export to Excel" onclick="Button1_Click" 
+       ></asp:Button>
 </div>
            
            <asp:UpdatePanel ID="UpdatePanel5" runat="server">

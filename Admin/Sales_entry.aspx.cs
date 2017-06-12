@@ -45,8 +45,15 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
             con11.Close();
 
 
-            DateTime date = DateTime.Now;
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+            DateTime date = now;
             TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
+
+
+         
+
+
             TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + DropDownList3.ClientID + "', event)");
            
             TextBox12.Attributes.Add("onkeypress", "return controlEnter('" + TextBox17.ClientID + "', event)");
@@ -327,7 +334,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox11.Text = "";
 
                         TextBox6.Text = "Cash Bill";
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox23.Text = "";
 
@@ -405,7 +414,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                         TextBox11.Text = "";
 
                         TextBox6.Text = "Cash Bill";
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
                         TextBox23.Text = "";
@@ -570,7 +581,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
       
         TextBox23.Text = "";
         TextBox26.Text = "";
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     private void active()
@@ -946,7 +959,8 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
     
     protected void Button5_Click(object sender, EventArgs e)
     {
-      
+        getinvoiceno1();
+        BindData();
     }
     protected void Gridview2_Load(object sender, System.EventArgs e)
     {
@@ -1402,7 +1416,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
                     TextBox2.Text = "";
 
                     TextBox6.Text = "";
-                    DateTime date = DateTime.Now;
+                    var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                    DateTime date = now;
                     TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                     TextBox23.Text = "";
                     TextBox26.Text = "";
@@ -1430,7 +1446,9 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
      
         TextBox23.Text = "";
         TextBox26.Text = "";
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     protected void Button22_Click(object sender, System.EventArgs e)
@@ -1628,5 +1646,17 @@ public partial class Admin_Sales_entry : System.Web.UI.Page
     
     
     
+    }
+    protected void Button5_Click1(object sender, EventArgs e)
+    {
+        getinvoiceno1();
+        BindData();
+        TextBox12.Text = "";
+
+        TextBox5.Text = "";
+        TextBox15.Text = "";
+        TextBox16.Text = "";
+        TextBox17.Text = "";
+        TextBox18.Text = "";
     }
 }

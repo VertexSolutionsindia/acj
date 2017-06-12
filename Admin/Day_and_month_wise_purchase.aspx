@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>day and month wise purchase report
+                                <h2>Day and Month Wise Purchase Report
                                  </h2>
                              
                              
@@ -442,7 +442,7 @@
                   <asp:AsyncPostBackTrigger ControlID="DropDownList1" EventName="SelectedIndexChanged"  />
                 </Triggers>
     </asp:UpdatePanel>
-  <br /><asp:Button ID="Button1" runat="server" CssClass="btn-primary" Text="Export to excel" onclick="Button1_Click" 
+  <br /><asp:Button ID="Button1" runat="server" CssClass="btn-primary" Text="Export to Excel" onclick="Button1_Click" 
        ></asp:Button>
 </div>
            

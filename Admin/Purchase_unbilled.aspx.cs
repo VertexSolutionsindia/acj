@@ -56,7 +56,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
             TextBox29.Attributes.Add("onkeypress", "return controlEnter('" + TextBox32.ClientID + "', event)");
 
 
-            DateTime date = DateTime.Now;
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+            DateTime date = now;
             TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             getinvoiceno();
             getinvoicenosubcategory();
@@ -642,7 +644,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("update purchase_unbilled_entry set date=@date,Supplier=@Supplier,address=@address,mobile_no=@mobile_no,Toal_qty=@Toal_qty,total_amount=@total_amount,Grand__total=@Grand__total,Com_Id=@Com_Id,paid_amount=@paid_amount,pending_amount=@pending_amount,status=@status,value=@value where purchase_invoice=@purchase_invoice and year='" + Label20.Text + "'", CON);
                         cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
+                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                         cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox12.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
@@ -747,7 +749,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
@@ -766,7 +770,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         SqlConnection CON = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
                         SqlCommand cmd = new SqlCommand("insert into purchase_unbilled_entry values(@purchase_invoice,@date,@Supplier,@address,@mobile_no,@Toal_qty,@total_amount,@Grand__total,@Com_Id,@paid_amount,@pending_amount,@status,@value,@year)", CON);
                         cmd.Parameters.AddWithValue("@purchase_invoice", Label1.Text);
-                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
+                        cmd.Parameters.AddWithValue("@date", Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                         cmd.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                         cmd.Parameters.AddWithValue("@address", TextBox12.Text);
                         cmd.Parameters.AddWithValue("@mobile_no", TextBox14.Text);
@@ -818,7 +822,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                                 SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                                 SqlCommand cmd24 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                                 cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                                cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
+                                cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                                 cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                                 cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
 
@@ -883,7 +887,7 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                             SqlConnection con24 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                             SqlCommand cmd24 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@address,@total_amount,@pay_amount,@pending_amount,@outstanding,@invoice_no,@Com_Id,@status,@year)", con24);
                             cmd24.Parameters.AddWithValue("@Buyer", DropDownList3.SelectedItem.Text);
-                            cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("dd-MM-yyyy"));
+                            cmd24.Parameters.AddWithValue("@pay_date", Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                             cmd24.Parameters.AddWithValue("@Estimate_value", float.Parse(TextBox11.Text));
                             cmd24.Parameters.AddWithValue("@address", TextBox12.Text);
 
@@ -919,7 +923,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
@@ -952,7 +958,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
@@ -1809,7 +1817,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
@@ -1891,7 +1901,9 @@ public partial class Admin_Purchase_unbilled : System.Web.UI.Page
                     TextBox10.Text = "";
                     TextBox11.Text = "";
                     TextBox14.Text = "";
-                    DateTime date = DateTime.Now;
+                    var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                    DateTime date = now;
                     TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
                     TextBox4.Text = "";

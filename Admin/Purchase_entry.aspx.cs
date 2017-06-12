@@ -54,8 +54,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox16.ClientID + "', event)");
                 TextBox29.Attributes.Add("onkeypress", "return controlEnter('" + TextBox32.ClientID + "', event)");
 
-              
-                DateTime date = DateTime.Now;
+                var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                DateTime date = now; 
                 TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                 getinvoiceno();
                 getinvoicenosubcategory();
@@ -743,7 +744,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
@@ -915,7 +918,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                         TextBox12.Text = "";
                         BindData();
                         getinvoiceno1();
-                        DateTime date = DateTime.Now;
+                        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                        DateTime date = now;
                         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                         TextBox14.Text = "";
                         TextBox4.Text = "";
@@ -947,8 +952,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
 
         TextBox10.Text = "";
         TextBox11.Text = "";
-
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
       
         TextBox4.Text="";
@@ -1473,7 +1479,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 int qty = Convert.ToInt32(dr100["qty"].ToString());
 
                 SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                SqlCommand cmd11 = new SqlCommand("update product_stock set Category=@Category,Product_code=@Product_code,qty=qty-@qty,Com_Id=@Com_Id where Product_name=@Product_name and Com_id='" + company_id + "' and year='" + Label20.Text + "'", CON11);
+                SqlCommand cmd11 = new SqlCommand("update product_stock set Category=@Category,Product_code=@Product_code,qty=qty-@qty where Product_name=@Product_name and Com_id='" + company_id + "' and year='" + Label20.Text + "'", CON11);
                 cmd11.Parameters.AddWithValue("@Category", cat_id);
                 cmd11.Parameters.AddWithValue("@Product_code", product_code);
                 cmd11.Parameters.AddWithValue("@Product_name", TextBox33.Text);
@@ -1800,7 +1806,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         TextBox10.Text = "";
         TextBox11.Text = "";
 
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
         TextBox4.Text = "";
@@ -1883,7 +1891,9 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                     TextBox10.Text = "";
                     TextBox11.Text = "";
                     TextBox14.Text = "";
-                    DateTime date = DateTime.Now;
+                    var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                    DateTime date = now;
                     TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
 
                     TextBox4.Text = "";

@@ -212,7 +212,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>day and month wise sales report
+                                <h2>Day and Month Wise Sales Report
                                  </h2>
                              
                              

@@ -213,7 +213,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Staff wise sales amount
+                                <h2>Staff Wise Sales Amount
                                  </h2>
                              
                              
@@ -362,7 +362,7 @@
                DataFormatString="{0:dd/MM/yyyy}" >
             <HeaderStyle CssClass="Grd1" />
            </asp:BoundField>
-            <asp:BoundField HeaderText="Staff_Name" DataField="Staff_Name"  >
+            <asp:BoundField HeaderText="Staff Name" DataField="Staff_Name"  >
               <HeaderStyle CssClass="Grd1" />
            </asp:BoundField>
            

@@ -40,7 +40,9 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
 
             }
             con11.Close();
-            DateTime date = DateTime.Now;
+            var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+            DateTime date = now;
             TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
             TextBox8.Attributes.Add("onkeypress", "return controlEnter('" + TextBox13.ClientID + "', event)");
             TextBox13.Attributes.Add("onkeypress", "return controlEnter('" + TextBox14.ClientID + "', event)");
@@ -420,7 +422,9 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                          TextBox7.Text = "";
                          TextBox9.Text = "";
                          TextBox6.Text = "";
-                         DateTime date = DateTime.Now;
+                         var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                         var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                         DateTime date = now;
                          TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                          TextBox23.Text = "";
 
@@ -730,7 +734,9 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
      
         TextBox23.Text = "";
         TextBox26.Text = "";
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
     }
     private void active()
@@ -1767,7 +1773,9 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                     TextBox6.Text = "";
                     TextBox7.Text = "";
                     TextBox9.Text = "";
-                    DateTime date = DateTime.Now;
+                    var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+                    var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+                    DateTime date = now;
                     TextBox8.Text = Convert.ToDateTime(date).ToString("dd-MM-yyyy");
                     TextBox23.Text = "";
                     TextBox26.Text = "";
@@ -1798,7 +1806,9 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
 
         TextBox23.Text = "";
         TextBox26.Text = "";
-        DateTime date = DateTime.Now;
+        var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneInfo);
+        DateTime date = now;
         TextBox8.Text = Convert.ToDateTime(date).ToString("MM-dd-yyyy");
     }
     protected void Button11_Click(object sender, EventArgs e)
@@ -1886,6 +1896,18 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
         }
 
 
+
+    }
+    protected void Button5_Click1(object sender, EventArgs e)
+    {
+        getinvoiceno1();
+        BindData();
+        TextBox12.Text = "";
+        TextBox5.Text = "";
+        TextBox15.Text = "";
+        TextBox16.Text = "";
+        TextBox17.Text = "";
+        TextBox18.Text = "";
 
     }
 }

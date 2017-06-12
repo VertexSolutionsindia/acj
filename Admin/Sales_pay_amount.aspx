@@ -335,7 +335,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title see2">
-                                <h2>Sales credit payment check
+                                <h2>Sales Credit Payment Check
                                  </h2>
                              
                              
@@ -379,7 +379,7 @@
 <div class="panel-body">
    <div class="col-md-6">
 
-                             <div class="form-group"><label class="col-lg-3 control-label">Customer name</label>
+                             <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server">
@@ -433,7 +433,7 @@
 
    <div class="col-md-6">
 
-                        <div class="form-group"><label class="col-lg-3 control-label">Total outstanding</label>
+                        <div class="form-group"><label class="col-lg-3 control-label">Total Outstanding</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -514,7 +514,7 @@
           <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
           </asp:BoundField>
-         <asp:BoundField HeaderText="Purchase value" DataField="Estimate_value"  >
+         <asp:BoundField HeaderText="Purchase Value" DataField="Estimate_value"  >
           <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
           </asp:BoundField>
@@ -526,11 +526,11 @@
             <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
           </asp:BoundField>
-            <asp:BoundField HeaderText="Paid amount" DataField="pay_amount"  >
+            <asp:BoundField HeaderText="Paid Amount" DataField="pay_amount"  >
               <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
           </asp:BoundField>
-              <asp:BoundField HeaderText="Pending amount" DataField="pending_amount"  >
+              <asp:BoundField HeaderText="Pending Amount" DataField="pending_amount"  >
                <HeaderStyle CssClass="Grd1" />
           <ItemStyle CssClass="Grd1" />
           </asp:BoundField>

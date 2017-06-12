@@ -555,7 +555,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             con1000.Close();
         }
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' and year='" + Label1.Text + "' and ORDER BY no asc", con1);
+        SqlCommand CMD = new SqlCommand("select * from product_stock where Com_Id='" + DropDownList1.SelectedItem.Value + "' and year='" + Label1.Text + "' ORDER BY no asc", con1);
         DataTable dt1 = new DataTable();
         con1.Open();
         SqlDataAdapter da1 = new SqlDataAdapter(CMD);
