@@ -306,7 +306,7 @@
 
    <div class="col-md-6">
 
-                            <br /> <div class="form-group"><label class="col-lg-3 control-label">Sub Category</label>
+                            <br /> <div class="form-group"><label class="col-lg-3 control-label">Product Name</label>
 
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -338,7 +338,7 @@
 
   <div class="panel-body">
    <div class="col-md-6">
-
+<%--
                              <div class="form-group"><label class="col-lg-3 control-label">Product</label>
 
                                  
@@ -356,7 +356,7 @@
       </asp:AutoCompleteExtender>
 
                                       </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                                      </asp:UpdatePanel></div></div>--%></div>
 
 
 
@@ -482,8 +482,8 @@
 
         </ContentTemplate>
                                      <Triggers>
-              
-                  <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />
+             <%-- 
+                  <asp:AsyncPostBackTrigger ControlID="TextBox1" EventName="TextChanged"  />--%>
                  
                   
                     

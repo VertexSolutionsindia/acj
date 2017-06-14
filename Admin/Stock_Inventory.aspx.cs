@@ -408,28 +408,28 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
 
     protected void TextBox1_TextChanged(object sender, EventArgs e)
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+        //if (User.Identity.IsAuthenticated)
+        //{
+        ////    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+        //    SqlDataReader dr1000;
+        //    con1000.Open();
+        //    dr1000 = cmd1000.ExecuteReader();
+        //    if (dr1000.Read())
+        //    {
+        //        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
            
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from product_stock where product_name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY Product_code asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
-            }
-            con1000.Close();
-        }
+        //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //SqlCommand CMD = new SqlCommand("select * from product_stock where product_name='" + TextBox1.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY Product_code asc", con);
+        //DataTable dt1 = new DataTable();
+        //SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        //da1.Fill(dt1);
+        //GridView1.DataSource = dt1;
+        //GridView1.DataBind();
+        //    }
+        //    con1000.Close();
+        //}
     }
     protected void TextBox2_TextChanged(object sender, EventArgs e)
     {
