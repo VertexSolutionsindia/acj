@@ -90,7 +90,7 @@ public partial class Loginrabbit : System.Web.UI.Page
             string password = dr["password"].ToString();
             string role = dr["rolename"].ToString();
             int company_id =Convert.ToInt32( dr["com_id"].ToString());
-             name1 = dr["Name"].ToString();
+            name1 = dr["company_name"].ToString();
 
 
 

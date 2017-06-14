@@ -24,9 +24,6 @@ public partial class Admin_Daily_sales : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-
-
-
             getinvoiceno();
             show_category();
             showrating();

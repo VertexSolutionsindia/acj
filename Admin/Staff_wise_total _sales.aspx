@@ -395,9 +395,6 @@
            AutoGenerateColumns="False">
         <Columns>
        
-         
-          
-        
            <asp:BoundField HeaderText="Date" DataField="Date" 
                DataFormatString="{0:dd/MM/yyyy}" >
             <HeaderStyle CssClass="Grd1" />
