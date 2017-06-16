@@ -288,7 +288,7 @@
                                     <div class="col-lg-9">
                                      <asp:UpdatePanel ID="UpdatePanel4" runat="server">
    <ContentTemplate>
-                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"></asp:TextBox>
+                                    <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" ontextchanged="TextBox3_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                      <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click"  />
@@ -405,8 +405,12 @@
 
 
 
-                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true"  ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Department"></asp:TextBoxWatermarkExtender>
+                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true"  ontextchanged="TextBox1_TextChanged1" Width="200"></asp:TextBox>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Department Name"></asp:TextBoxWatermarkExtender>
+                                               <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchDepartmentName" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox1"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
                          <br />
                         
 

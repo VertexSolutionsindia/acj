@@ -47,8 +47,6 @@ public partial class Admin_Sub_category : System.Web.UI.Page
                 }
                 con1000.Close();
             }
-          
-
 
         }
 

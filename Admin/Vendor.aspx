@@ -61,7 +61,114 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        
+        <style>
+            .completionList {
+        border:solid 1px Gray;
+        margin:0px;
+        padding:3px;
+        height: 120px;
+        overflow:auto;
+        background-color:#FAEBD7;     
+        } 
+        .listItem {
+        color: #191919;
+        } 
+        .itemHighlighted {
+        background-color: #ADD6FF;       
+        }
+            .red
+            {
+                text-align:center;
+            }
+            .goo
+            {
+               color:#13c4a5;
+            }
+            .goo:hover
+            {
+                color:#3a5a7a;
+            }
+            .color
+            {
+                color:#555555;
+                height:30px;
+            }
+        .dropbox
+        {
+            width:100%;
+            height:30px;
+        display: block;
+        font-size:16px;
+        font-family: 'Open Sans',"HelveticaNeue", "Helvetica Neue", Helvetica, Arial,sans-serif;
+   
+ }
+        .gvwCasesPager
+        {
+           
+          color:black;
+          margin-right:20px;
+          text-align:right;
+          padding:20px;
+        }
+        .gvwCasesPager a
+            {
+               
+                margin-left:10px;
+                margin-right:10px;
+                font-size:20px;
+                
+                 padding:10px;
+                
+              
+              
+            }
 
+         .dropbox1
+        {
+            width:10%;
+            height:30px;
+           
+           
+            
+        }
+        
+        .see
+        {
+           height:400px; 
+           margin-top:-60px;
+        }
+        .see1
+        {
+            margin-top:-20px;
+        }
+         .see2
+        {
+          
+            margin-left:-15px;
+            margin-bottom:30px;
+        }
+        
+          @media (max-width: 767px)
+        {
+             .see
+        {
+           height:400px; 
+           margin-top:-10px;
+        }
+         .see1
+        {
+            margin-top:-40px;
+        }
+         .see2
+        {
+            margin-top:50px;
+            
+        }
+      
+        }
+        
+        </style>
     </head>
     <body>
         <!-- Static navbar -->
@@ -484,8 +591,13 @@
 
 
                        <asp:TextBox ID="TextBox1" runat="server" 
-          AutoPostBack="true" ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Supplier Name"></asp:TextBoxWatermarkExtender>
+          AutoPostBack="true" ontextchanged="TextBox1_TextChanged1" Width="200"></asp:TextBox>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Supplier Name"></asp:TextBoxWatermarkExtender>
+                                  
+                           <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchSupplierName" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox1"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
                          <br />
                         
 
@@ -516,9 +628,6 @@
                            </asp:UpdatePanel>
    
    </div>
-    
-
-
 
    </div>
    <br />
@@ -806,12 +915,13 @@
                 </Triggers>
     </asp:UpdatePanel>
 
-       <asp:Button ID="Button3" runat="server" 
-           Text="Export to excel" onclick="Button3_Click"></asp:Button>
+       
   
 </div>                     
 
  </div>
+ <asp:Button ID="Button3" runat="server" 
+           Text="Export to excel" onclick="Button3_Click"></asp:Button>
   </div>
  </div>
 </div>

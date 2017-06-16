@@ -370,6 +370,38 @@ public partial class Admin_Vendor : System.Web.UI.Page
             }
         }
     }
+
+    [System.Web.Script.Services.ScriptMethod()]
+    [System.Web.Services.WebMethod]
+
+    public static List<string> SearchSupplierName(string prefixText, int count)
+    {
+        using (SqlConnection conn = new SqlConnection())
+        {
+            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "select distinct Vendor_Name from Vendor where Com_Id=@Com_Id and " +
+                "Vendor_Name like @Vendor_Name + '%'";
+                cmd.Parameters.AddWithValue("@Vendor_Name", prefixText);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Connection = conn;
+                conn.Open();
+                List<string> customers = new List<string>();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        customers.Add(sdr["Vendor_Name"].ToString());
+                    }
+                }
+                conn.Close();
+                return customers;
+            }
+        }
+    }
+   
     protected void TextBox15_TextChanged(object sender, EventArgs e)
     {
         

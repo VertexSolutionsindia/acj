@@ -468,8 +468,12 @@
 
 
 
-                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" ontextchanged="TextBox1_TextChanged1"></asp:TextBox>
+                       <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" ontextchanged="TextBox1_TextChanged1" Width="200"></asp:TextBox>
                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Staff Name"></asp:TextBoxWatermarkExtender>
+                                                                       <asp:AutoCompleteExtender ID="AutoCompleteExtender2" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchStaffName" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox1"  CompletionListCssClass="completionList"
+     CompletionListItemCssClass="listItem"
+     CompletionListHighlightedItemCssClass="itemHighlighted">
+      </asp:AutoCompleteExtender>
                          <br />
                         
 

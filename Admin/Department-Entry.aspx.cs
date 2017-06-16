@@ -479,4 +479,46 @@ public partial class Admin_Department_Entry : System.Web.UI.Page
             BindData();
         }
     }
+
+    [System.Web.Script.Services.ScriptMethod()]
+    [System.Web.Services.WebMethod]
+
+    public static List<string> SearchDepartmentName(string prefixText, int count)
+    {
+        using (SqlConnection conn = new SqlConnection())
+        {
+            conn.ConnectionString = ConfigurationManager.AppSettings["connection"];
+
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandText = "select distinct Depart_Name from Department where Com_Id=@Com_Id and " +
+                "Depart_Name like @Depart_Name + '%'";
+                cmd.Parameters.AddWithValue("@Depart_Name", prefixText);
+                cmd.Parameters.AddWithValue("@Com_Id", company_id);
+                cmd.Connection = conn;
+                conn.Open();
+                List<string> customers = new List<string>();
+                using (SqlDataReader sdr = cmd.ExecuteReader())
+                {
+                    while (sdr.Read())
+                    {
+                        customers.Add(sdr["Depart_Name"].ToString());
+                    }
+                }
+                conn.Close();
+                return customers;
+            }
+        }
+    }
+    protected void TextBox3_TextChanged(object sender, EventArgs e)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(TextBox3.Text, "^[a-zA-Z]"))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Please Provide valide Department Name')", true);
+
+            TextBox3.Text.Remove(TextBox3.Text.Length - 1);
+            TextBox3.Text = "";
+
+        }
+    }
 }

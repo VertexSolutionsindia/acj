@@ -290,7 +290,7 @@
      </asp:UpdatePanel>
    
    </div>
-     <div class="col-md-2"><h3>Sub-Category:</h3>
+     <div class="col-md-2"><h3>Product Name:</h3>
 
       <asp:UpdatePanel ID="UpdatePanel6" runat="server">
    <ContentTemplate>
@@ -435,7 +435,7 @@
                        <asp:TextBox ID="TextBox1" runat="server" width="100%" 
                                     ontextchanged="TextBox1_TextChanged" AutoPostBack="true"></asp:TextBox>
 
-                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Sub category"></asp:TextBoxWatermarkExtender>
+                           <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="TextBox1" WatermarkText="Search Product Name"></asp:TextBoxWatermarkExtender>
                            <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" MinimumPrefixLength="1" ServiceMethod="SearchCustomers" FirstRowSelected = "false" CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" TargetControlID="TextBox1"  CompletionListCssClass="completionList"
      CompletionListItemCssClass="listItem"
      CompletionListHighlightedItemCssClass="itemHighlighted">

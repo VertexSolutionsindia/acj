@@ -161,7 +161,7 @@ public partial class Admin_Tax_Entry : System.Web.UI.Page
                         CON.Open();
                         cmd.ExecuteNonQuery();
                         CON.Close();
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Tax created successfully')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Tax Created Successfully')", true);
                         BindData();
                         show_category();
                         getinvoiceno();

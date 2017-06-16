@@ -280,7 +280,7 @@
     <div class="col-md-1" ><h3>Filters</h3>
  </div>
   
-   <div class="col-md-2"><h3>Tax Percentage:</h3>
+   <div class="col-md-2"><h3>Tax Name:</h3>
 
      <asp:UpdatePanel ID="UpdatePanel7" runat="server">
    <ContentTemplate>
