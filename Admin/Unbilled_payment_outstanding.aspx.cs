@@ -86,18 +86,39 @@ public partial class Admin_Unbilled_payment_outstanding : System.Web.UI.Page
             string constring = ConfigurationManager.AppSettings["connection"];
             using (SqlConnection con = new SqlConnection(constring))
             {
-                using (SqlCommand cmd = new SqlCommand("unpurchasebill", con))
+                if (DropDownList1.SelectedItem.Text == "All")
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("unpurchasebill", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@No", Convert.ToInt32(company_id));
-                    cmd.Parameters.AddWithValue("@year", Label1.Text);
-                    da = new SqlDataAdapter(cmd);
-                    ds = new DataSet();
-                    con.Open();
-                    da.Fill(ds);
-                    con.Close();
+                        cmd.Parameters.AddWithValue("@No", Convert.ToInt32(company_id));
+                        cmd.Parameters.AddWithValue("@year", Label1.Text);
 
+                        da = new SqlDataAdapter(cmd);
+                        ds = new DataSet();
+                        con.Open();
+                        da.Fill(ds);
+                        con.Close();
+
+                    }
+                }
+                else {
+                    using (SqlCommand cmd = new SqlCommand("unpurchasebill_SupplierName", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@No", Convert.ToInt32(company_id));
+                        cmd.Parameters.AddWithValue("@year", Label1.Text);
+                        cmd.Parameters.AddWithValue("@Buyer", DropDownList1.SelectedItem.Text);
+
+                        da = new SqlDataAdapter(cmd);
+                        ds = new DataSet();
+                        con.Open();
+                        da.Fill(ds);
+                        con.Close();
+
+                    }
                 }
             }
         }
@@ -442,5 +463,7 @@ public partial class Admin_Unbilled_payment_outstanding : System.Web.UI.Page
         da1.Fill(dt1);
         GridView1.DataSource = dt1;
         GridView1.DataBind();
+
+        show_supplier();
     }
 }

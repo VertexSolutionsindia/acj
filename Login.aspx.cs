@@ -75,7 +75,7 @@ public partial class Loginrabbit : System.Web.UI.Page
             }
 
         }
-
+        con1.Close();
 
 
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
@@ -235,6 +235,7 @@ public partial class Loginrabbit : System.Web.UI.Page
                  Label2.Text = "The username and password you entered don't match.";
              }
         }
+        con.Close();
        
     }
     protected void LinkButton1_Click(object sender, EventArgs e)

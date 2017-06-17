@@ -672,7 +672,7 @@ public partial class Admin_Sales_entry_wholesales : System.Web.UI.Page
                     string product_name = dr11["product_name"].ToString();
                     float qty1 = float.Parse(dr11["qty"].ToString());
                     SqlConnection CON11 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-                    SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qtyfrom product_stock where Product_name='" + productname + "' and Com_Id='" + company_id + "' and year='" + Label11.Text + "'", CON11);
+                    SqlCommand cmd11 = new SqlCommand("update product_stock set qty=qty+@qty where Product_name='" + productname + "' and Com_Id='" + company_id + "' and year='" + Label11.Text + "'", CON11);
 
 
 

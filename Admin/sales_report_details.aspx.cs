@@ -83,18 +83,36 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
             string constring = ConfigurationManager.AppSettings["connection"];
             using (SqlConnection con = new SqlConnection(constring))
             {
-                using (SqlCommand cmd = new SqlCommand("cashbillprint", con))
+                if (TextBox5.Text == "")
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlCommand cmd = new SqlCommand("cashbillprint", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
-                    cmd.Parameters.AddWithValue("@year", Label1.Text);
-                    da = new SqlDataAdapter(cmd);
-                    ds = new DataSet();
-                    con.Open();
-                    da.Fill(ds);
-                    con.Close();
+                        cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
+                        cmd.Parameters.AddWithValue("@year", Label1.Text);
+                        da = new SqlDataAdapter(cmd);
+                        ds = new DataSet();
+                        con.Open();
+                        da.Fill(ds);
+                        con.Close();
+                    }
+                }
+                else
+                {
+                    using (SqlCommand cmd = new SqlCommand("cashbillprint_with_Invoice", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
+                        cmd.Parameters.AddWithValue("@Com_Id", Convert.ToInt32(company_id));
+                        cmd.Parameters.AddWithValue("@year", Label1.Text);
+                        cmd.Parameters.AddWithValue("@invoice_no", TextBox5.Text);
+                        da = new SqlDataAdapter(cmd);
+                        ds = new DataSet();
+                        con.Open();
+                        da.Fill(ds);
+                        con.Close();
+                    }
                 }
             }
         }
@@ -378,27 +396,27 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
     }
     protected void TextBox2_TextChanged(object sender, EventArgs e)
     {
-        if (User.Identity.IsAuthenticated)
-        {
-            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
-            SqlDataReader dr1000;
-            con1000.Open();
-            dr1000 = cmd1000.ExecuteReader();
-            if (dr1000.Read())
-            {
-                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+        //if (User.Identity.IsAuthenticated)
+        //{
+        //    SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //    SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+        //    SqlDataReader dr1000;
+        //    con1000.Open();
+        //    dr1000 = cmd1000.ExecuteReader();
+        //    if (dr1000.Read())
+        //    {
+        //        company_id = Convert.ToInt32(dr1000["com_id"].ToString());
 
-            }
-            con1000.Close();
-        }
-        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
-        SqlCommand CMD = new SqlCommand("select * from sales_entry where Mobile_no='" + TextBox2.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter da1 = new SqlDataAdapter(CMD);
-        da1.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+        //    }
+        //    con1000.Close();
+        //}
+        //SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        //SqlCommand CMD = new SqlCommand("select * from sales_entry where Mobile_no='" + TextBox2.Text + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' ORDER BY invoice_no asc", con);
+        //DataTable dt1 = new DataTable();
+        //SqlDataAdapter da1 = new SqlDataAdapter(CMD);
+        //da1.Fill(dt1);
+        //GridView1.DataSource = dt1;
+        //GridView1.DataBind();
     }
     protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -597,6 +615,21 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
     #region " [ Button Event ] "
     protected void Button2_Click(object sender, EventArgs e)
     {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+            }
+            con1000.Close();
+        }
+
         Button Sample = sender as Button;
         GridViewRow row = Sample.NamingContainer as GridViewRow;
         DropDownList drp = row.FindControl("ddlFileFormat1") as DropDownList;
@@ -646,7 +679,7 @@ public partial class Admin_sales_report_details : System.Web.UI.Page
 
         dsData = ds.Tables[0];
 
-        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + drp.SelectedValue;
+        string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + drp.SelectedItem.Text;
         string extension;
         string encoding;
         string mimeType;

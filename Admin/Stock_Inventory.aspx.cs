@@ -32,7 +32,7 @@ public partial class Admin_Stock_Inventory : System.Web.UI.Page
             {
                 Label1.Text = dr1["financial_year"].ToString();
 
-            }
+            }   
             con1.Close();
             if (User.Identity.IsAuthenticated)
             {

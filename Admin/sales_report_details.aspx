@@ -293,7 +293,7 @@
 
 
 
-  <div class="panel-body">
+<%--  <div class="panel-body">
    
 
 
@@ -316,13 +316,6 @@
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
 
-                                       <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" >
-                                   <asp:ListItem>PDF</asp:ListItem>
-                                   <asp:ListItem>WORD</asp:ListItem>
-                                   <asp:ListItem>EXCEL</asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="120px" Height="30px" onclick="Button8_Click" 
-                                    Text="Cash Bill Report" />
 
 
 
@@ -332,7 +325,7 @@
 
 
 
-</div>
+</div>--%>
 <div class="col-lg-12">
 
 <h4>Purchase Date  </h4>
@@ -363,14 +356,14 @@
                         <div class="form-group"><label class="col-lg-3 control-label">To Date</label>
 
                                     <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                     
    <ContentTemplate>
   <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" 
            ontextchanged="TextBox4_TextChanged"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4" Format="dd-MM-yyyy"></asp:CalendarExtender>
                                       </ContentTemplate>
                                       
-                                      </asp:UpdatePanel></div></div></div>
+                                      </div></div></div>
 
                                        <asp:Button ID="Button3" runat="server" class="btn-primary" style="margin-left:20px"  Width="150px" Height="30px" onclick="Button3_Click" 
                                     Text="Date Wise Bill Report" />
@@ -406,7 +399,14 @@
       </asp:AutoCompleteExtender>
                                       </ContentTemplate>
                                       </asp:UpdatePanel></div></div></div>
-
+                                      
+                                       <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" >
+                                   <asp:ListItem>PDF</asp:ListItem>
+                                   <asp:ListItem>WORD</asp:ListItem>
+                                   <asp:ListItem>EXCEL</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:Button ID="Button8" runat="server" class="btn-primary"  Width="120px" Height="30px" onclick="Button8_Click" 
+                                    Text="Cash Bill Report" />
 
 
 
@@ -435,8 +435,7 @@
   <div class="panel panel-default">
   <div class="panel-body">
    <div class="col-md-12">
-     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
+
    
  <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="3" 
          Font-Size="16px" 
@@ -510,7 +509,7 @@
               </asp:TemplateField>
                <asp:TemplateField>
               <ItemTemplate>
-             <asp:Button ID="Button2" runat="server"  Text=" View & Print" onclick="Button2_Click" />
+             <asp:Button ID="Button2" runat="server"  Text=" View & Print"  AutoPostBack="true" onclick="Button2_Click" />
               </ItemTemplate>
                    <HeaderStyle CssClass="Grd1" />
                    <ItemStyle CssClass="Grd1" />
@@ -531,13 +530,7 @@
        <SortedDescendingCellStyle BackColor="#CAC9C9" />
        <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
-         </ContentTemplate>
-         <Triggers>
-           <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
-           <asp:AsyncPostBackTrigger ControlID="TextBox4" EventName="TextChanged"  />
-         </Triggers>
-        
-                                      </asp:UpdatePanel>
+
       
 </div></div></div></div>
 

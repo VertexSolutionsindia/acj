@@ -64,6 +64,7 @@ public partial class Admin_Sales_pay_amount : System.Web.UI.Page
             }
 
             getoutstandng(supplier);
+            TextBox5.Text = "0";
 
         }
     }
@@ -217,10 +218,10 @@ public partial class Admin_Sales_pay_amount : System.Web.UI.Page
     protected void BindData()
     {
         string supplier = "";
-            if (Session["Supplier"] != null)
-            {
-                supplier = Session["Supplier"].ToString();
-            }
+        if (Session["Supplier"] != null)
+        {
+            supplier = Session["Supplier"].ToString();
+        }
 
         SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
         SqlCommand CMD = new SqlCommand("select * from receive_amount where Buyer='" + supplier + "' and Com_Id='" + company_id + "' and year='" + Label1.Text + "' order by NO asc", con1);
@@ -396,16 +397,31 @@ public partial class Admin_Sales_pay_amount : System.Web.UI.Page
 
         cmd23.Parameters.AddWithValue("@pay_amount", TextBox5.Text);
 
-
-        float a1 = float.Parse(TextBox2.Text);
-        float b1 = float.Parse(TextBox5.Text);
-        float c1 = a1 - b1;
-        cmd23.Parameters.AddWithValue("@outstanding", c1);
-        cmd23.Parameters.AddWithValue("@pending_amount", c1);
-        cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
-        cmd23.Parameters.AddWithValue("@Com_Id", company_id);
-        cmd23.Parameters.AddWithValue("@status", status1);
-        cmd23.Parameters.AddWithValue("@year", Label1.Text);
+        if (TextBox5.Text != "")
+        {
+            float a1 = float.Parse(TextBox2.Text);
+            float b1 = float.Parse(TextBox5.Text);
+            float c1 = a1 - b1;
+            cmd23.Parameters.AddWithValue("@outstanding", c1);
+            cmd23.Parameters.AddWithValue("@pending_amount", c1);
+            cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
+            cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+            cmd23.Parameters.AddWithValue("@status", status1);
+            cmd23.Parameters.AddWithValue("@year", Label1.Text);
+        }
+        else
+        {
+            TextBox5.Text = "0";
+            float a1 = float.Parse(TextBox2.Text);
+            float b1 = float.Parse(TextBox5.Text);
+            float c1 = a1 - b1;
+            cmd23.Parameters.AddWithValue("@outstanding", c1);
+            cmd23.Parameters.AddWithValue("@pending_amount", c1);
+            cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
+            cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+            cmd23.Parameters.AddWithValue("@status", status1);
+            cmd23.Parameters.AddWithValue("@year", Label1.Text);
+        }
         con23.Open();
         cmd23.ExecuteNonQuery();
         con23.Close();
@@ -423,15 +439,28 @@ public partial class Admin_Sales_pay_amount : System.Web.UI.Page
 
 
 
+        if (TextBox5.Text != "")
+        {
+            float a = float.Parse(TextBox2.Text);
+            float b = float.Parse(TextBox5.Text);
+            float c = a - b;
+            cmd22.Parameters.AddWithValue("@total_amount", c);
+            cmd22.Parameters.AddWithValue("@pending_amount", c);
+            cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
+            cmd22.Parameters.AddWithValue("@Com_Id", company_id);
+        }
+        else
+        {
+            TextBox5.Text = "0";
+            float a = float.Parse(TextBox2.Text);
+            float b = float.Parse(TextBox5.Text);
+            float c = a - b;
+            cmd22.Parameters.AddWithValue("@total_amount", c);
+            cmd22.Parameters.AddWithValue("@pending_amount", c);
+            cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
+            cmd22.Parameters.AddWithValue("@Com_Id", company_id);
+        }
 
-        float a = float.Parse(TextBox2.Text);
-        float b = float.Parse(TextBox5.Text);
-        float c = a - b;
-        cmd22.Parameters.AddWithValue("@total_amount", c);
-        cmd22.Parameters.AddWithValue("@pending_amount", c);
-        cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
-        cmd22.Parameters.AddWithValue("@Com_Id", company_id);
- 
         con22.Open();
         cmd22.ExecuteNonQuery();
         con22.Close();
@@ -456,8 +485,8 @@ public partial class Admin_Sales_pay_amount : System.Web.UI.Page
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Amount added successfully')", true);
         BindData();
 
-        TextBox5.Text = "";
+        TextBox5.Text = "0";
         getoutstandng(TextBox3.Text);
 
     }
-    }
+}

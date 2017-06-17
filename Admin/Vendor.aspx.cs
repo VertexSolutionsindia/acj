@@ -57,6 +57,13 @@ public partial class Admin_Vendor : System.Web.UI.Page
         }
 
     }
+
+    public override void VerifyRenderingInServerForm(Control control)
+    {
+        /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
+           server control at run time. */
+    }
+
     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
     {
         ImageButton IMG = (ImageButton)sender;

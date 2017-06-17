@@ -19,6 +19,7 @@ using System.Drawing;
 public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
 {
     public static int company_id = 0;
+  
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -62,6 +63,7 @@ public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
 
 
             getoutstandng();
+            TextBox5.Text = "0";
 
         }
     }
@@ -411,6 +413,7 @@ public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
 
                 string return_by = "";
                 int value1 = 0;
+              
                 string status1 = "Paid Amount";
                 SqlConnection con23 = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connection"]);
                 SqlCommand cmd23 = new SqlCommand("insert into unpay_amount values(@Buyer,@Pay_date,@Estimate_value,@Address,@Total_amount,@pay_amount,@pending_amount,@outstanding,@estimate_no,@Com_Id,@status,@year)", con23);
@@ -423,19 +426,38 @@ public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
 
                 cmd23.Parameters.AddWithValue("@pay_amount", TextBox5.Text);
 
+                if (TextBox5.Text != "")
+                {
+                    float a1 = float.Parse(TextBox2.Text);
+                    float b1 = float.Parse(TextBox5.Text);
+                    float c1 = a1 - b1;
+                    cmd23.Parameters.AddWithValue("@outstanding", c1);
+                    cmd23.Parameters.AddWithValue("@pending_amount", c1);
+                    cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
+                    cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+                    cmd23.Parameters.AddWithValue("@status", status1);
+                    cmd23.Parameters.AddWithValue("@year", Label1.Text);
+                    con23.Open();
+                    cmd23.ExecuteNonQuery();
+                    con23.Close();
+                }
+                else
+                {
+                    TextBox5.Text = "0";
+                    float a1 = float.Parse(TextBox2.Text);
+                    float b1 = float.Parse(TextBox5.Text);
+                    float c1 = a1 - b1;
 
-                float a1 = float.Parse(TextBox2.Text);
-                float b1 = float.Parse(TextBox5.Text);
-                float c1 = a1 - b1;
-                cmd23.Parameters.AddWithValue("@outstanding", c1);
-                cmd23.Parameters.AddWithValue("@pending_amount", c1);
-                cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
-                cmd23.Parameters.AddWithValue("@Com_Id", company_id);
-                cmd23.Parameters.AddWithValue("@status", status1);
-                cmd23.Parameters.AddWithValue("@year", Label1.Text);
-                con23.Open();
-                cmd23.ExecuteNonQuery();
-                con23.Close();
+                    cmd23.Parameters.AddWithValue("@outstanding", c1);
+                    cmd23.Parameters.AddWithValue("@pending_amount", c1);
+                    cmd23.Parameters.AddWithValue("@estimate_no", DBNull.Value);
+                    cmd23.Parameters.AddWithValue("@Com_Id", company_id);
+                    cmd23.Parameters.AddWithValue("@status", status1);
+                    cmd23.Parameters.AddWithValue("@year", Label1.Text);
+                    con23.Open();
+                    cmd23.ExecuteNonQuery();
+                    con23.Close();
+                }
 
 
 
@@ -450,15 +472,27 @@ public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
 
 
 
-
-                float a = float.Parse(TextBox2.Text);
-                float b = float.Parse(TextBox5.Text);
-                float c = a - b;
-                cmd22.Parameters.AddWithValue("@total_amount", c);
-                cmd22.Parameters.AddWithValue("@pending_amount", c);
-                cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
-                cmd22.Parameters.AddWithValue("@Com_Id", company_id);
-               
+                if (TextBox5.Text != "")
+                {
+                    float a = float.Parse(TextBox2.Text);
+                    float b = float.Parse(TextBox5.Text);
+                    float c = a - b;
+                    cmd22.Parameters.AddWithValue("@total_amount", c);
+                    cmd22.Parameters.AddWithValue("@pending_amount", c);
+                    cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
+                    cmd22.Parameters.AddWithValue("@Com_Id", company_id);
+                }
+                else
+                {
+                    TextBox5.Text = "0";
+                    float a = float.Parse(TextBox2.Text);
+                    float b = float.Parse(TextBox5.Text);
+                    float c = a - b;
+                    cmd22.Parameters.AddWithValue("@total_amount", c);
+                    cmd22.Parameters.AddWithValue("@pending_amount", c);
+                    cmd22.Parameters.AddWithValue("@paid_amount", TextBox5.Text);
+                    cmd22.Parameters.AddWithValue("@Com_Id", company_id);
+                }
                 con22.Open();
                 cmd22.ExecuteNonQuery();
                 con22.Close();
@@ -483,11 +517,15 @@ public partial class Admin_unbilled_purchase_pay_amount : System.Web.UI.Page
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Amount added successfully')", true);
                 BindData();
 
-                TextBox5.Text = "";
+                TextBox5.Text = "0";
                 getoutstandng();
             }
             con1000.Close();
         }
+
+    }
+    protected void TextBox5_TextChanged(object sender, EventArgs e)
+    {
 
     }
 }

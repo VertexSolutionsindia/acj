@@ -687,6 +687,20 @@ public partial class Admin_Wholesales_report_details : System.Web.UI.Page
     #region " [ Button Event ] "
     protected void Button2_Click(object sender, EventArgs e)
     {
+        if (User.Identity.IsAuthenticated)
+        {
+            SqlConnection con1000 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+            SqlCommand cmd1000 = new SqlCommand("select * from user_details where company_name='" + User.Identity.Name + "'", con1000);
+            SqlDataReader dr1000;
+            con1000.Open();
+            dr1000 = cmd1000.ExecuteReader();
+            if (dr1000.Read())
+            {
+                company_id = Convert.ToInt32(dr1000["com_id"].ToString());
+
+            }
+            con1000.Close();
+        }
         Button Sample = sender as Button;
         GridViewRow row = Sample.NamingContainer as GridViewRow;
         DropDownList drp = row.FindControl("ddlFileFormat1") as DropDownList;

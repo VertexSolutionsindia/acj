@@ -64,6 +64,7 @@ public partial class Admin_Purchase_payment_outstanding : System.Web.UI.Page
     protected void Button8_Click(object sender, EventArgs e)
     {
         // select appropriate contenttype, while binary transfer it identifies filetype
+
         string contentType = string.Empty;
         if (DropDownList5.SelectedValue.Equals(".pdf"))
             contentType = "application/pdf";

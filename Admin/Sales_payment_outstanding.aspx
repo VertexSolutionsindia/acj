@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Sales_payment_outstanding.aspx.cs" Inherits="Admin_Sales_payment_outstanding" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="Sales_payment_outstanding.aspx.cs" Inherits="Admin_Sales_payment_outstanding" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 

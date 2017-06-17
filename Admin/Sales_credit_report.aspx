@@ -303,7 +303,7 @@
 
                         <div class="form-group"><label class="col-lg-3 control-label">Customer Name</label>
                            <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                     
    <ContentTemplate>
   <asp:TextBox ID="TextBox2" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
            ontextchanged="TextBox2_TextChanged"></asp:TextBox>
@@ -314,7 +314,7 @@
       </asp:AutoCompleteExtender>
                         
                                       </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                                     </div></div></div>
  <asp:DropDownList ID="DropDownList5" runat="server" Height="30px" >
                                    <asp:ListItem>PDF</asp:ListItem>
                                    <asp:ListItem>WORD</asp:ListItem>
@@ -349,14 +349,14 @@
                              <div class="form-group"><label class="col-lg-3 control-label">From Date</label>
 
                                     <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                                     
    <ContentTemplate>
   
                                     <asp:TextBox ID="TextBox3" runat="server" class="form-control input-x2 dropbox"  AutoPostBack="true"
                                         ontextchanged="TextBox3_TextChanged"></asp:TextBox>
                                       <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="TextBox3" Format="dd-MM-yyyy"></asp:CalendarExtender>
                                       </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                                    </div></div></div>
 
 
 
@@ -366,13 +366,13 @@
                         <div class="form-group"><label class="col-lg-3 control-label">To Date</label>
 
                                     <div class="col-lg-9">
-                                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                  
    <ContentTemplate>
   <asp:TextBox ID="TextBox4" runat="server" class="form-control input-x2 dropbox" AutoPostBack="true" 
            ontextchanged="TextBox4_TextChanged"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="TextBox4" Format="dd-MM-yyyy"></asp:CalendarExtender>
                                       </ContentTemplate>
-                                      </asp:UpdatePanel></div></div></div>
+                                      </div></div></div>
 
                                      
 
@@ -437,8 +437,7 @@
   <div class="panel panel-default">
   <div class="panel-body">
    <div class="col-md-12">
-      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
+     
    
  <asp:GridView ID="GridView1" runat="server" Width="100%" CellPadding="3" 
          Font-Size="16px" 
@@ -479,7 +478,7 @@
                       <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
-               <asp:BoundField HeaderText="paid Amount" DataField="paid_amount" >
+               <asp:BoundField HeaderText="Paid Amount" DataField="paid_amount" >
                       <HeaderStyle CssClass="Grd1" />
            <ItemStyle CssClass="Grd1" />
            </asp:BoundField>
@@ -511,7 +510,7 @@
               </asp:TemplateField>
                <asp:TemplateField>
               <ItemTemplate>
-             <asp:Button ID="Button2" runat="server"  Text=" View & Print" onclick="Button2_Click" />
+             <asp:Button ID="Button2" runat="server"  Text=" View & Print"  onclick="Button2_Click" />
               </ItemTemplate>
               </asp:TemplateField>
                  
@@ -530,13 +529,7 @@
        <SortedDescendingCellStyle BackColor="#CAC9C9" />
        <SortedDescendingHeaderStyle BackColor="#00547E" />
        </asp:GridView>
-         </ContentTemplate>
-         <Triggers>
-           <asp:AsyncPostBackTrigger ControlID="TextBox3" EventName="TextChanged"  />
-           <asp:AsyncPostBackTrigger ControlID="TextBox4" EventName="TextChanged"  />
-         </Triggers>
         
-                                      </asp:UpdatePanel>
       
 </div></div></div></div>
 

@@ -1047,6 +1047,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                     while (sdr.Read())
                     {
                         customers.Add(sdr["subcategoryname"].ToString());
+                     
                     }
                 }
                 conn.Close();
@@ -1357,7 +1358,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
                 cmd1.Parameters.AddWithValue("@qty", TextBox13.Text);
                 cmd1.Parameters.AddWithValue("@total_amount",float.Parse( TextBox16.Text));
                 cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-                cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+                cmd1.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
                 cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
                 cmd1.Parameters.AddWithValue("@RowNumber", Label2.Text);
                 cmd1.Parameters.AddWithValue("@year", Label20.Text);
@@ -1512,7 +1513,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
             cmd1.Parameters.AddWithValue("@qty", TextBox29.Text);
             cmd1.Parameters.AddWithValue("@total_amount", TextBox32.Text);
             cmd1.Parameters.AddWithValue("@Com_Id", company_id);
-            cmd1.Parameters.AddWithValue("@date", TextBox8.Text);
+            cmd1.Parameters.AddWithValue("@date",Convert.ToDateTime(TextBox8.Text).ToString("MM-dd-yyyy"));
             cmd1.Parameters.AddWithValue("@Supplier", DropDownList3.SelectedItem.Text);
             
             CON1.Open();
@@ -1537,7 +1538,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
 
            
 
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product updated successfully')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Product updated successfully')", true);
 
             BindData();
             getinvoiceno1();
@@ -1550,7 +1551,7 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
         }
         else
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('product not valid')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert Message", "alert('Product not valid')", true);
         }
         con.Close();
 
@@ -1564,7 +1565,21 @@ public partial class Admin_Purchase_entry : System.Web.UI.Page
     }
     protected void TextBox2_TextChanged(object sender, System.EventArgs e)
     {
-        TextBox5.Focus();
+        SqlConnection con1 = new SqlConnection(ConfigurationManager.AppSettings["connection"]);
+        con1.Open();
+        string query = "Select * from subcategory where Com_Id='" + company_id + "' and subcategoryname='" + TextBox2.Text + "'";
+        SqlCommand cmd1 = new SqlCommand(query, con1);
+        SqlDataReader dr = cmd1.ExecuteReader();
+        if (dr.Read())
+        {
+
+
+            TextBox5.Text = dr["mrp"].ToString();
+          
+        }
+        con1.Close();
+       
+      
     }
     protected void ImageButton2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {

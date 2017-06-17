@@ -979,6 +979,7 @@
      <Triggers>
                  <asp:AsyncPostBackTrigger ControlID="Button3" EventName="Click"  />
                   <asp:AsyncPostBackTrigger ControlID="Button5" EventName="Click"  />
+                    <asp:AsyncPostBackTrigger ControlID="TextBox2" EventName="TextChanged"  />
                 </Triggers>
 
   </asp:UpdatePanel>

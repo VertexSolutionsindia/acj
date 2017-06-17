@@ -435,11 +435,11 @@
                <HeaderStyle CssClass="Grd1" />
                <ItemStyle CssClass="Grd1" />
                </asp:BoundField>
-           <asp:BoundField HeaderText="Total qty" DataField="Toal_qty" >
+           <asp:BoundField HeaderText="Total Qty" DataField="Toal_qty" >
                <HeaderStyle CssClass="Grd1" />
                <ItemStyle CssClass="Grd1" />
                </asp:BoundField>
-             <asp:BoundField HeaderText="Total amount" DataField="Grand__total" >
+             <asp:BoundField HeaderText="Total Amount" DataField="Grand__total" >
             
                <HeaderStyle CssClass="Grd1" />
                <ItemStyle CssClass="Grd1" />
@@ -449,7 +449,7 @@
                <HeaderStyle CssClass="Grd1" />
                <ItemStyle CssClass="Grd1" />
                </asp:BoundField>
-               <asp:BoundField HeaderText="Pending amount" DataField="pending_amount" >
+               <asp:BoundField HeaderText="Pending Amount" DataField="pending_amount" >
              
                <HeaderStyle CssClass="Grd1" />
                <ItemStyle CssClass="Grd1" />

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Account_ledger.aspx.cs" Inherits="Admin_Account_ledger" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeFile="Account_ledger.aspx.cs" Inherits="Admin_Account_ledger" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
